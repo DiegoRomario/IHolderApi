@@ -31,9 +31,9 @@ namespace IHolder.Data.Migrations
                     Senha = table.Column<string>(type: "VARCHAR(240)", nullable: true),
                     CPF = table.Column<string>(type: "VARCHAR(25)", nullable: false),
                     Celular = table.Column<string>(type: "VARCHAR(25)", nullable: false),
-                    Data_nascimento = table.Column<DateTime>(nullable: false),
+                    Data_nascimento = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Genero = table.Column<byte>(type: "TINYINT", nullable: false),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Data_alteracao = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -69,15 +69,15 @@ namespace IHolder.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Percentual_objetivo = table.Column<decimal>(nullable: false),
-                    Percentual_atual = table.Column<decimal>(nullable: false),
-                    Percentual_diferenca = table.Column<decimal>(nullable: false),
-                    Valor_atual = table.Column<decimal>(nullable: false),
-                    Valor_diferenca = table.Column<decimal>(nullable: false),
+                    Percentual_objetivo = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Percentual_atual = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Percentual_diferenca = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Valor_atual = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Valor_diferenca = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     Tipo_investimento_id = table.Column<Guid>(nullable: false),
                     Orientacao = table.Column<byte>(type: "TINYINT", nullable: false),
                     Usuario_id = table.Column<Guid>(nullable: false),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Data_alteracao = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -106,9 +106,9 @@ namespace IHolder.Data.Migrations
                     Caracteristicas = table.Column<string>(type: "VARCHAR(240)", nullable: false),
                     Produto_id = table.Column<Guid>(nullable: false),
                     Ticker = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    Cotacao = table.Column<decimal>(nullable: false),
+                    Cotacao = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     Usuario_inclusao_id = table.Column<Guid>(nullable: false),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Risco = table.Column<byte>(type: "TINYINT", nullable: false)
                 },
                 constraints: table =>
@@ -133,16 +133,16 @@ namespace IHolder.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Percentual_objetivo = table.Column<decimal>(nullable: false),
-                    Percentual_atual = table.Column<decimal>(nullable: false),
-                    Percentual_diferenca = table.Column<decimal>(nullable: false),
-                    Valor_atual = table.Column<decimal>(nullable: false),
-                    Valor_diferenca = table.Column<decimal>(nullable: false),
+                    Percentual_objetivo = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Percentual_atual = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Percentual_diferenca = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Valor_atual = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Valor_diferenca = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     Distribuicao_por_tipo_investimento_id = table.Column<Guid>(nullable: false),
                     Produto_id = table.Column<Guid>(nullable: false),
                     Orientacao = table.Column<byte>(type: "TINYINT", nullable: false),
                     Usuario_id = table.Column<Guid>(nullable: false),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Data_alteracao = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -174,12 +174,12 @@ namespace IHolder.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Ativo_id = table.Column<Guid>(nullable: false),
-                    Preco_medio = table.Column<decimal>(nullable: false),
-                    Quantidade = table.Column<decimal>(nullable: false),
-                    Preco_total = table.Column<decimal>(nullable: false),
+                    Preco_medio = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Quantidade = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Preco_total = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     Usuario_id = table.Column<Guid>(nullable: false),
-                    Data_aporte = table.Column<DateTime>(nullable: false),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_aporte = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Data_alteracao = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -204,15 +204,15 @@ namespace IHolder.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Percentual_objetivo = table.Column<decimal>(nullable: false),
-                    Percentual_atual = table.Column<decimal>(nullable: false),
-                    Percentual_diferenca = table.Column<decimal>(nullable: false),
-                    Valor_atual = table.Column<decimal>(nullable: false),
-                    Valor_diferenca = table.Column<decimal>(nullable: false),
+                    Percentual_objetivo = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Percentual_atual = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Percentual_diferenca = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Valor_atual = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    Valor_diferenca = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     Ativo_id = table.Column<Guid>(nullable: false),
                     Usuario_id = table.Column<Guid>(nullable: false),
                     Orientacao = table.Column<byte>(type: "TINYINT", nullable: false),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Data_alteracao = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -241,7 +241,7 @@ namespace IHolder.Data.Migrations
                     Ativo_id = table.Column<Guid>(nullable: false),
                     Usuario_id = table.Column<Guid>(nullable: false),
                     Observacao = table.Column<string>(type: "VARCHAR(240)", nullable: true),
-                    Data_inclusao = table.Column<DateTime>(nullable: false),
+                    Data_inclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     Data_alteracao = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>

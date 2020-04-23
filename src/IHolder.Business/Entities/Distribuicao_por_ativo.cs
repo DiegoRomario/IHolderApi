@@ -13,7 +13,6 @@ namespace IHolder.Business.Entities
         {
             Ativo_id = ativo_id;
             Usuario_id = usuario_id;
-            Data_inclusao = DateTime.Now;
             Orientacao = EOrientacao.Manter;
         }
 

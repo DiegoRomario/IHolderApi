@@ -17,7 +17,6 @@ namespace IHolder.Business.Entities
             Celular = celular;
             Data_nascimento = data_nascimento;
             Genero = genero;
-            Data_inclusao = DateTime.Now;
         }
 
         public string Nome { get; private set; }

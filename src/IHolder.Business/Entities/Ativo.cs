@@ -16,8 +16,6 @@ namespace IHolder.Business.Entities
             Cotacao = cotacao;
             Risco = risco;
             Usuario_inclusao_id = usuario_inclusao_id;
-            Data_inclusao = DateTime.Now;
-
         }
 
         public Guid Produto_id { get; private set; }

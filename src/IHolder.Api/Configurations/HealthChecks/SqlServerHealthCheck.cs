@@ -26,7 +26,7 @@ namespace IHolder.Api.Configurations.HealthChecks
                     await connection.OpenAsync(cancellationToken);
 
                     var command = connection.CreateCommand();
-                    command.CommandText = "SELECT TOP 1 ID FROM SITUACAO";
+                    command.CommandText = "SELECT TOP 1 1 FROM SITUACAO";
 
                     return Convert.ToInt32(await command.ExecuteScalarAsync(cancellationToken)) > 0 ? HealthCheckResult.Healthy() : HealthCheckResult.Unhealthy();
                 }

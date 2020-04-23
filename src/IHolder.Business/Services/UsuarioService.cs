@@ -1,4 +1,5 @@
 ﻿using IHolder.Business.Entities;
+using IHolder.Business.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Services;
 using IHolder.Business.Repositories.Base;
@@ -26,6 +27,8 @@ namespace IHolder.Business.Services
 
         public async Task<bool> Insert(Usuario entity)
         {
+            if (!RunValidation(new UsuarioValidation(_repositoryBase), entity))
+                return false;
             return await _repositoryBase.Insert(entity);
         }
     }

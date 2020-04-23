@@ -15,7 +15,6 @@ namespace IHolder.Business.Entities
             Produto_id = produto_id;
             Orientacao = EOrientacao.Manter;
             Usuario_id = usuario_id;
-            Data_inclusao = DateTime.Now;
         }
         public Guid Distribuicao_por_tipo_investimento_id { get; private set; }
         public Guid Produto_id { get; private set; }

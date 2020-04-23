@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IHolder.Data.Migrations
 {
     [DbContext(typeof(IHolderContext))]
-    [Migration("20200422150755_Initial")]
+    [Migration("20200422235540_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,19 +34,19 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_aporte")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<decimal>("Preco_medio")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Preco_total")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Quantidade")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<Guid>("Usuario_id")
                         .HasColumnType("uniqueidentifier");
@@ -71,10 +71,10 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("VARCHAR(240)");
 
                     b.Property<decimal>("Cotacao")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -115,28 +115,28 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<byte>("Orientacao")
                         .HasColumnType("TINYINT");
 
                     b.Property<decimal>("Percentual_atual")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Percentual_diferenca")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Percentual_objetivo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<Guid>("Usuario_id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Valor_atual")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Valor_diferenca")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.HasKey("Id");
 
@@ -157,7 +157,7 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<Guid>("Distribuicao_por_tipo_investimento_id")
                         .HasColumnType("uniqueidentifier");
@@ -166,13 +166,13 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("TINYINT");
 
                     b.Property<decimal>("Percentual_atual")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Percentual_diferenca")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Percentual_objetivo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<Guid>("Produto_id")
                         .HasColumnType("uniqueidentifier");
@@ -181,10 +181,10 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Valor_atual")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Valor_diferenca")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.HasKey("Id");
 
@@ -207,19 +207,19 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<byte>("Orientacao")
                         .HasColumnType("TINYINT");
 
                     b.Property<decimal>("Percentual_atual")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Percentual_diferenca")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Percentual_objetivo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<Guid>("Tipo_investimento_id")
                         .HasColumnType("uniqueidentifier");
@@ -228,10 +228,10 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Valor_atual")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Valor_diferenca")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.HasKey("Id");
 
@@ -279,7 +279,7 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("VARCHAR(240)");
@@ -339,10 +339,10 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_inclusao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<DateTime>("Data_nascimento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Email")
                         .IsRequired()

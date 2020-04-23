@@ -6,16 +6,8 @@ namespace IHolder.Api.ViewModels
 {
     public class UsuarioViewModel : Entidade_baseViewModel
     {
-        public UsuarioViewModel()
-        {
-            if (this.Id != Guid.Empty)
-                this.Data_alteracao = DateTime.Now;
-            else
-                this.Data_inclusao = DateTime.Now;
-        }
         public string Nome { get; set; }
         public string Email { get; set; }
-        public string Login { get; set; }
         public string Senha { get; set; }
         public string CPF { get; set; }
         public string Celular { get; set; }

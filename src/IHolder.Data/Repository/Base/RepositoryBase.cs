@@ -47,8 +47,6 @@ namespace IHolder.Data.Repository.Base
         }
         public virtual async Task <bool> Delete(Guid id)
         {
-            //_dbSet.Remove(new TEntity { Id = id });
-
             string entityName = typeof(TEntity).Name;
             int response = await _context.Database.ExecuteSqlRawAsync($"DELETE {entityName} WHERE ID = {0} ", new object[] {id});
             return response > 1;
@@ -56,7 +54,7 @@ namespace IHolder.Data.Repository.Base
 
         public async Task<bool> SaveChanges()
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.Commit();
         }
         public void Dispose()
         {

@@ -13,7 +13,6 @@ namespace IHolder.Business.Entities
             Quantidade = quantidade;
             Usuario_id = usuario_id;
             Data_aporte = data_aporte;
-            Data_inclusao = DateTime.Now;
             CalcularPrecoTotal();
         }
 
