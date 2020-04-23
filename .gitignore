@@ -1,2 +1,8 @@
 .vs/
 *.binlog
+*.exe
+*.pdb
+*.manifest
+*.cache
+bin/
+obj/
