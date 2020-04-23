@@ -8,6 +8,6 @@ namespace IHolder.Business.Interfaces.Services.Base
 {
     public interface IServiceDelete
     {
-        Task Delete(int id);
+        Task Delete(Guid id);
     }
 }

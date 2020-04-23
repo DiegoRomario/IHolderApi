@@ -56,20 +56,31 @@ namespace IHolder.Api.Controllers.V1
             Usuario_resposta_autenticacaoViewModel usuarioAutenticado = await GenerateToken(usuario);
             return ResponseBase(usuarioAutenticado);
         }
-
+        [AllowAnonymous]
         [HttpPost("cadastrar")]
         public async Task<ActionResult<UsuarioViewModel>> Insert ([FromBody] UsuarioViewModel model)
         {
-            if (!ModelState.IsValid) return ResponseBase(ModelState);
-
-            int response = await _usuarioService.Insert(_mapper.Map<Usuario>(model));
-            model.Id = response;
+            if (!ModelState.IsValid) 
+                return ResponseBase(ModelState);
+            await _usuarioService.Insert(_mapper.Map<Usuario>(model));
             model.Senha = string.Empty;
             return ResponseBase(model);
-
         }
 
-
+        [HttpPut("alterar/{id:guid}")]
+        public async Task<ActionResult<UsuarioViewModel>> Update(Guid id, UsuarioViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return ResponseBase(ModelState);
+            if (id != model.Id)
+            {
+                NotifyError("O ID do registro informado para alteração está inválido.");
+                return ResponseBase(null);
+            }
+            await _usuarioService.Update(_mapper.Map<Usuario>(model));
+            model.Senha = string.Empty;
+            return ResponseBase(model);
+        }
 
         private async Task<Usuario_resposta_autenticacaoViewModel> GenerateToken(UsuarioViewModel user)
         {
@@ -99,7 +110,7 @@ namespace IHolder.Api.Controllers.V1
                 Expira_em = Expires_in,
                 Email = user.Email
             };
-            return response;
+            return await Task.FromResult(response);
         }
 
 

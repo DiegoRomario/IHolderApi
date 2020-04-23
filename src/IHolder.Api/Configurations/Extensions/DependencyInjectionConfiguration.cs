@@ -32,7 +32,6 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddSingleton<IUser, AspNetUser>();
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<ISituacaoRepository, SituacaoRepository>();
             services.AddScoped<IAporteRepository, AporteRepository>();
             services.AddScoped<IAtivoRepository, AtivoRepository>();
             services.AddScoped<IAtivoService, AtivoService>();
@@ -43,7 +42,11 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddScoped<IRepositoryBase<Usuario>, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
 
+            services.AddScoped<IDistribuicao_por_tipo_investimentoRepository, Distribuicao_por_tipo_investimentoRepository>();
+            services.AddScoped<IDistribuicao_por_tipo_investimentoService, Distribuicao_por_tipo_investimentoService>();
 
+            services.AddScoped<IAporteRepository, AporteRepository>();
+            services.AddScoped<IAporteService, AporteService>();
 
             return services;
         }

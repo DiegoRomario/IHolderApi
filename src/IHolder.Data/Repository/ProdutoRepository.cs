@@ -16,7 +16,7 @@ namespace IHolder.Data.Repository
         {
 
         }
-        public async Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(int Tipo_investimento_id)
+        public async Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid Tipo_investimento_id)
         {
             return await GetManyBy(p => p.Tipo_investimento_id == Tipo_investimento_id);
         }

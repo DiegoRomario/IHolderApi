@@ -9,6 +9,6 @@ namespace IHolder.Business.Interfaces.Repositories
 {
     public interface IProdutoRepository : IRepositoryBase<Produto>
     {
-        Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(int Tipo_investimento_id);
+        Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid Tipo_investimento_id);
     }
 }

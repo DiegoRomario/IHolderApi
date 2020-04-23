@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Data", "src\IHolder
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Business", "src\IHolder.Business\IHolder.Business.csproj", "{87340917-B921-495C-A2A7-A5A1A6915BDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IHolder.Tests", "tests\IHolder.Tests\IHolder.Tests.csproj", "{D5F7517A-FC83-4A21-9120-9E0E357329CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{87340917-B921-495C-A2A7-A5A1A6915BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87340917-B921-495C-A2A7-A5A1A6915BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87340917-B921-495C-A2A7-A5A1A6915BDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F7517A-FC83-4A21-9120-9E0E357329CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F7517A-FC83-4A21-9120-9E0E357329CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F7517A-FC83-4A21-9120-9E0E357329CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F7517A-FC83-4A21-9120-9E0E357329CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

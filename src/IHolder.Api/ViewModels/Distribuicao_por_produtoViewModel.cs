@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IHolder.Business.Entities.Enumerators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,10 +14,9 @@ namespace IHolder.Api.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Produto_id { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Orientacao_id { get; set; }
+        public EOrientacao Orientacao { get; set; }
 
         public Distribuicao_por_tipo_investimentoViewModel Distribuicao_por_tipo_investimento { get; set; }
         public ProdutoViewModel Produto { get; set; }
-        public OrientacaoViewModel Orientacao { get; set; }
     }
 }

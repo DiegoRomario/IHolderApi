@@ -16,7 +16,9 @@ namespace IHolder.Data.Mapping
             builder.Property(p => p.Data_inclusao).IsRequired();
             builder.Property(p => p.Distribuicao_por_tipo_investimento_id).IsRequired();
             builder.Property(p => p.Produto_id).IsRequired();
-            builder.Property(p => p.Orientacao_id).IsRequired();
+            builder.Property(p => p.Orientacao)
+                    .IsRequired()
+                    .HasColumnType("TINYINT");
             builder.Property(p => p.Usuario_id).IsRequired();
             builder.ToTable("Distribuicao_por_produto");
         }

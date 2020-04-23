@@ -22,21 +22,35 @@ namespace IHolder.Api.Controllers.V1
     public class Tipo_investimentoController : ResponseBaseController
     {
         private readonly ITipo_investimentoService _tipo_InvestimentoService;
-        public Tipo_investimentoController(INotifier notifier, 
-            IMapper mapper, 
-            ITipo_investimentoService tipo_InvestimentoService, IUser user) 
+        public Tipo_investimentoController(INotifier notifier,
+            IMapper mapper,
+            ITipo_investimentoService tipo_InvestimentoService, IUser user)
             : base(notifier, mapper, user)
         {
             _tipo_InvestimentoService = tipo_InvestimentoService;
         }
 
         [HttpPost()]
-        public async Task<ActionResult> Insert (Tipo_investimentoViewModel model)
+        public async Task<ActionResult> Insert(Tipo_investimentoViewModel model)
         {
             if (!ModelState.IsValid)
                 return ResponseBase(ModelState);
-            var response = await _tipo_InvestimentoService.Insert(_mapper.Map<Tipo_investimento>(model));
-            return ResponseBase(response);
+            await _tipo_InvestimentoService.Insert(_mapper.Map<Tipo_investimento>(model));
+            return ResponseBase(model);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task <ActionResult> Update(Guid id, Tipo_investimentoViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return ResponseBase(ModelState);
+            if (id != model.Id)
+            {
+                NotifyError("O ID do registro informado para alteração está inválido.");
+                return ResponseBase(null);
+            }
+            await _tipo_InvestimentoService.Update(_mapper.Map<Tipo_investimento>(model));
+            return ResponseBase(model);
         }
 
         [HttpGet]

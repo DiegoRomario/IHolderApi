@@ -22,9 +22,9 @@ namespace IHolder.Api.Configurations
             return IsAuthenticated() ? _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email).Value : string.Empty;
         }
 
-        public int GetUserId()
+        public Guid GetUserId()
         {
-            return IsAuthenticated() ? Int32.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value) : 0;
+            return IsAuthenticated() ?  Guid.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value) : Guid.Empty;
         }
 
         public string GetUserName()

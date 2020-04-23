@@ -1,4 +1,5 @@
 ﻿using IHolder.Api.ViewModels.Base;
+using IHolder.Business.Entities.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,13 +17,11 @@ namespace IHolder.Api.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Cotacao { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Risco_id { get; set; }
+        public ERisco Risco { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Situacao_id { get; set; }
+        public ESituacao Situacao { get; set; }
 
         public ProdutoViewModel Produto { get; set; }
-        public RiscoViewModel Risco { get; set; }
-        public SituacaoViewModel Situacao { get; set; }
 
         public IEnumerable<Distribuicao_por_ativoViewModel> Distribuicoes_por_ativos { get; set; }
 

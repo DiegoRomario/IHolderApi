@@ -8,7 +8,11 @@ namespace IHolder.Api.ViewModels.Base
 {
     public class Entidade_baseViewModel
     {
+        public Entidade_baseViewModel()
+        {
+            Id = Guid.NewGuid();
+        }
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace IHolder.Business.Interfaces.Services.Base
 {
     public interface IServiceUpdate<TEntity> where TEntity : Entidade_base
     {
-        Task<int> Update(TEntity entity);
+        Task<bool> Update(TEntity entity);
     }
 }

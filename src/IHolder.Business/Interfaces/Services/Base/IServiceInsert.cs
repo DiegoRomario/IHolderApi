@@ -8,6 +8,6 @@ namespace IHolder.Business.Interfaces.Services.Base
 {
     public interface IServiceInsert <TEntity> where TEntity : Entidade_base
     {
-        Task<int> Insert(TEntity entity);
+        Task<bool> Insert(TEntity entity);
     }
 }

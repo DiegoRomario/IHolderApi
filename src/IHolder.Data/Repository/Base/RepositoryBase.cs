@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IHolder.Data.Repository.Base
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entidade_base, new()
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entidade_base
     {
         protected readonly IHolderContext _context;
         protected readonly DbSet<TEntity> _dbSet;
@@ -26,7 +26,7 @@ namespace IHolder.Data.Repository.Base
         {
             return await _dbSet.ToListAsync();
         }
-        public virtual async Task<TEntity> GetById(int id)
+        public virtual async Task<TEntity> GetById(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -35,26 +35,26 @@ namespace IHolder.Data.Repository.Base
         {
             return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
-        public virtual async Task<int> Insert(TEntity entity)
+        public virtual async Task<bool> Insert(TEntity entity)
         {
             _dbSet.Add(entity);
-            await SaveChanges();
-            return entity.Id;
+            return await SaveChanges();
         }
-        public virtual async Task<int> Update(TEntity entity)
+        public virtual async Task<bool> Update(TEntity entity)
         {
             _dbSet.Update(entity);
             return await SaveChanges();
         }
-        public virtual async Task Delete(int id)
+        public virtual async Task <bool> Delete(Guid id)
         {
-            _dbSet.Remove(new TEntity { Id = id });
-            await SaveChanges();
+            string entityName = typeof(TEntity).Name;
+            int response = await _context.Database.ExecuteSqlRawAsync($"DELETE {entityName} WHERE ID = {0} ", new object[] {id});
+            return response > 1;
         }
 
-        public async Task<int> SaveChanges()
+        public async Task<bool> SaveChanges()
         {
-            return await _context.SaveChangesAsync();
+            return await _context.Commit();
         }
         public void Dispose()
         {

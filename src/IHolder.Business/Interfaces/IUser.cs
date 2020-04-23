@@ -6,7 +6,7 @@ namespace IHolder.Business.Interfaces
 {
     public interface IUser
     {
-        int GetUserId();
+        Guid GetUserId();
         string GetUserEmail();
         string GetUserName();
         bool IsAuthenticated();

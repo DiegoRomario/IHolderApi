@@ -14,7 +14,9 @@ namespace IHolder.Data.Mapping
             base.Configure(builder);
             builder.Property(p => p.Ativo_id).IsRequired();
             builder.Property(p => p.Data_inclusao).IsRequired();
-            builder.Property(p => p.Orientacao_id).IsRequired();
+            builder.Property(p => p.Orientacao)
+                    .IsRequired()
+                    .HasColumnType("TINYINT");
             builder.ToTable("Distribuicao_por_ativo");
 
         }

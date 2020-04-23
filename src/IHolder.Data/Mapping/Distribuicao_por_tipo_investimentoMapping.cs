@@ -14,6 +14,9 @@ namespace IHolder.Data.Mapping
             base.Configure(builder);
             builder.Property(d => d.Tipo_investimento_id).IsRequired();
             builder.Property(d => d.Usuario_id).IsRequired();
+            builder.Property(p => p.Orientacao)
+                    .IsRequired()
+                    .HasColumnType("TINYINT");
             builder.HasMany(d => d.Distribuicoes_por_produtos)
                 .WithOne(p => p.Distribuicao_por_tipo_investimento)
                 .HasForeignKey(p => p.Distribuicao_por_tipo_investimento_id);

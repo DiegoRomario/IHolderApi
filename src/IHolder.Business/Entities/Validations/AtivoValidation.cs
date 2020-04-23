@@ -1,8 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace IHolder.Business.Entities.Validations
 {
     public class AtivoValidation : AbstractValidator<Ativo>

@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200410184801_Refactoring.cs" />
-    <Compile Remove="Migrations\20200410184801_Refactoring.Designer.cs" />
-    <Compile Remove="Migrations\20200410185559_Refactoring.cs" />
-    <Compile Remove="Migrations\20200410185559_Refactoring.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>

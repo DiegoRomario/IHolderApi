@@ -24,7 +24,7 @@ namespace IHolder.Business.Services
             _aporteRepository = aporteRepository;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             if (_aporteRepository.GetManyBy(a => a.Ativo_id == id).Result.Any())
                 Notify(new Notification("Este ativo não pode ser removido, pois encontra-se em lançamentos de distribuições e/ou aportes"));
@@ -36,16 +36,16 @@ namespace IHolder.Business.Services
             return await _ativoRepository.GetAll();
         }
 
-        public async Task<int> Insert(Ativo ativo)
+        public async Task<bool> Insert(Ativo ativo)
         {
             if (!RunValidation(new AtivoValidation(), ativo))
-                return 0;
+                return false;
 
             return await _ativoRepository.Insert(ativo);
 
         }
 
-        public Task<int> Update(Ativo ativo)
+        public Task<bool> Update(Ativo ativo)
         {
             throw new NotImplementedException();
         }

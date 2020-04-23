@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IHolder.Business.Entities.Enumerators
+﻿namespace IHolder.Business.Entities.Enumerators
 {
-    public enum EGenero : UInt16
+    public enum EGenero : ushort
     {
         Feminino = 0,
         Masculino = 1,
