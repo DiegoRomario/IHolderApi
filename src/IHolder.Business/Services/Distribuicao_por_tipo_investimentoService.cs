@@ -51,6 +51,7 @@ namespace IHolder.Business.Services
             var valor_total_por_tipo_investimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(entity.Tipo_investimento_id, entity.Usuario_id).Result;
             var valor_total = _aporteRepository.ObterTotalAplicado(entity.Usuario_id).Result;
             entity.OrquestrarAtualizacaoDeValoresEPercentuais(valor_total_por_tipo_investimento, valor_total);
+            entity.AtualizarOrientacao();
             return Update(entity);
         }
 

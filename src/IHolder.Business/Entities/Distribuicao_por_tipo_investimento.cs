@@ -27,14 +27,13 @@ namespace IHolder.Business.Entities
         public Usuario Usuario { get; private set; }
         public IEnumerable<Distribuicao_por_produto> Distribuicoes_por_produtos { get; private set; }
 
-        //public void AtualizarOrientacao(decimal percentual_diferenca)
-        //{
-        //    if (percentual_diferenca <= 0)
-        //        Orientacao = EOrientacao.Manter;
-        //    else
-        //        Orientacao = EOrientacao.Comprar;
-
-        //}
+        public void AtualizarOrientacao()
+        {
+            if (Percentual_diferenca <= 0)
+                Orientacao = EOrientacao.Manter;
+            else
+                Orientacao = EOrientacao.Comprar;
+        }
 
     }
 }

@@ -45,7 +45,6 @@
             AtualizarPercentualAtual(total_geral);
             AtualizarPercentualDiferenca();
             AtualizarValorDiferenca();
-
         }
 
 
