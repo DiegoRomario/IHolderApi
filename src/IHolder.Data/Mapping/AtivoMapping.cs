@@ -20,7 +20,7 @@ namespace IHolder.Data.Mapping
                     .HasColumnType("TINYINT");
             builder.Property(a => a.Produto_id).IsRequired();
             builder.Property(p => p.Data_inclusao).IsRequired();
-            builder.Property(p => p.Usuario_inclusao_id).IsRequired();
+            builder.Property(p => p.Usuario_id).IsRequired();
             builder.HasMany(r => r.Distribuicoes_por_ativos).WithOne(d => d.Ativo).HasForeignKey(d => d.Ativo_id);
             builder.HasMany(r => r.Aportes).WithOne(d => d.Ativo).HasForeignKey(d => d.Ativo_id);
             builder.HasMany(r => r.Situacoes_por_ativos).WithOne(d => d.Ativo).HasForeignKey(d => d.Ativo_id);

@@ -45,6 +45,9 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddScoped<IDistribuicao_por_tipo_investimentoRepository, Distribuicao_por_tipo_investimentoRepository>();
             services.AddScoped<IDistribuicao_por_tipo_investimentoService, Distribuicao_por_tipo_investimentoService>();
 
+            services.AddScoped<IAporteRepository, AporteRepository>();
+            services.AddScoped<IAporteService, AporteService>();
+
             return services;
         }
     }

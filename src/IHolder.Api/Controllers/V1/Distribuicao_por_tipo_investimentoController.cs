@@ -61,5 +61,15 @@ namespace IHolder.Api.Controllers.V1
             return ResponseBase(response);
         }
 
+        [HttpPost("recalcular")]
+        public async Task<ActionResult> Recalcular(Distribuicao_por_tipo_investimentoViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return ResponseBase(ModelState);
+            await _distribuicao_Por_Tipo_InvestimentoService.Recalcular(_mapper.Map<Distribuicao_por_tipo_investimento>(model));
+            return ResponseBase(model);
+
+        }
+
     }
 }

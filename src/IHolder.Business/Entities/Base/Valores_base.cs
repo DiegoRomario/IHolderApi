@@ -18,6 +18,11 @@
         {
             Percentual_objetivo = percentual_objetivo;
         }
+        public void AtualizarValorAtual(decimal valor_atual)
+        {
+            Valor_atual = valor_atual;
+        }
+
 
         public void AtualizarPercentualAtual (decimal valor_investido_total)
         {
@@ -29,15 +34,20 @@
             Percentual_diferenca = Percentual_objetivo - Percentual_atual;
         }
 
-        public void AtualizarValorAtual(decimal valor_atual)
-        {
-            Valor_atual = valor_atual;
-        }
-
         public void AtualizarValorDiferenca()
         {
             Valor_diferenca = (Valor_atual / Percentual_atual) * Percentual_diferenca;
         }
+
+        public void OrquestrarAtualizacaoDeValoresEPercentuais(decimal valor_total_por_tipo_investimento, decimal total_geral)
+        {
+            AtualizarValorAtual(valor_total_por_tipo_investimento);
+            AtualizarPercentualAtual(total_geral);
+            AtualizarPercentualDiferenca();
+            AtualizarValorDiferenca();
+
+        }
+
 
     }
 }

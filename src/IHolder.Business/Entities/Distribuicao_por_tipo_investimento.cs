@@ -15,17 +15,17 @@ namespace IHolder.Business.Entities
             Usuario_id = usuario_id;
         }
 
-        public Guid Tipo_investimento_id { get; set; }
-        public EOrientacao Orientacao { get; set; }
-        public Guid Usuario_id { get; set; }
-        public DateTime Data_inclusao { get; set; }
-        public DateTime? Data_alteracao { get; set; }
+        public Guid Tipo_investimento_id { get; private set; }
+        public EOrientacao Orientacao { get; private set; }
+        public Guid Usuario_id { get; private set; }
+        public DateTime Data_inclusao { get; private set; }
+        public DateTime? Data_alteracao { get; private set; }
 
         // EF RELATIONS
-        public Tipo_investimento Tipo_investimento { get; set; }
+        public Tipo_investimento Tipo_investimento { get; private set; }
 
-        public Usuario Usuario { get; set; }
-        public IEnumerable<Distribuicao_por_produto> Distribuicoes_por_produtos { get; set; }
+        public Usuario Usuario { get; private set; }
+        public IEnumerable<Distribuicao_por_produto> Distribuicoes_por_produtos { get; private set; }
 
         //public void AtualizarOrientacao(decimal percentual_diferenca)
         //{

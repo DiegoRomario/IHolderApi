@@ -50,8 +50,8 @@ namespace IHolder.Data.Mapping
                     .WithOne(a => a.Usuario)
                     .HasForeignKey(a => a.Usuario_id);
             builder.HasMany(p => p.Ativos)
-                    .WithOne(a => a.Usuario_inclusao)
-                    .HasForeignKey(a => a.Usuario_inclusao_id);
+                    .WithOne(a => a.Usuario)
+                    .HasForeignKey(a => a.Usuario_id);
 
             builder.HasMany(p => p.Situacoes_por_ativos)
             .WithOne(a => a.Usuario)

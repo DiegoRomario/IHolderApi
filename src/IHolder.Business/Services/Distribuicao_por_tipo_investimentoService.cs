@@ -15,12 +15,15 @@ namespace IHolder.Business.Services
     public class Distribuicao_por_tipo_investimentoService : ServiceBase, IDistribuicao_por_tipo_investimentoService
     {
         private readonly IDistribuicao_por_tipo_investimentoRepository _distribuicao_Por_Tipo_InvestimentoRepository;
+        private readonly IAporteRepository _aporteRepository;
         private readonly Distribuicao_por_tipo_investimentoValidation _validation;
         public Distribuicao_por_tipo_investimentoService(INotifier notifier,
-                                                         IDistribuicao_por_tipo_investimentoRepository distribuicao_Por_Tipo_InvestimentoRepository) : base(notifier)
+                                                         IDistribuicao_por_tipo_investimentoRepository distribuicao_Por_Tipo_InvestimentoRepository, IAporteRepository aporteRepository) : base(notifier)
         {
-            this._distribuicao_Por_Tipo_InvestimentoRepository = distribuicao_Por_Tipo_InvestimentoRepository;
+            _distribuicao_Por_Tipo_InvestimentoRepository = distribuicao_Por_Tipo_InvestimentoRepository;
+            _aporteRepository = aporteRepository;
             _validation = new Distribuicao_por_tipo_investimentoValidation(_distribuicao_Por_Tipo_InvestimentoRepository);
+
         }
 
         public async Task Delete(Guid id)
@@ -43,12 +46,22 @@ namespace IHolder.Business.Services
             return await _distribuicao_Por_Tipo_InvestimentoRepository.Insert(entity);
         }
 
+        public Task<bool> Recalcular(Distribuicao_por_tipo_investimento entity)
+        {
+            var valor_total_por_tipo_investimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(entity.Tipo_investimento_id, entity.Usuario_id).Result;
+            var valor_total = _aporteRepository.ObterTotalAplicado(entity.Usuario_id).Result;
+            entity.OrquestrarAtualizacaoDeValoresEPercentuais(valor_total_por_tipo_investimento, valor_total);
+            return Update(entity);
+        }
+
         public async Task<bool> Update(Distribuicao_por_tipo_investimento entity)
         {
             if (!RunValidation(_validation, entity))
                 return false;
             return await _distribuicao_Por_Tipo_InvestimentoRepository.Update(entity);
         }
+
+
 
 
 

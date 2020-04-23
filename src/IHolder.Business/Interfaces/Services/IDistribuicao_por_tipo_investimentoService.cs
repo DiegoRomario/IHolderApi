@@ -3,6 +3,7 @@ using IHolder.Business.Interfaces.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IHolder.Business.Interfaces.Services
 {
@@ -11,5 +12,6 @@ namespace IHolder.Business.Interfaces.Services
                                                                   IServiceGetManyBy<Distribuicao_por_tipo_investimento>,
                                                                   IServiceDelete
     {
+        Task<bool> Recalcular(Distribuicao_por_tipo_investimento entity);
     }
 }
