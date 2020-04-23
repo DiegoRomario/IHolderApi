@@ -67,6 +67,21 @@ namespace IHolder.Api.Controllers.V1
             return ResponseBase(model);
         }
 
+        [HttpPut("alterar/{id:guid}")]
+        public async Task<ActionResult<UsuarioViewModel>> Update(Guid id, UsuarioViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return ResponseBase(ModelState);
+            if (id != model.Id)
+            {
+                NotifyError("O ID do registro informado para alteração está inválido.");
+                return ResponseBase(null);
+            }
+            await _usuarioService.Update(_mapper.Map<Usuario>(model));
+            model.Senha = string.Empty;
+            return ResponseBase(model);
+        }
+
         private async Task<Usuario_resposta_autenticacaoViewModel> GenerateToken(UsuarioViewModel user)
         {
             Claim[] claims = new Claim[] {

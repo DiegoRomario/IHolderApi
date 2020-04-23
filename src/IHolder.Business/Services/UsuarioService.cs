@@ -15,9 +15,11 @@ namespace IHolder.Business.Services
     public class UsuarioService : ServiceBase, IUsuarioService
     {
         private readonly IRepositoryBase<Usuario> _repositoryBase;
+        private readonly UsuarioValidation validation;
         public UsuarioService(INotifier notifier, IRepositoryBase<Usuario> repositoryBase) : base(notifier)
         {
             _repositoryBase = repositoryBase;
+            validation = new UsuarioValidation(_repositoryBase);
         }
 
         public async Task<Usuario> GetBy(Expression<Func<Usuario, bool>> predicate)
@@ -27,9 +29,16 @@ namespace IHolder.Business.Services
 
         public async Task<bool> Insert(Usuario entity)
         {
-            if (!RunValidation(new UsuarioValidation(_repositoryBase), entity))
+            if (!RunValidation(validation, entity))
                 return false;
             return await _repositoryBase.Insert(entity);
+        }
+
+        public async Task<bool> Update(Usuario entity)
+        {
+            if (!RunValidation(validation, entity))
+                return false;
+            return await _repositoryBase.Update(entity);
         }
     }
 }

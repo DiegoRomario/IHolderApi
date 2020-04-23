@@ -45,7 +45,10 @@ namespace IHolder.Api.Controllers.V1
             if (!ModelState.IsValid)
                 return ResponseBase(ModelState);
             if (id != model.Id)
+            {
                 NotifyError("O ID do registro informado para alteração está inválido.");
+                return ResponseBase(null);
+            }
             await _distribuicao_Por_Tipo_InvestimentoService.Update(_mapper.Map<Distribuicao_por_tipo_investimento>(model));
             return ResponseBase(model);
 
