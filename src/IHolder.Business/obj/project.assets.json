@@ -145,11 +145,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\gitRepository\\IHolder\\src\\IHolder.Business\\IHolder.Business.csproj",
+      "projectUniqueName": "D:\\gitRepository\\IHolder\\src\\IHolder.Business\\IHolder.Business.csproj",
       "projectName": "IHolder.Business",
-      "projectPath": "C:\\gitRepository\\IHolder\\src\\IHolder.Business\\IHolder.Business.csproj",
+      "projectPath": "D:\\gitRepository\\IHolder\\src\\IHolder.Business\\IHolder.Business.csproj",
       "packagesPath": "C:\\Users\\Diego\\.nuget\\packages\\",
-      "outputPath": "C:\\gitRepository\\IHolder\\src\\IHolder.Business\\obj\\",
+      "outputPath": "D:\\gitRepository\\IHolder\\src\\IHolder.Business\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

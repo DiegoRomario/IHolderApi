@@ -19,12 +19,12 @@ namespace IHolder.Api.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public ERisco Risco { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public ESituacao Situacao { get; set; }
+        public ESituacao Situacao { get; private set; }
 
-        public ProdutoViewModel Produto { get; set; }
+        public ProdutoViewModel Produto { get; private set ; }
 
-        public IEnumerable<Distribuicao_por_ativoViewModel> Distribuicoes_por_ativos { get; set; }
+        public IEnumerable<Distribuicao_por_ativoViewModel> Distribuicoes_por_ativos { get; private set; }
 
-        public IEnumerable<AporteViewModel> Aportes { get; set; }
+        public IEnumerable<AporteViewModel> Aportes { get; private set; }
     }
 }

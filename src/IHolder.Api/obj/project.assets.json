@@ -10423,11 +10423,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\gitRepository\\IHolder\\src\\IHolder.Api\\IHolder.Api.csproj",
+      "projectUniqueName": "D:\\gitRepository\\IHolder\\src\\IHolder.Api\\IHolder.Api.csproj",
       "projectName": "IHolder.Api",
-      "projectPath": "C:\\gitRepository\\IHolder\\src\\IHolder.Api\\IHolder.Api.csproj",
+      "projectPath": "D:\\gitRepository\\IHolder\\src\\IHolder.Api\\IHolder.Api.csproj",
       "packagesPath": "C:\\Users\\Diego\\.nuget\\packages\\",
-      "outputPath": "C:\\gitRepository\\IHolder\\src\\IHolder.Api\\obj\\",
+      "outputPath": "D:\\gitRepository\\IHolder\\src\\IHolder.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -10446,8 +10446,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\gitRepository\\IHolder\\src\\IHolder.Data\\IHolder.Data.csproj": {
-              "projectPath": "C:\\gitRepository\\IHolder\\src\\IHolder.Data\\IHolder.Data.csproj"
+            "D:\\gitRepository\\IHolder\\src\\IHolder.Data\\IHolder.Data.csproj": {
+              "projectPath": "D:\\gitRepository\\IHolder\\src\\IHolder.Data\\IHolder.Data.csproj"
             }
           }
         }

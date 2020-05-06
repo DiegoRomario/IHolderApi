@@ -12,10 +12,10 @@ namespace IHolder.Api.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Tipo_investimento_id { get; set; }
 
-        public Tipo_investimentoViewModel Tipo_investimento { get; set; }
+        public Tipo_investimentoViewModel Tipo_investimento { get; private set; }
 
-        public IEnumerable<Distribuicao_por_produtoViewModel> Distribuicoes_por_produtos { get; set; }
+        public IEnumerable<Distribuicao_por_produtoViewModel> Distribuicoes_por_produtos { get; private set; }
 
-        public IEnumerable<AtivoViewModel> Ativos { get; set; }
+        public IEnumerable<AtivoViewModel> Ativos { get; private set; }
     }
 }

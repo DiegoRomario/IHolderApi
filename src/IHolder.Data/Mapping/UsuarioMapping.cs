@@ -20,19 +20,9 @@ namespace IHolder.Data.Mapping
             .HasColumnType("VARCHAR(40)");
             builder.Property(p => p.Senha)
             .HasColumnType("VARCHAR(240)");
-            builder.Property(p => p.CPF)
-            .IsRequired()
-            .HasColumnType("VARCHAR(25)");
-            builder.Property(p => p.Celular)
-            .IsRequired()
-            .HasColumnType("VARCHAR(25)");
-            builder.Property(p => p.Data_nascimento)
-            .IsRequired();
             builder.Property(p => p.Data_inclusao)
             .IsRequired();
-            builder.HasAlternateKey(a => a.CPF);
             builder.HasAlternateKey(a => a.Email);
-            builder.HasAlternateKey(a => a.Celular);
             builder.Property(r => r.Genero)
                     .IsRequired()
                     .HasColumnType("TINYINT");

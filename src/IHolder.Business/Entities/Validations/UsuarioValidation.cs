@@ -11,12 +11,12 @@ namespace IHolder.Business.Entities.Validations
         public UsuarioValidation(IRepositoryBase<Usuario> repositoryBase)
         {
             _repositoryBase = repositoryBase;
-            RuleFor(t => t).Must(t => UsuarioCadastrado(t.Id, t.Celular, t.CPF, t.Email)).WithMessage("E-mail, CPF e/ou Ceular já cadastrado(s) em nossa base de dados.");
+            RuleFor(t => t).Must(t => UsuarioCadastrado(t.Id, t.Email)).WithMessage("E-mail, CPF e/ou Ceular já cadastrado(s) em nossa base de dados.");
         }
 
-        public bool UsuarioCadastrado (Guid id, string celular, string cpf, string email)
+        public bool UsuarioCadastrado (Guid id, string email)
         {
-            Usuario response = _repositoryBase.GetBy(u => (u.Celular == celular || u.CPF == cpf || u.Email == email) && u.Id != id).Result;
+            Usuario response = _repositoryBase.GetBy(u => (u.Email == email) && u.Id != id).Result;
             return response == null;
         }
     }

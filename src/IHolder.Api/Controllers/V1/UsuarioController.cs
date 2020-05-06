@@ -44,7 +44,7 @@ namespace IHolder.Api.Controllers.V1
         {
             if (!ModelState.IsValid) return ResponseBase(ModelState);
 
-            var usuario = _mapper.Map<UsuarioViewModel>(_usuarioService.GetBy(u => u.Email == usuario_autenticacao.Login &&
+            var usuario = _mapper.Map<UsuarioViewModel>(_usuarioService.GetBy(u => u.Email.ToUpper() == usuario_autenticacao.Login.ToLower() &&
                                u.Senha == usuario_autenticacao.Password).Result);
 
             if (usuario == null)
