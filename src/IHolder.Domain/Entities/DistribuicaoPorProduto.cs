@@ -7,6 +7,10 @@ namespace IHolder.Domain.Entities
 {
     public class DistribuicaoPorProduto : Entity
     {
+        private DistribuicaoPorProduto()
+        {
+
+        }
         public DistribuicaoPorProduto(Guid distribuicaoPorTipoInvestimentoId, Guid produtoId, Guid usuarioId, Valores valores)
         {
             DistribuicaoPorTipoInvestimentoId = distribuicaoPorTipoInvestimentoId;
@@ -20,8 +24,8 @@ namespace IHolder.Domain.Entities
         public Guid ProdutoId { get; private set; }
         public EOrientacao Orientacao { get; private set; }
         public Guid UsuarioId { get; private set; }
-        public DateTime IncluidoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }
+        public DateTime DataInclusao { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
 
         public DistribuicaoPorTipoInvestimento DistribuicaoPorTipoInvestimento { get; private set; }
         public Produto Produto { get; private set; }

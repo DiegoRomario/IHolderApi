@@ -26,10 +26,13 @@
         "dependencies": {
           "AspNetCore.HealthChecks.SqlServer": "3.0.0",
           "AspNetCore.HealthChecks.UI": "3.0.11",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Elmah.Io.AspNetCore": "3.8.101",
           "Elmah.Io.AspNetCore.HealthChecks": "3.8.101",
           "Elmah.Io.Extensions.Logging": "3.6.60",
           "IHolder.Data": "1.0.0",
+          "MediatR": "8.0.1",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "8.0.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.3",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.3",
@@ -40,7 +43,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.1",
           "Swashbuckle.AspNetCore": "5.2.1",
           "Swashbuckle.AspNetCore.Swagger": "5.2.1",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -491,6 +493,32 @@
         },
         "compile": {
           "lib/netcoreapp2.1/KubernetesClient.dll": {}
+        }
+      },
+      "MediatR/8.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.dll": {
+            "assemblyVersion": "8.0.1.0",
+            "fileVersion": "8.0.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/MediatR.dll": {}
+        }
+      },
+      "MediatR.Extensions.Microsoft.DependencyInjection/8.0.0": {
+        "dependencies": {
+          "MediatR": "8.0.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
       "Microsoft.AspNetCore.Authentication/2.2.0": {
@@ -2930,8 +2958,10 @@
       },
       "IHolder.Business/1.0.0": {
         "dependencies": {
+          "AutoMapper": "9.0.0",
           "FluentValidation": "8.6.2",
-          "IHolder.Domain": "1.0.0"
+          "IHolder.Domain": "1.0.0",
+          "MediatR": "8.0.1"
         },
         "runtime": {
           "IHolder.Business.dll": {}
@@ -4672,6 +4702,20 @@
       "sha512": "sha512-IaXy9cmdNlhe6uyY5LvcXkIm1ROj2fF175VEj8sTkxbOjPMQOtkjwSECpIYjN32/QWXVG2Bx3/oCMdIAfN5HZA==",
       "path": "kubernetesclient/1.6.10",
       "hashPath": "kubernetesclient.1.6.10.nupkg.sha512"
+    },
+    "MediatR/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nqtv05FHNNNLmEv4QN9pRtmSLa0bnDPciOjLKpA/k5FZIVS72vPyY3/1lHQ9V/dcQSMA5ZLig62SyRk2cSKNBA==",
+      "path": "mediatr/8.0.1",
+      "hashPath": "mediatr.8.0.1.nupkg.sha512"
+    },
+    "MediatR.Extensions.Microsoft.DependencyInjection/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qGa+dbfrpk6y01swgc0uM+jG5tkb5xVeY1P4iByd3NQCDO7nmrMBnBRoMGhKlSigQ6iWXDiwOpzC01W4xrJxLg==",
+      "path": "mediatr.extensions.microsoft.dependencyinjection/8.0.0",
+      "hashPath": "mediatr.extensions.microsoft.dependencyinjection.8.0.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication/2.2.0": {
       "type": "package",

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using IHolder.Business.Repositories.Base;
+
+using IHolder.Domain.DomainObjects;
 using System;
 
 namespace IHolder.Domain.Entities.Validations

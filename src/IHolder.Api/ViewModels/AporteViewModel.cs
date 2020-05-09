@@ -10,7 +10,7 @@ namespace IHolder.Api.ViewModels
     {
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Ativo_id { get; set; }
+        public int AtivoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Preco_medio { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

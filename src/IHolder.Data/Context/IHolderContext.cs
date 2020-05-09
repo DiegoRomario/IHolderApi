@@ -50,18 +50,18 @@ namespace IHolder.Data.Context
 
         public async Task<bool> Commit()
         {
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("IncluidoEm") != null && entry.Entity.GetType().GetProperty("AlteradoEm") != null))
+            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataInclusao") != null && entry.Entity.GetType().GetProperty("DataAlteracao") != null))
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Property("IncluidoEm").CurrentValue = DateTime.Now;
-                    entry.Property("AlteradoEm").IsModified = false;
+                    entry.Property("DataInclusao").CurrentValue = DateTime.Now;
+                    entry.Property("DataAlteracao").IsModified = false;
                 }
 
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Property("IncluidoEm").IsModified = false;
-                    entry.Property("AlteradoEm").CurrentValue = DateTime.Now;
+                    entry.Property("DataInclusao").IsModified = false;
+                    entry.Property("DataAlteracao").CurrentValue = DateTime.Now;
                 }
             }
 

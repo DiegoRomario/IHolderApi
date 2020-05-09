@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[3.0.11, )"
             },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Elmah.Io.AspNetCore": {
               "target": "Package",
               "version": "[3.8.101, )"
@@ -64,6 +68,14 @@
             "Elmah.Io.Extensions.Logging": {
               "target": "Package",
               "version": "[3.6.60, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Microsoft.AspNetCore.Authentication": {
               "target": "Package",
@@ -106,10 +118,6 @@
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
               "version": "[5.2.1, )"
-            },
-            "automapper.extensions.microsoft.dependencyinjection": {
-              "target": "Package",
-              "version": "[7.0.0, )"
             }
           },
           "imports": [
@@ -175,9 +183,17 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[8.6.2, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[8.0.1, )"
             }
           },
           "imports": [

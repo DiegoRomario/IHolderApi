@@ -2,13 +2,14 @@
 using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Services;
-using IHolder.Business.Repositories.Base;
+
 using IHolder.Business.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Business.Services
 {

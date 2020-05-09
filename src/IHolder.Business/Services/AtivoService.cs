@@ -1,7 +1,7 @@
 ﻿using IHolder.Domain.Entities;
 using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Interfaces.Repositories;
+
 using IHolder.Business.Interfaces.Services;
 using IHolder.Business.Notifications;
 using IHolder.Business.Services.Base;
@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Business.Services
 {

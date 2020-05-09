@@ -1,10 +1,10 @@
 ﻿using IHolder.Domain.Entities;
-using IHolder.Business.Repositories.Base;
+using IHolder.Domain.DomainObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace IHolder.Business.Interfaces.Repositories
+namespace IHolder.Domain.Interfaces
 {
     public interface IAtivoRepository : IRepositoryBase<Ativo>
     {

@@ -7,6 +7,9 @@ namespace IHolder.Domain.Entities
 {
     public class Produto : Entity
     {
+        private Produto()
+        {
+        }
         public Produto(Guid tipoInvestimentoId, Informacoes informacoes) 
         {
             TipoInvestimentoId = tipoInvestimentoId;

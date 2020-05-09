@@ -18,8 +18,8 @@ namespace IHolder.Domain.Entities
         public Guid AtivoId { get; private set; }
         public Guid UsuarioId { get; private set; }
         public string Observacao { get; private set; }
-        public DateTime IncluidoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }
+        public DateTime DataInclusao { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
         public Ativo Ativo { get; private set; }
         public Usuario Usuario { get; private set; }
 

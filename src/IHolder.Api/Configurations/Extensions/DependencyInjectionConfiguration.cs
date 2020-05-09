@@ -1,10 +1,8 @@
 ﻿using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces;
 using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Interfaces.Repositories;
 using IHolder.Business.Interfaces.Services;
 using IHolder.Business.Notifications;
-using IHolder.Business.Repositories.Base;
 using IHolder.Business.Services;
 using IHolder.Data.Context;
 using IHolder.Data.Repository;
@@ -17,6 +15,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static IHolder.Api.Configurations.Extensions.SwaggerConfiguration;
+using IHolder.Business.Queries;
+using IHolder.Domain.DomainObjects;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Api.Configurations.Extensions
 {
@@ -29,24 +30,28 @@ namespace IHolder.Api.Configurations.Extensions
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IUser, AspNetUser>();
+            services.AddTransient<IUser, AspNetUser>();
+            services.AddTransient<IUsuarioQueries, UsuarioQueries>();
+            services.AddTransient<IRepositoryBase<Usuario>, UsuarioRepository>();
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IAporteRepository, AporteRepository>();
             services.AddScoped<IAtivoRepository, AtivoRepository>();
             services.AddScoped<IAtivoService, AtivoService>();
 
-            services.AddScoped<ITipoInvestimentoRepository, Tipo_investimentoRepository>();
-            services.AddScoped<ITipoInvestimentoService, Tipo_investimentoService>();
+            services.AddScoped<ITipoInvestimentoRepository, TipoInvestimentoRepository>();
+            services.AddScoped<ITipoInvestimentoService, TipoInvestimentoService>();
 
             services.AddScoped<IRepositoryBase<Usuario>, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
 
-            services.AddScoped<IDistribuicaoPorTipoInvestimentoRepository, Distribuicao_por_tipo_investimentoRepository>();
-            services.AddScoped<IDistribuicaoPorTipoInvestimentoService, Distribuicao_por_tipo_investimentoService>();
+            services.AddScoped<IDistribuicaoPorTipoInvestimentoRepository, DistribuicaoPorTipoInvestimentoRepository>();
+            services.AddScoped<IDistribuicaoPorTipoInvestimentoService, DistribuicaoPorTipoInvestimentoService>();
 
             services.AddScoped<IAporteRepository, AporteRepository>();
             services.AddScoped<IAporteService, AporteService>();
+
+
 
             return services;
         }

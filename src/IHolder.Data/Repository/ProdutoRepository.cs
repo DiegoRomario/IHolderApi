@@ -1,12 +1,10 @@
 ﻿using IHolder.Domain.Entities;
-using IHolder.Business.Interfaces;
-using IHolder.Business.Interfaces.Repositories;
 using IHolder.Data.Context;
 using IHolder.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Data.Repository
 {
@@ -16,9 +14,9 @@ namespace IHolder.Data.Repository
         {
 
         }
-        public async Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid Tipo_investimento_id)
+        public async Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid TipoInvestimentoId)
         {
-            return await GetManyBy(p => p.TipoInvestimentoId == Tipo_investimento_id);
+            return await GetManyBy(p => p.TipoInvestimentoId == TipoInvestimentoId);
         }
     }
 }

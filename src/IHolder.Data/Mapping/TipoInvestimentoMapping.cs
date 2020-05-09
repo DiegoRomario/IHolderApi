@@ -8,14 +8,24 @@ namespace IHolder.Data.Mapping
         public void Configure(EntityTypeBuilder<TipoInvestimento> builder)
         {
             builder.HasKey(a => a.Id);
-            builder.Property(r => r.Informacoes.Descricao).IsRequired().HasColumnType("VARCHAR(30)");
-            builder.Property(r => r.Informacoes.Caracteristicas).IsRequired().HasColumnType("VARCHAR(240)");
+            builder.OwnsOne(a => a.Informacoes, i =>
+            {
+                i.Property(a => a.Descricao)
+                            .IsRequired()
+                            .HasColumnName("Descricao")
+                            .HasColumnType("VARCHAR(30)");
+
+                i.Property(c => c.Caracteristicas)
+                            .IsRequired()
+                            .HasColumnName("Caracteristicas")
+                            .HasColumnType("VARCHAR(240)");
+            });
             builder.Property(t => t.Risco)
             .IsRequired()
             .HasColumnType("TINYINT");
             builder.HasMany(t => t.DistribuicoesPorTiposInvestimentos).WithOne(d => d.TipoInvestimento).HasForeignKey(t => t.TipoInvestimentoId);
             builder.HasMany(t => t.Produtos).WithOne(p => p.TipoInvestimento).HasForeignKey(p => p.TipoInvestimentoId);
-            builder.ToTable("Tipo_investimento");
+            builder.ToTable("TipoInvestimento");
         }
     }
 }

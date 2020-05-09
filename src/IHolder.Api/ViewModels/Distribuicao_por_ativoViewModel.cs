@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace IHolder.Api.ViewModels
 {
-    public class Distribuicao_por_ativoViewModel : Valores_baseViewModel
+    public class DistribuicaoPorAtivoViewModel : Valores_baseViewModel
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Ativo_id { get; set; }
+        public int AtivoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public EOrientacao Orientacao { get; set; }
 

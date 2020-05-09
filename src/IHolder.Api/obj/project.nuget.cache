@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "u62pPL1vVEqpiU05mS1vSW5Lv9YOzdHC6woB0PqkQEEdIBgOQ6ZLpPOJ9acOoT9XucU8VScvp2M6D/4NJw+jJA==",
+  "dgSpecHash": "ppdYnGuYXOUhUWNwi13Lxyj9s5VTKIgWd70wkm1mrlJnxTSHbyDpQcwia83e9H0Rpr3MQkDP5zNiJS30+e8Gzg==",
   "success": true,
   "projectFilePath": "D:\\gitRepository\\IHolder\\src\\IHolder.Api\\IHolder.Api.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,8 @@
     "C:\\Users\\Diego\\.nuget\\packages\\elmah.io.extensions.logging\\3.6.60\\elmah.io.extensions.logging.3.6.60.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\kubernetesclient\\1.6.10\\kubernetesclient.1.6.10.nupkg.sha512",
+    "C:\\Users\\Diego\\.nuget\\packages\\mediatr\\8.0.1\\mediatr.8.0.1.nupkg.sha512",
+    "C:\\Users\\Diego\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\8.0.0\\mediatr.extensions.microsoft.dependencyinjection.8.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

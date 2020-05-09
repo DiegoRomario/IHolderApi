@@ -1,5 +1,5 @@
 ﻿using IHolder.Domain.Entities;
-using IHolder.Business.Interfaces.Repositories;
+
 using IHolder.Data.Context;
 using IHolder.Data.Repository.Base;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Data.Repository
 {
-    public class Tipo_investimentoRepository : RepositoryBase<TipoInvestimento>, ITipoInvestimentoRepository
+    public class TipoInvestimentoRepository : RepositoryBase<TipoInvestimento>, ITipoInvestimentoRepository
     {
-        public Tipo_investimentoRepository(IHolderContext context) : base(context)
+        public TipoInvestimentoRepository(IHolderContext context) : base(context)
         {
         }
 

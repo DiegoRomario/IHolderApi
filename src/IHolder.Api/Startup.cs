@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using IHolder.Api.Configurations;
+using IHolder.Api.Configurations.AutoMapper;
 using IHolder.Api.Configurations.Extensions;
 using IHolder.Api.Configurations.Middleware;
 using IHolder.Data.Context;
@@ -39,9 +40,9 @@ namespace IHolder.Api
             services.AddDbContext<IHolderContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("IHolderConnectionDemo")));
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapperProfileConfiguration();
 
-            DependencyInjectionConfiguration.ResolveDependencies(services);
+            services.ResolveDependencies();
 
             services.AddApiConfiguration();
 

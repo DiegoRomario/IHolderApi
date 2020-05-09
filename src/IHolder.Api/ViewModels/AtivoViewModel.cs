@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace IHolder.Api.ViewModels
 {
-    public class AtivoViewModel : Informacoes_baseViewModel
+    public class AtivoViewModel : InformacoesBaseViewModel
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Produto_id { get; set; }
+        public int ProdutoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Ticker { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
@@ -23,7 +23,7 @@ namespace IHolder.Api.ViewModels
 
         public ProdutoViewModel Produto { get; private set ; }
 
-        public IEnumerable<Distribuicao_por_ativoViewModel> Distribuicoes_por_ativos { get; private set; }
+        public IEnumerable<DistribuicaoPorAtivoViewModel> DistribuicoesPorAtivos { get; private set; }
 
         public IEnumerable<AporteViewModel> Aportes { get; private set; }
     }

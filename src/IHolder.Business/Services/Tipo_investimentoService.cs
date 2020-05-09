@@ -1,48 +1,49 @@
 ﻿using IHolder.Domain.Entities;
 using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Interfaces.Repositories;
+
 using IHolder.Business.Interfaces.Services;
-using IHolder.Business.Repositories.Base;
+
 using IHolder.Business.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Business.Services
 {
-    public class Tipo_investimentoService : ServiceBase, ITipoInvestimentoService
+    public class TipoInvestimentoService : ServiceBase, ITipoInvestimentoService
     {
-        private readonly ITipoInvestimentoRepository _tipo_investimentoRepository;
-        private readonly TipoInvestimentoValidation tipo_investimentoValidation;
-        public Tipo_investimentoService(INotifier notifier, ITipoInvestimentoRepository tipo_investimentoRepository) : base(notifier)
+        private readonly ITipoInvestimentoRepository _tipoInvestimentoRepository;
+        private readonly TipoInvestimentoValidation tipoInvestimentoValidation;
+        public TipoInvestimentoService(INotifier notifier, ITipoInvestimentoRepository tipoInvestimentoRepository) : base(notifier)
         {
-            _tipo_investimentoRepository = tipo_investimentoRepository;
-            tipo_investimentoValidation = new TipoInvestimentoValidation(_tipo_investimentoRepository);
+            _tipoInvestimentoRepository = tipoInvestimentoRepository;
+            tipoInvestimentoValidation = new TipoInvestimentoValidation(_tipoInvestimentoRepository);
         }
 
         public async Task<IEnumerable<TipoInvestimento>> GetAll()
         {
-            return await _tipo_investimentoRepository.GetAll();
+            return await _tipoInvestimentoRepository.GetAll();
         }
 
         public async Task<bool> Insert(TipoInvestimento entity)
         {
 
-            if (!RunValidation(tipo_investimentoValidation, entity))
+            if (!RunValidation(tipoInvestimentoValidation, entity))
                 return false;
 
-            return await _tipo_investimentoRepository.Insert(entity);
+            return await _tipoInvestimentoRepository.Insert(entity);
 
         }
 
         public async Task<bool> Update(TipoInvestimento entity)
         {
-            if (!RunValidation(tipo_investimentoValidation, entity))
+            if (!RunValidation(tipoInvestimentoValidation, entity))
                 return false;
 
-            return await _tipo_investimentoRepository.Update(entity);
+            return await _tipoInvestimentoRepository.Update(entity);
         }
     }
 }

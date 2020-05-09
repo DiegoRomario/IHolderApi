@@ -105,7 +105,9 @@ D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Tes
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Tests.runtimeconfig.dev.json
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Tests.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Tests.pdb
+D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\FluentValidation.dll
+D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\MediatR.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CoreUtilities.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -187,7 +189,9 @@ D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\zh-Hant\Mic
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Business.dll
+D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Business.pdb
+D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.csprojAssemblyReference.cache
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.csproj.CoreCompileInputs.cache
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.AssemblyInfoInputs.cache
@@ -196,5 +200,3 @@ D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tes
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.pdb
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.genruntimeconfig.cache
-D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
-D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb

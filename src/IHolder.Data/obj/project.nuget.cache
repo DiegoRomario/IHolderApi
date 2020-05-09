@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "OwHfq8uhiQL7aAxeuOCkToO7ZeiIPaHq8cv9YvQr9YrRRfa2m0tPQWs4AaW2RMK63CJcQv/wIIlAcpoHOhZuxg==",
+  "dgSpecHash": "jS9PYtBk0cj1yPtqhSpZAoxzvOQRNTApC7NXv0dQZ+U9tg4N4RdzEcDXzXzeutuZHL67PVYJkOx3KuA1qzD7Jg==",
   "success": true,
   "projectFilePath": "D:\\gitRepository\\IHolder\\src\\IHolder.Data\\IHolder.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Diego\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
+    "C:\\Users\\Diego\\.nuget\\packages\\mediatr\\8.0.1\\mediatr.8.0.1.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\Diego\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

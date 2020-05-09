@@ -8,7 +8,9 @@ namespace IHolder.Domain.Entities
 {
     public class Ativo : Entity
     {
-
+        private Ativo()
+        {
+        }
         public Ativo(Guid produtoid, Informacoes informacoes, string ticker, decimal cotacao, ERisco risco, Guid usuarioId) 
         {
             ProdutoId = produtoid;
@@ -24,8 +26,8 @@ namespace IHolder.Domain.Entities
         public string Ticker { get; private set; }
         public decimal Cotacao { get; private set; }
         public Guid UsuarioId { get; set; }
-        public DateTime IncluidoEm { get; private set; }
-        public DateTime AlteradoEm { get; private set; }
+        public DateTime DataInclusao { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
         public ERisco Risco { get; private set; }
         public Produto Produto { get; private set; }
         public Usuario Usuario { get; private set; }

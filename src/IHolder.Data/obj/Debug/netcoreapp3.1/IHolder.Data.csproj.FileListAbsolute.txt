@@ -19,7 +19,9 @@ D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Data.r
 D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Data.dll
 D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Data.pdb
 D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Business.dll
+D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
 D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Business.pdb
+D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.csprojAssemblyReference.cache
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.csproj.CoreCompileInputs.cache
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.AssemblyInfoInputs.cache
@@ -28,5 +30,3 @@ D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.c
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.dll
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.pdb
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.genruntimeconfig.cache
-D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
-D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb

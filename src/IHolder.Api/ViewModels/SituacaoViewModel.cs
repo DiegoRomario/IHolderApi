@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IHolder.Api.ViewModels
 {
-    public class SituacaoViewModel : Informacoes_baseViewModel
+    public class SituacaoViewModel : InformacoesBaseViewModel
     {
         public IEnumerable<AtivoViewModel> Ativos { get; set; }
     }

@@ -1,11 +1,11 @@
 ﻿using IHolder.Domain.Entities;
-using IHolder.Business.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.DomainObjects;
 
-namespace IHolder.Business.Interfaces.Repositories
+namespace IHolder.Domain.Interfaces
 {
     public interface IProdutoRepository : IRepositoryBase<Produto>
     {

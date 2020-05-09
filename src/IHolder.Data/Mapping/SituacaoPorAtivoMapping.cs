@@ -14,12 +14,12 @@ namespace IHolder.Data.Mapping
             builder.HasKey(s => s.Id);
             builder.Property(s => s.AtivoId).IsRequired();
             builder.Property(s => s.UsuarioId).IsRequired();
-            builder.Property(s => s.IncluidoEm).IsRequired();
+            builder.Property(s => s.DataInclusao).IsRequired();
             builder.Property(s => s.Situacao)
                     .IsRequired()
                     .HasColumnType("TINYINT");
             builder.Property(s => s.Observacao).HasColumnType("VARCHAR(240)");
-            builder.ToTable("Situacao_por_ativo");
+            builder.ToTable("SituacaoPorAtivo");
         }
     }
 }

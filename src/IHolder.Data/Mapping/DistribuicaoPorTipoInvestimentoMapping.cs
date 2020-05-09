@@ -9,6 +9,28 @@ namespace IHolder.Data.Mapping
         public void Configure(EntityTypeBuilder<DistribuicaoPorTipoInvestimento> builder)
         {
             builder.HasKey(d => d.Id);
+            builder.OwnsOne(a => a.Valores, i =>
+            {
+                i.Property(a => a.PercentualObjetivo)
+                .IsRequired()
+                .HasColumnName("PercentualObjetivo");
+
+                i.Property(a => a.PercentualAtual)
+                .IsRequired()
+                .HasColumnName("PercentualAtual");
+
+                i.Property(a => a.PercentualDiferenca)
+                .IsRequired()
+                .HasColumnName("PercentualDiferenca");
+
+                i.Property(a => a.ValorAtual)
+                .IsRequired()
+                .HasColumnName("ValorAtual");
+
+                i.Property(a => a.ValorDiferenca)
+                .IsRequired()
+                .HasColumnName("ValorDiferenca");
+            });
             builder.Property(d => d.TipoInvestimentoId).IsRequired();
             builder.Property(d => d.UsuarioId).IsRequired();
             builder.Property(p => p.Orientacao)
@@ -17,9 +39,9 @@ namespace IHolder.Data.Mapping
             builder.HasMany(d => d.DistribuicoesPorProdutos)
                 .WithOne(p => p.DistribuicaoPorTipoInvestimento)
                 .HasForeignKey(p => p.DistribuicaoPorTipoInvestimentoId);
-            builder.Property(p => p.IncluidoEm).IsRequired();
+            builder.Property(p => p.DataInclusao).IsRequired();
 
-            builder.ToTable("Distribuicao_por_tipo_investimento");
+            builder.ToTable("DistribuicaoPorTipoInvestimento");
         }        
     }
 }

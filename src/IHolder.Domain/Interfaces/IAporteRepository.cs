@@ -1,9 +1,9 @@
-﻿using IHolder.Business.Repositories.Base;
+﻿using IHolder.Domain.DomainObjects;
 using System;
 using System.Threading.Tasks;
 using IHolder.Domain.Entities;
 
-namespace IHolder.Business.Interfaces.Repositories
+namespace IHolder.Domain.Interfaces
 {
     public interface IAporteRepository : IRepositoryBase<Aporte>
     {

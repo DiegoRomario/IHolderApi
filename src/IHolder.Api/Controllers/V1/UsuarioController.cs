@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +11,15 @@ using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Services;
-using IHolder.Business.Notifications;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using IHolder.Business.Queries;
+using IHolder.Business.ViewModels;
+using MediatR;
+using IHolder.Business.Commands;
+using IHolder.Business.Base;
 
 namespace IHolder.Api.Controllers.V1
 {
@@ -29,89 +30,84 @@ namespace IHolder.Api.Controllers.V1
     {
         private readonly IUsuarioService _usuarioService;
         private readonly AppSettings _appSettings;
+        private readonly IUsuarioQueries _usuarioQueries;
+        private readonly IMediator _mediatr;
         public UsuarioController(INotifier notifier,
             IMapper mapper,
             IUsuarioService usuarioService,
             IOptions<AppSettings> appSettings,
-            IUser user) : base(notifier, mapper, user)
+            IUser user, IUsuarioQueries usuarioQueries) : base(notifier, mapper, user)
         {
             _usuarioService = usuarioService;
             _appSettings = appSettings.Value;
+            _usuarioQueries = usuarioQueries;
         }
         [AllowAnonymous]
         [HttpPost("entrar")]
-        public async Task<ActionResult<Usuario_resposta_autenticacaoViewModel>> Login([FromBody] Usuario_autenticacaoViewModel usuario_autenticacao)
+        public async Task<ActionResult<Usuario_resposta_autenticacaoViewModel>> Login([FromBody] UsuarioLoginArgs login)
         {
             if (!ModelState.IsValid) return ResponseBase(ModelState);
 
-            var usuario = _mapper.Map<UsuarioViewModel>(_usuarioService.GetBy(u => u.Email.ToUpper() == usuario_autenticacao.Login.ToLower() &&
-                               u.Senha == usuario_autenticacao.Password).Result);
+            UsuarioAutenticadoViewModel usuario = await _usuarioQueries.AutenticarUsuario(login);
 
             if (usuario == null)
             {
-                NotifyError("Usuário ou senha inválidos");
+                NotifyError("Usuário e/ou senha inválidos");
                 return ResponseBase(usuario);
             }
 
-            Usuario_resposta_autenticacaoViewModel usuarioAutenticado = await GenerateToken(usuario);
-            return ResponseBase(usuarioAutenticado);
+            GerarToken(usuario);
+
+            return ResponseBase(usuario);
         }
         [AllowAnonymous]
         [HttpPost("cadastrar")]
-        public async Task<ActionResult<UsuarioViewModel>> Insert ([FromBody] UsuarioViewModel model)
+        public async Task<ActionResult<UsuarioViewModel>> Insert ([FromBody] CadastrarUsuarioCommand model)
         {
             if (!ModelState.IsValid) 
                 return ResponseBase(ModelState);
-            await _usuarioService.Insert(_mapper.Map<Usuario>(model));
-            model.Senha = string.Empty;
-            return ResponseBase(model);
+            Response response = await _mediatr.Send(model);
+            return ResponseBase(response);
         }
 
-        [HttpPut("alterar/{id:guid}")]
-        public async Task<ActionResult<UsuarioViewModel>> Update(Guid id, UsuarioViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return ResponseBase(ModelState);
-            if (id != model.Id)
-            {
-                NotifyError("O ID do registro informado para alteração está inválido.");
-                return ResponseBase(null);
-            }
-            await _usuarioService.Update(_mapper.Map<Usuario>(model));
-            model.Senha = string.Empty;
-            return ResponseBase(model);
-        }
+        //[HttpPut("alterar/{id:guid}")]
+        //public async Task<ActionResult<UsuarioViewModel>> Update(Guid id, UsuarioViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return ResponseBase(ModelState);
+        //    if (id != model.Id)
+        //    {
+        //        NotifyError("O ID do registro informado para alteração está inválido.");
+        //        return ResponseBase(null);
+        //    }
+        //    await _usuarioService.Update(_mapper.Map<Usuario>(model));
+        //    model.Senha = string.Empty;
+        //    return ResponseBase(model);
+        //}
 
-        private async Task<Usuario_resposta_autenticacaoViewModel> GenerateToken(UsuarioViewModel user)
+        private void GerarToken(UsuarioAutenticadoViewModel usuario)
         {
             Claim[] claims = new Claim[] {
-                new Claim(ClaimTypes.Name, user.Nome.ToString()),
-                new Claim(ClaimTypes.Email, user.Email.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.Name, usuario.Nome.ToString()),
+                new Claim(ClaimTypes.Email, usuario.Email.ToString()),
             };
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Chave);
-            DateTime Expires_in = DateTime.UtcNow.AddHours(_appSettings.Expiracao_horas);
+            DateTime ExpiresIn = DateTime.UtcNow.AddHours(_appSettings.Expiracao_horas);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Issuer = _appSettings.Emissor,
                 Audience = _appSettings.Valido_em,
                 Subject = new ClaimsIdentity(claims),
-                Expires = Expires_in,
+                Expires = ExpiresIn,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             string encodedToken = tokenHandler.WriteToken(token);
 
-            var response = new Usuario_resposta_autenticacaoViewModel()
-            {
-                Nome = user.Nome,
-                Token = encodedToken,
-                Expira_em = Expires_in,
-                Email = user.Email
-            };
-            return await Task.FromResult(response);
-        }
+            usuario.Token = encodedToken;
+
+       }
 
 
     }

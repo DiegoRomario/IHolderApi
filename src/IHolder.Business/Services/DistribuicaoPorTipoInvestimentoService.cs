@@ -1,7 +1,7 @@
 ﻿using IHolder.Domain.Entities;
 using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Interfaces.Repositories;
+
 using IHolder.Business.Interfaces.Services;
 using IHolder.Business.Services.Base;
 using System;
@@ -9,33 +9,34 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Business.Services
 {
-    public class Distribuicao_por_tipo_investimentoService : ServiceBase, IDistribuicaoPorTipoInvestimentoService
+    public class DistribuicaoPorTipoInvestimentoService : ServiceBase, IDistribuicaoPorTipoInvestimentoService
     {
-        private readonly IDistribuicaoPorTipoInvestimentoRepository _distribuicao_Por_Tipo_InvestimentoRepository;
+        private readonly IDistribuicaoPorTipoInvestimentoRepository _distribuicaoPorTipoInvestimentoRepository;
         private readonly IAporteRepository _aporteRepository;
         private readonly DistribuicaoPorTipoInvestimentoValidation _validation;
-        public Distribuicao_por_tipo_investimentoService(INotifier notifier,
-                                                         IDistribuicaoPorTipoInvestimentoRepository distribuicao_Por_Tipo_InvestimentoRepository, IAporteRepository aporteRepository) : base(notifier)
+        public DistribuicaoPorTipoInvestimentoService(INotifier notifier,
+                                                         IDistribuicaoPorTipoInvestimentoRepository distribuicaoPorTipoInvestimentoRepository, IAporteRepository aporteRepository) : base(notifier)
         {
-            _distribuicao_Por_Tipo_InvestimentoRepository = distribuicao_Por_Tipo_InvestimentoRepository;
+            _distribuicaoPorTipoInvestimentoRepository = distribuicaoPorTipoInvestimentoRepository;
             _aporteRepository = aporteRepository;
-            _validation = new DistribuicaoPorTipoInvestimentoValidation(_distribuicao_Por_Tipo_InvestimentoRepository);
+            _validation = new DistribuicaoPorTipoInvestimentoValidation(_distribuicaoPorTipoInvestimentoRepository);
 
         }
 
         public async Task Delete(Guid id)
         {
             #warning IMPLEMENTAR VALIDAÇÃO 
-            await _distribuicao_Por_Tipo_InvestimentoRepository.Delete(id);
+            await _distribuicaoPorTipoInvestimentoRepository.Delete(id);
 
         }
 
         public async Task<IEnumerable<DistribuicaoPorTipoInvestimento>> GetManyBy(Expression<Func<DistribuicaoPorTipoInvestimento, bool>> predicate)
         {
-           return await _distribuicao_Por_Tipo_InvestimentoRepository.GetManyBy(predicate);
+           return await _distribuicaoPorTipoInvestimentoRepository.GetManyBy(predicate);
         }
 
         public async Task<bool> Insert(DistribuicaoPorTipoInvestimento entity)
@@ -43,14 +44,14 @@ namespace IHolder.Business.Services
 
             if (!RunValidation(_validation, entity))
                 return false;
-            return await _distribuicao_Por_Tipo_InvestimentoRepository.Insert(entity);
+            return await _distribuicaoPorTipoInvestimentoRepository.Insert(entity);
         }
 
         public Task<bool> Recalcular(DistribuicaoPorTipoInvestimento entity)
         {
-            var valor_total_por_tipo_investimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(entity.TipoInvestimentoId, entity.UsuarioId).Result;
+            var valorTotalPorTipoInvestimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(entity.TipoInvestimentoId, entity.UsuarioId).Result;
             var valor_total = _aporteRepository.ObterTotalAplicado(entity.UsuarioId).Result;
-            entity.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valor_total_por_tipo_investimento, valor_total);
+            entity.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipoInvestimento, valor_total);
             entity.AtualizarOrientacao();
             return Update(entity);
         }
@@ -59,7 +60,7 @@ namespace IHolder.Business.Services
         {
             if (!RunValidation(_validation, entity))
                 return false;
-            return await _distribuicao_Por_Tipo_InvestimentoRepository.Update(entity);
+            return await _distribuicaoPorTipoInvestimentoRepository.Update(entity);
         }
 
 

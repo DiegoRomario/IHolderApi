@@ -1,11 +1,9 @@
-﻿using IHolder.Domain.DomainObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace IHolder.Business.Repositories.Base
+namespace IHolder.Domain.DomainObjects
 {
     public interface IRepositoryBase<TEntity> : IDisposable where TEntity : Entity
     {

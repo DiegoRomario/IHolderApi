@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IHolder.Api.ViewModels
 {
-    public class RiscoViewModel : Informacoes_baseViewModel
+    public class RiscoViewModel : InformacoesBaseViewModel
     {
-        public IEnumerable<Tipo_investimentoViewModel> Tipos_investimentos { get; set; }
+        public IEnumerable<TipoInvestimentoViewModel> TiposInvestimentos { get; set; }
         public IEnumerable<AtivoViewModel> Ativos { get; set; }
     }
 }

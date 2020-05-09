@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace IHolder.Api.ViewModels
 {
-    public class Distribuicao_por_produtoViewModel
+    public class DistribuicaoPorProdutoViewModel
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Distribuicao_por_tipo_investimento_id { get; set; }
+        public int DistribuicaoPorTipoInvestimentoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Produto_id { get; set; }
+        public int ProdutoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public EOrientacao Orientacao { get; set; }
 
-        public Distribuicao_por_tipo_investimentoViewModel Distribuicao_por_tipo_investimento { get; set; }
+        public DistribuicaoPorTipoInvestimentoViewModel DistribuicaoPorTipoInvestimento { get; set; }
         public ProdutoViewModel Produto { get; set; }
     }
 }

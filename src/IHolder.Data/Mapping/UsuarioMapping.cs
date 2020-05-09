@@ -17,7 +17,7 @@ namespace IHolder.Data.Mapping
             .HasColumnType("VARCHAR(40)");
             builder.Property(p => p.Senha)
             .HasColumnType("VARCHAR(240)");
-            builder.Property(p => p.IncluidoEm)
+            builder.Property(p => p.DataInclusao)
             .IsRequired();
             builder.HasAlternateKey(a => a.Email);
             builder.Property(r => r.Genero)

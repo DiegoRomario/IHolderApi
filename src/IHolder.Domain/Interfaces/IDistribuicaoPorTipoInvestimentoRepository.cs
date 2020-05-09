@@ -1,7 +1,7 @@
 ﻿using IHolder.Domain.Entities;
-using IHolder.Business.Repositories.Base;
+using IHolder.Domain.DomainObjects;
 
-namespace IHolder.Business.Interfaces.Repositories
+namespace IHolder.Domain.Interfaces
 {
     public interface IDistribuicaoPorTipoInvestimentoRepository : IRepositoryBase<DistribuicaoPorTipoInvestimento>
     {

@@ -21,8 +21,8 @@ namespace IHolder.Domain.Entities
         public string Senha { get; private set; }
         public EGenero Genero { get; private set; }
 
-        public DateTime IncluidoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }
+        public DateTime DataInclusao { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
 
         public IEnumerable<DistribuicaoPorTipoInvestimento> DistribuicoesPorTiposInvestimentos { get; private set; }
         public IEnumerable<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; private set; }

@@ -1,12 +1,13 @@
 ﻿using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Interfaces.Repositories;
+
 using IHolder.Business.Interfaces.Services;
 using IHolder.Business.Services.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Business.Services
 {
@@ -37,9 +38,9 @@ namespace IHolder.Business.Services
             return _aporteRepository.ObterTotalAplicado(usuarioId);
         }
 
-        public Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipo_investimento_id, Guid usuarioId)
+        public Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipoInvestimentoId, Guid usuarioId)
         {
-            return _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(tipo_investimento_id, usuarioId);
+            return _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(tipoInvestimentoId, usuarioId);
         }
 
         public Task<bool> Update(Aporte entity)

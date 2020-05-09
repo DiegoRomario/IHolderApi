@@ -7,6 +7,11 @@ namespace IHolder.Domain.Entities
 {
     public class TipoInvestimento : Entity
     {
+
+        private TipoInvestimento()
+        {
+
+        }
         public TipoInvestimento(ERisco risco, Informacoes informacoes)
         {
             Risco = risco;

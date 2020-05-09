@@ -7,7 +7,7 @@ using Xunit;
 
 namespace IHolder.Tests.Domain.Tests
 {
-    public class Distribuicao_por_ativoTests
+    public class DistribuicaoPorAtivoTests
     {
     //    [Fact(DisplayName = "Atualizar Orientação")]
     //    [Trait("Distribuição Por Ativo", "Distribuição Por Ativo Trait Testes")]

@@ -1,10 +1,11 @@
 ﻿using IHolder.Domain.Entities;
-using IHolder.Business.Interfaces.Repositories;
+
 using IHolder.Data.Context;
 using IHolder.Data.Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using IHolder.Domain.Interfaces;
 
 namespace IHolder.Data.Repository
 {

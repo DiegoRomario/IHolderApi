@@ -7,7 +7,9 @@ namespace IHolder.Domain.Entities
 {
     public class DistribuicaoPorAtivo : Entity
     {
-
+        private DistribuicaoPorAtivo()
+        {
+        }
         public DistribuicaoPorAtivo(Guid ativoId, Guid usuarioId, Valores valores)
         {
             AtivoId = ativoId;
@@ -20,8 +22,8 @@ namespace IHolder.Domain.Entities
         public Guid AtivoId { get; private set; }
         public Guid UsuarioId { get; private set; }
         public EOrientacao Orientacao { get; private set; }
-        public DateTime IncluidoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }
+        public DateTime DataInclusao { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
 
         public Ativo Ativo { get; private set; }
         public Usuario Usuario { get; private set; }

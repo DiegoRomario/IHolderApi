@@ -10,8 +10,18 @@ namespace IHolder.Data.Mapping
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
             builder.HasKey(a => a.Id);
-            builder.Property(r => r.Informacoes.Descricao).IsRequired().HasColumnType("VARCHAR(30)");
-            builder.Property(r => r.Informacoes.Caracteristicas).IsRequired().HasColumnType("VARCHAR(240)");
+            builder.OwnsOne(a => a.Informacoes, i =>
+            {
+                i.Property(a => a.Descricao)
+                            .IsRequired()
+                            .HasColumnName("Descricao")
+                            .HasColumnType("VARCHAR(30)");
+
+                i.Property(c => c.Caracteristicas)
+                            .IsRequired()
+                            .HasColumnName("Caracteristicas")
+                            .HasColumnType("VARCHAR(240)");
+            });
             builder.Property(d => d.TipoInvestimentoId).IsRequired();
 
             builder.HasMany(p => p.DistribuicoesPorProdutos)
