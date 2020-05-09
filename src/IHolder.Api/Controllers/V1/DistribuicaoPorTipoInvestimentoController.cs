@@ -31,9 +31,9 @@ namespace IHolder.Api.Controllers.V1
         public async Task<ActionResult> Insert(DistribuicaoPorTipoInvestimentoViewModel model)
         {
             if (!ModelState.IsValid)
-                return ResponseBase(model);
+                return ResponseBase();
             await _distribuicaoPorTipoInvestimentoService.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(model));
-            return ResponseBase(model);
+            return ResponseBase();
 
         }
 
@@ -45,10 +45,10 @@ namespace IHolder.Api.Controllers.V1
             if (id != model.Id)
             {
                 NotifyError("O ID do registro informado para alteração está inválido.");
-                return ResponseBase(null);
+                return ResponseBase();
             }
             await _distribuicaoPorTipoInvestimentoService.Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(model));
-            return ResponseBase(model);
+            return ResponseBase();
 
         }
 
@@ -56,7 +56,7 @@ namespace IHolder.Api.Controllers.V1
         public async Task<ActionResult<IEnumerable<DistribuicaoPorTipoInvestimentoViewModel>>> GetManyBy()
         {
             IEnumerable<DistribuicaoPorTipoInvestimento> response = await _distribuicaoPorTipoInvestimentoService.GetManyBy(d => d.UsuarioId == _user.GetUserId());
-            return ResponseBase(response);
+            return ResponseBase();
         }
 
         [HttpPost("recalcular")]
@@ -65,7 +65,7 @@ namespace IHolder.Api.Controllers.V1
             if (!ModelState.IsValid)
                 return ResponseBase(ModelState);
             await _distribuicaoPorTipoInvestimentoService.Recalcular(_mapper.Map<DistribuicaoPorTipoInvestimento>(model));
-            return ResponseBase(model);
+            return ResponseBase();
 
         }
 

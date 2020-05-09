@@ -2,8 +2,8 @@
 {
     public enum EGenero : ushort
     {
-        Feminino = 0,
-        Masculino = 1,
-        Outro = 2
+        Feminino = 1,
+        Masculino = 2,
+        Outro = 3
     }
 }

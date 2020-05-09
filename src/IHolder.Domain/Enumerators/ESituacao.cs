@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace IHolder.Domain.Enumerators
+﻿namespace IHolder.Domain.Enumerators
 {
     public enum ESituacao : ushort
     {
-        Normal = 0,
-        Oprtunidade = 1,
-        Quarentena = 2
+        Normal = 1,
+        Oprtunidade = 2,
+        Quarentena = 3
     }
 }

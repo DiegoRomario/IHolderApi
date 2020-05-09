@@ -32,7 +32,7 @@ namespace IHolder.Api.Controllers.V1
         public async Task<ActionResult> GetAll()
         {
             var response = _mapper.Map<IEnumerable<AtivoViewModel>>(await _ativoService.GetAll());
-            return ResponseBase(response);
+            return ResponseBase();
         }
 
         [HttpPost]
@@ -42,7 +42,7 @@ namespace IHolder.Api.Controllers.V1
                 return ResponseBase(ModelState);
 
             var response = await _ativoService.Insert(_mapper.Map<Ativo>(model));
-            return ResponseBase(response);
+            return ResponseBase();
         }
 
     }

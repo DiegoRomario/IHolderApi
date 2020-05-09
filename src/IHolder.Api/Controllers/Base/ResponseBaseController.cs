@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using IHolder.Business.Base;
 using IHolder.Business.Interfaces;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Notifications;
@@ -25,22 +26,14 @@ namespace IHolder.Api.Controllers.Base
             _user = user;
         }
 
-        protected ActionResult ResponseBase(object result = null)
+        protected ActionResult ResponseBase(Response response = null)
         {
-            if (IsValid())
+            if (response.Success)
             {
-                return Ok(new
-                {
-                    success = true,
-                    data = result
-                });
+                return Ok(response);
 
             }
-            return BadRequest(new
-            {
-                success = false,
-                errors = _notifier.GetNotifications().Select(n => n.Message)
-            });
+            return BadRequest(response);
 
         }
 

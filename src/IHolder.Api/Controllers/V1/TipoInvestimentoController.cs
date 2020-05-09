@@ -36,7 +36,7 @@ namespace IHolder.Api.Controllers.V1
             if (!ModelState.IsValid)
                 return ResponseBase(ModelState);
             await _tipoInvestimentoService.Insert(_mapper.Map<TipoInvestimento>(model));
-            return ResponseBase(model);
+            return ResponseBase();
         }
 
         [HttpPut("{id:guid}")]
@@ -47,10 +47,10 @@ namespace IHolder.Api.Controllers.V1
             if (id != model.Id)
             {
                 NotifyError("O ID do registro informado para alteração está inválido.");
-                return ResponseBase(null);
+                return ResponseBase();
             }
             await _tipoInvestimentoService.Update(_mapper.Map<TipoInvestimento>(model));
-            return ResponseBase(model);
+            return ResponseBase();
         }
 
         [HttpGet]
@@ -58,7 +58,7 @@ namespace IHolder.Api.Controllers.V1
         public async Task<ActionResult<IEnumerable<TipoInvestimentoViewModel>>> GetAll()
         {
             IEnumerable<TipoInvestimento> response = await _tipoInvestimentoService.GetAll();
-            return ResponseBase(response);
+            return ResponseBase();
         }
 
     }

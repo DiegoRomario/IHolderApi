@@ -2,8 +2,8 @@
 {
     public enum EOrientacao : ushort
     {
-        Manter = 0,
-        Comprar = 1,
-        Vender = 2
+        Manter = 1,
+        Comprar = 2,
+        Vender = 3
     }
 }

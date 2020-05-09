@@ -7,7 +7,6 @@ using AutoMapper;
 using IHolder.Api.Configurations;
 using IHolder.Api.Controllers.Base;
 using IHolder.Api.ViewModels;
-using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Services;
@@ -28,19 +27,17 @@ namespace IHolder.Api.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class UsuarioController : ResponseBaseController
     {
-        private readonly IUsuarioService _usuarioService;
         private readonly AppSettings _appSettings;
         private readonly IUsuarioQueries _usuarioQueries;
         private readonly IMediator _mediatr;
         public UsuarioController(INotifier notifier,
             IMapper mapper,
-            IUsuarioService usuarioService,
             IOptions<AppSettings> appSettings,
-            IUser user, IUsuarioQueries usuarioQueries) : base(notifier, mapper, user)
+            IUser user, IUsuarioQueries usuarioQueries, IMediator mediatr) : base(notifier, mapper, user)
         {
-            _usuarioService = usuarioService;
             _appSettings = appSettings.Value;
             _usuarioQueries = usuarioQueries;
+            _mediatr = mediatr;
         }
         [AllowAnonymous]
         [HttpPost("entrar")]
@@ -53,19 +50,17 @@ namespace IHolder.Api.Controllers.V1
             if (usuario == null)
             {
                 NotifyError("Usuário e/ou senha inválidos");
-                return ResponseBase(usuario);
+                return ResponseBase();
             }
 
             GerarToken(usuario);
 
-            return ResponseBase(usuario);
+            return ResponseBase();
         }
         [AllowAnonymous]
         [HttpPost("cadastrar")]
         public async Task<ActionResult<UsuarioViewModel>> Insert ([FromBody] CadastrarUsuarioCommand model)
         {
-            if (!ModelState.IsValid) 
-                return ResponseBase(ModelState);
             Response response = await _mediatr.Send(model);
             return ResponseBase(response);
         }

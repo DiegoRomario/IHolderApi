@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using IHolder.Business.Commands;
+using IHolder.Domain.Entities;
 
 namespace IHolder.Business.Mappings
 {
@@ -6,7 +8,7 @@ namespace IHolder.Business.Mappings
     {
         public CommandToDomainProfile()
         {
-
+            CreateMap<CadastrarUsuarioCommand, Usuario>();
         }
     }
 }

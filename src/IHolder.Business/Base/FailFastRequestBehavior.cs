@@ -33,7 +33,7 @@ namespace IHolder.Business.Base
 
         private static Task<TResponse> Errors(IEnumerable<ValidationFailure> failures)
         {
-            var response = new Response(null);
+            var response = new Response();
 
             foreach (var failure in failures)
             {

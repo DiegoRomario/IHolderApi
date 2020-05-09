@@ -2,11 +2,13 @@
 using IHolder.Business.Base;
 using IHolder.Domain.Enumerators;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace IHolder.Business.Commands
 {
     public class CadastrarUsuarioCommand : IRequest<Response>
     {
+        [JsonConstructor]
         public CadastrarUsuarioCommand(string nome, string email, string senha, string confirmacaoSenha, EGenero genero)
         {
             Nome = nome;
@@ -15,11 +17,11 @@ namespace IHolder.Business.Commands
             ConfirmacaoSenha = confirmacaoSenha;
             Genero = genero;
         }
-        public EGenero Genero { get; private set; }
-        public string Nome { get; private set; }
-        public string Email { get; private set; }
-        public string Senha { get; private set; }
-        public string ConfirmacaoSenha { get; private set; }
+        public EGenero Genero { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
+        public string ConfirmacaoSenha { get; set; }
     }
 
     public class CadastrarUsuarioValidator : AbstractValidator<CadastrarUsuarioCommand>

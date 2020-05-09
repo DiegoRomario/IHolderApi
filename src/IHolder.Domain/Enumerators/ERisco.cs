@@ -2,10 +2,10 @@
 {
     public enum ERisco : ushort
     {
-        Baixo = 0,
-        MEdioBaixo = 1,
-        Médio = 2,
-        MedioAlto = 3, 
-        Alto = 4
+        Baixo = 1,
+        MEdioBaixo = 2,
+        Médio =3,
+        MedioAlto = 4, 
+        Alto = 5
     }
 }

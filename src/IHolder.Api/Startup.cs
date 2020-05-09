@@ -44,6 +44,8 @@ namespace IHolder.Api
 
             services.ResolveDependencies();
 
+            services.AddMediatRConfigurations();
+
             services.AddApiConfiguration();
 
             services.AddSwaggerConfiguration();
