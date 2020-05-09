@@ -1,5 +1,5 @@
-﻿using IHolder.Business.Entities;
-using IHolder.Business.Entities.Validations;
+﻿using IHolder.Domain.Entities;
+using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Repositories;
 using IHolder.Business.Interfaces.Services;
@@ -12,22 +12,22 @@ using System.Threading.Tasks;
 
 namespace IHolder.Business.Services
 {
-    public class Tipo_investimentoService : ServiceBase, ITipo_investimentoService
+    public class Tipo_investimentoService : ServiceBase, ITipoInvestimentoService
     {
-        private readonly ITipo_investimentoRepository _tipo_investimentoRepository;
-        private readonly Tipo_investimentoValidation tipo_investimentoValidation;
-        public Tipo_investimentoService(INotifier notifier, ITipo_investimentoRepository tipo_investimentoRepository) : base(notifier)
+        private readonly ITipoInvestimentoRepository _tipo_investimentoRepository;
+        private readonly TipoInvestimentoValidation tipo_investimentoValidation;
+        public Tipo_investimentoService(INotifier notifier, ITipoInvestimentoRepository tipo_investimentoRepository) : base(notifier)
         {
             _tipo_investimentoRepository = tipo_investimentoRepository;
-            tipo_investimentoValidation = new Tipo_investimentoValidation(_tipo_investimentoRepository);
+            tipo_investimentoValidation = new TipoInvestimentoValidation(_tipo_investimentoRepository);
         }
 
-        public async Task<IEnumerable<Tipo_investimento>> GetAll()
+        public async Task<IEnumerable<TipoInvestimento>> GetAll()
         {
             return await _tipo_investimentoRepository.GetAll();
         }
 
-        public async Task<bool> Insert(Tipo_investimento entity)
+        public async Task<bool> Insert(TipoInvestimento entity)
         {
 
             if (!RunValidation(tipo_investimentoValidation, entity))
@@ -37,7 +37,7 @@ namespace IHolder.Business.Services
 
         }
 
-        public async Task<bool> Update(Tipo_investimento entity)
+        public async Task<bool> Update(TipoInvestimento entity)
         {
             if (!RunValidation(tipo_investimentoValidation, entity))
                 return false;

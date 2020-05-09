@@ -368,3 +368,5 @@ D:\gitRepository\IHolder\src\IHolder.Api\obj\Debug\netcoreapp3.1\staticwebassets
 D:\gitRepository\IHolder\src\IHolder.Api\obj\Debug\netcoreapp3.1\IHolder.Api.dll
 D:\gitRepository\IHolder\src\IHolder.Api\obj\Debug\netcoreapp3.1\IHolder.Api.pdb
 D:\gitRepository\IHolder\src\IHolder.Api\obj\Debug\netcoreapp3.1\IHolder.Api.genruntimeconfig.cache
+D:\gitRepository\IHolder\src\IHolder.Api\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
+D:\gitRepository\IHolder\src\IHolder.Api\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb

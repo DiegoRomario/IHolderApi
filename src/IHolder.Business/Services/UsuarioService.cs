@@ -1,5 +1,5 @@
-﻿using IHolder.Business.Entities;
-using IHolder.Business.Entities.Validations;
+﻿using IHolder.Domain.Entities;
+using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Services;
 using IHolder.Business.Repositories.Base;

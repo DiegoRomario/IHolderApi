@@ -8,4 +8,8 @@
     <PackageReference Include="FluentValidation" Version="8.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IHolder.Domain\IHolder.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
-﻿using IHolder.Business.Entities;
-using IHolder.Business.Entities.Enumerators;
+﻿using IHolder.Domain.Entities;
+using IHolder.Domain.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.Text;

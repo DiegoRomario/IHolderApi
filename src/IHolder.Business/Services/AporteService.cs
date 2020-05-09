@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Repositories;
 using IHolder.Business.Interfaces.Services;
@@ -32,14 +32,14 @@ namespace IHolder.Business.Services
             throw new NotImplementedException();
         }
 
-        public Task<decimal> ObterTotalAplicado(Guid usuario_id)
+        public Task<decimal> ObterTotalAplicado(Guid usuarioId)
         {
-            return _aporteRepository.ObterTotalAplicado(usuario_id);
+            return _aporteRepository.ObterTotalAplicado(usuarioId);
         }
 
-        public Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipo_investimento_id, Guid usuario_id)
+        public Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipo_investimento_id, Guid usuarioId)
         {
-            return _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(tipo_investimento_id, usuario_id);
+            return _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(tipo_investimento_id, usuarioId);
         }
 
         public Task<bool> Update(Aporte entity)

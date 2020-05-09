@@ -1,8 +1,5 @@
-﻿using IHolder.Business.Entities;
-using IHolder.Business.Interfaces.Services.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using IHolder.Business.Interfaces.Services.Base;
+using IHolder.Domain.Entities;
 
 namespace IHolder.Business.Interfaces.Services
 {

@@ -28,3 +28,5 @@ D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.c
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.dll
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.pdb
 D:\gitRepository\IHolder\src\IHolder.Data\obj\Debug\netcoreapp3.1\IHolder.Data.genruntimeconfig.cache
+D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
+D:\gitRepository\IHolder\src\IHolder.Data\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb

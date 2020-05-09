@@ -869,10 +869,16 @@
       },
       "IHolder.Business/1.0.0": {
         "dependencies": {
-          "FluentValidation": "8.6.2"
+          "FluentValidation": "8.6.2",
+          "IHolder.Domain": "1.0.0"
         },
         "runtime": {
           "IHolder.Business.dll": {}
+        }
+      },
+      "IHolder.Domain/1.0.0": {
+        "runtime": {
+          "IHolder.Domain.dll": {}
         }
       }
     }
@@ -1507,6 +1513,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "IHolder.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IHolder.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

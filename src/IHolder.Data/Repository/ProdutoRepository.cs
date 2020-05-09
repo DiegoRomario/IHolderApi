@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces;
 using IHolder.Business.Interfaces.Repositories;
 using IHolder.Data.Context;
@@ -18,7 +18,7 @@ namespace IHolder.Data.Repository
         }
         public async Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid Tipo_investimento_id)
         {
-            return await GetManyBy(p => p.Tipo_investimento_id == Tipo_investimento_id);
+            return await GetManyBy(p => p.TipoInvestimentoId == Tipo_investimento_id);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities.Enumerators;
+﻿using IHolder.Domain.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

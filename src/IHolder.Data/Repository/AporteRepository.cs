@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces.Repositories;
 using IHolder.Data.Context;
 using IHolder.Data.Repository.Base;
@@ -16,24 +16,24 @@ namespace IHolder.Data.Repository
         {
         }
 
-        public async Task<decimal> ObterTotalAplicado(Guid usuario_id)
+        public async Task<decimal> ObterTotalAplicado(Guid usuarioId)
         {
             decimal total = await(from ap in _context.Aportes
-                                  join at in _context.Ativos on ap.Ativo_id equals at.Id
-                                  join pr in _context.Produtos on at.Produto_id equals pr.Id
-                                  where ap.Usuario_id == usuario_id
+                                  join at in _context.Ativos on ap.AtivoId equals at.Id
+                                  join pr in _context.Produtos on at.ProdutoId equals pr.Id
+                                  where ap.UsuarioId == usuarioId
                                   group pr.Id by new { ap.Quantidade, at.Cotacao } into atg
                                   select atg.Key.Cotacao * atg.Key.Quantidade)
                                         .SumAsync();
             return total;
         }
 
-        public async Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipo_investimento_id, Guid usuario_id)
+        public async Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipo_investimento_id, Guid usuarioId)
         {
             decimal total = await (from ap in _context.Aportes
-                                 join at in _context.Ativos on ap.Ativo_id equals at.Id
-                                 join pr in _context.Produtos on at.Produto_id equals pr.Id
-                                 where pr.Tipo_investimento_id == tipo_investimento_id && ap.Usuario_id == usuario_id
+                                 join at in _context.Ativos on ap.AtivoId equals at.Id
+                                 join pr in _context.Produtos on at.ProdutoId equals pr.Id
+                                 where pr.TipoInvestimentoId == tipo_investimento_id && ap.UsuarioId == usuarioId
                                  group pr.Id by new { ap.Quantidade, at.Cotacao } into atg
                                  select atg.Key.Cotacao * atg.Key.Quantidade)
                                         .SumAsync();

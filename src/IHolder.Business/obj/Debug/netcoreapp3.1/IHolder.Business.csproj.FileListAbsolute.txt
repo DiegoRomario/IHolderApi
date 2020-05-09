@@ -16,3 +16,6 @@ D:\gitRepository\IHolder\src\IHolder.Business\obj\Debug\netcoreapp3.1\IHolder.Bu
 D:\gitRepository\IHolder\src\IHolder.Business\obj\Debug\netcoreapp3.1\IHolder.Business.AssemblyInfo.cs
 D:\gitRepository\IHolder\src\IHolder.Business\obj\Debug\netcoreapp3.1\IHolder.Business.dll
 D:\gitRepository\IHolder\src\IHolder.Business\obj\Debug\netcoreapp3.1\IHolder.Business.pdb
+D:\gitRepository\IHolder\src\IHolder.Business\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
+D:\gitRepository\IHolder\src\IHolder.Business\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb
+D:\gitRepository\IHolder\src\IHolder.Business\obj\Debug\netcoreapp3.1\IHolder.Business.csproj.CopyComplete

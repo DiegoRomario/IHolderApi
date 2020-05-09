@@ -1,9 +1,7 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IHolder.Data.Context
@@ -15,11 +13,11 @@ namespace IHolder.Data.Context
 
         public DbSet<Aporte> Aportes { get; set; }
         public DbSet<Ativo> Ativos { get; set; }
-        public DbSet<Distribuicao_por_ativo> Distribuicoes_por_ativos { get; set; }
-        public DbSet<Distribuicao_por_produto> Distribuicoes_por_produtos { get; set; }
-        public DbSet<Distribuicao_por_tipo_investimento> Distribuicoes_por_tipos_investimentos { get; set; }
+        public DbSet<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; set; }
+        public DbSet<DistribuicaoPorProduto> DistribuicoesPorProdutos { get; set; }
+        public DbSet<DistribuicaoPorTipoInvestimento> DistribuicoesPorTiposInvestimentos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
-        public DbSet<Tipo_investimento> Tipos_investimentos { get; set; }
+        public DbSet<TipoInvestimento> TiposInvestimentos { get; set; }
 
         public DbSet<Usuario> Usuarios { get; set; }
 
@@ -27,6 +25,7 @@ namespace IHolder.Data.Context
         {
             HandleFieldType(modelBuilder, "VARCHAR(100)", typeof(string));
             HandleFieldType(modelBuilder, "DATETIME", typeof(DateTime));
+            HandleFieldType(modelBuilder, "DATETIME", typeof(Nullable<DateTime>));
             HandleFieldType(modelBuilder, "DECIMAL(12,2)", typeof(decimal));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IHolderContext).Assembly);
@@ -51,32 +50,20 @@ namespace IHolder.Data.Context
 
         public async Task<bool> Commit()
         {
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("Data_inclusao") != null))
+            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("IncluidoEm") != null && entry.Entity.GetType().GetProperty("AlteradoEm") != null))
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Property("Data_inclusao").CurrentValue = DateTime.Now;
+                    entry.Property("IncluidoEm").CurrentValue = DateTime.Now;
+                    entry.Property("AlteradoEm").IsModified = false;
                 }
 
                 if (entry.State == EntityState.Modified)
                 {
-                    entry.Property("Data_inclusao").IsModified = false;
+                    entry.Property("IncluidoEm").IsModified = false;
+                    entry.Property("AlteradoEm").CurrentValue = DateTime.Now;
                 }
             }
-
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("Data_alteracao") != null))
-            {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property("Data_alteracao").IsModified = false;
-                }
-
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property("Data_alteracao").CurrentValue = DateTime.Now;
-                }
-            }
-
 
             return await base.SaveChangesAsync() > 0;
         }

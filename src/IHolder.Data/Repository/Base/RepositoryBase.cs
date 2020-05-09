@@ -1,5 +1,4 @@
-﻿using IHolder.Business.Entities.Base;
-using IHolder.Business.Repositories.Base;
+﻿using IHolder.Business.Repositories.Base;
 using IHolder.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,10 +7,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Data.Repository.Base
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entidade_base
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entity
     {
         protected readonly IHolderContext _context;
         protected readonly DbSet<TEntity> _dbSet;

@@ -1297,13 +1297,24 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "FluentValidation": "8.6.2"
+          "FluentValidation": "8.6.2",
+          "IHolder.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/IHolder.Business.dll": {}
         },
         "runtime": {
           "bin/placeholder/IHolder.Business.dll": {}
+        }
+      },
+      "IHolder.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/IHolder.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IHolder.Domain.dll": {}
         }
       }
     }
@@ -4994,6 +5005,11 @@
       "type": "project",
       "path": "../IHolder.Business/IHolder.Business.csproj",
       "msbuildProject": "../IHolder.Business/IHolder.Business.csproj"
+    },
+    "IHolder.Domain/1.0.0": {
+      "type": "project",
+      "path": "../IHolder.Domain/IHolder.Domain.csproj",
+      "msbuildProject": "../IHolder.Domain/IHolder.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {

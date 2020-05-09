@@ -22,6 +22,16 @@
         "runtime": {
           "lib/netcoreapp2.0/_._": {}
         }
+      },
+      "IHolder.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/IHolder.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IHolder.Domain.dll": {}
+        }
       }
     }
   },
@@ -131,11 +141,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "IHolder.Domain/1.0.0": {
+      "type": "project",
+      "path": "../IHolder.Domain/IHolder.Domain.csproj",
+      "msbuildProject": "../IHolder.Domain/IHolder.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "FluentValidation >= 8.6.2"
+      "FluentValidation >= 8.6.2",
+      "IHolder.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -167,7 +183,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\gitRepository\\IHolder\\src\\IHolder.Domain\\IHolder.Domain.csproj": {
+              "projectPath": "D:\\gitRepository\\IHolder\\src\\IHolder.Domain\\IHolder.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

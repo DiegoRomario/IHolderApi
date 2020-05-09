@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities.Base;
+﻿using IHolder.Domain.DomainObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;

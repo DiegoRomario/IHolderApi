@@ -2,7 +2,7 @@
 using IHolder.Business.Repositories.Base;
 using System;
 
-namespace IHolder.Business.Entities.Validations
+namespace IHolder.Domain.Entities.Validations
 {
     public class UsuarioValidation : AbstractValidator<Usuario>
     {

@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,7 +17,7 @@ namespace IHolder.Tests.Domain.Tests
             // Act
             aporte.CalcularPrecoTotal();
             // Assert 
-            Assert.Equal(27596.25M, aporte.Preco_total, 2);
+            Assert.Equal(27596.25M, aporte.PrecoTotal, 2);
         }
     }
 }

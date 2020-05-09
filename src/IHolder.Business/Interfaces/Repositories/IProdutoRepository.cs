@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using IHolder.Business.Repositories.Base;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,6 @@ namespace IHolder.Business.Interfaces.Repositories
 {
     public interface IProdutoRepository : IRepositoryBase<Produto>
     {
-        Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid Tipo_investimento_id);
+        Task<IEnumerable<Produto>> ObterProdutosPorTipoInvestimento(Guid TipoInvestimentoId);
     }
 }

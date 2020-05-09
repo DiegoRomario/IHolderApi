@@ -196,3 +196,5 @@ D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tes
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.dll
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.pdb
 D:\gitRepository\IHolder\tests\IHolder.Tests\obj\Debug\netcoreapp3.1\IHolder.Tests.genruntimeconfig.cache
+D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Domain.dll
+D:\gitRepository\IHolder\tests\IHolder.Tests\bin\Debug\netcoreapp3.1\IHolder.Domain.pdb

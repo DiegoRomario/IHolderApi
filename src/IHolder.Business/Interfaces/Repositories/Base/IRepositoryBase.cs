@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Entities.Base;
+﻿using IHolder.Domain.DomainObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IHolder.Business.Repositories.Base
 {
-    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : Entidade_base
+    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : Entity
     {
         Task<bool> Insert(TEntity entity);
         Task<bool> Update(TEntity entity);

@@ -2930,7 +2930,8 @@
       },
       "IHolder.Business/1.0.0": {
         "dependencies": {
-          "FluentValidation": "8.6.2"
+          "FluentValidation": "8.6.2",
+          "IHolder.Domain": "1.0.0"
         },
         "runtime": {
           "IHolder.Business.dll": {}
@@ -2951,6 +2952,14 @@
         },
         "compile": {
           "IHolder.Data.dll": {}
+        }
+      },
+      "IHolder.Domain/1.0.0": {
+        "runtime": {
+          "IHolder.Domain.dll": {}
+        },
+        "compile": {
+          "IHolder.Domain.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -6154,6 +6163,11 @@
       "sha512": ""
     },
     "IHolder.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IHolder.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

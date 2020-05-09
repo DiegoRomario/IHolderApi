@@ -1,5 +1,5 @@
 ﻿using IHolder.Api.ViewModels.Base;
-using IHolder.Business.Entities.Enumerators;
+using IHolder.Domain.Enumerators;
 using System;
 
 namespace IHolder.Api.ViewModels

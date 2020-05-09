@@ -1,5 +1,5 @@
-﻿using IHolder.Business.Entities;
-using IHolder.Business.Entities.Validations;
+﻿using IHolder.Domain.Entities;
+using IHolder.Domain.Entities.Validations;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Repositories;
 using IHolder.Business.Interfaces.Services;
@@ -26,7 +26,7 @@ namespace IHolder.Business.Services
 
         public async Task Delete(Guid id)
         {
-            if (_aporteRepository.GetManyBy(a => a.Ativo_id == id).Result.Any())
+            if (_aporteRepository.GetManyBy(a => a.AtivoId == id).Result.Any())
                 Notify(new Notification("Este ativo não pode ser removido, pois encontra-se em lançamentos de distribuições e/ou aportes"));
             await _ativoRepository.Delete(id);
         }

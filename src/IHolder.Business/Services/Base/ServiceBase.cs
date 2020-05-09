@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using IHolder.Business.Entities.Base;
+using IHolder.Domain.DomainObjects;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Notifications;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace IHolder.Business.Services.Base
 {
@@ -32,7 +30,7 @@ namespace IHolder.Business.Services.Base
         }
 
         protected bool RunValidation<TValidation, TEntity>(TValidation validation, TEntity entity) 
-                                    where TValidation : AbstractValidator<TEntity> where TEntity : Entidade_base
+                                    where TValidation : AbstractValidator<TEntity> where TEntity : Entity
         {
             ValidationResult validator = validation.Validate(entity);
 

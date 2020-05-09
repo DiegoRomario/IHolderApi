@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-namespace IHolder.Business.Entities.Validations
+namespace IHolder.Domain.Entities.Validations
 {
     public class AtivoValidation : AbstractValidator<Ativo>
     {

@@ -9,7 +9,7 @@ using AutoMapper;
 using IHolder.Api.Configurations;
 using IHolder.Api.Controllers.Base;
 using IHolder.Api.ViewModels;
-using IHolder.Business.Entities;
+using IHolder.Domain.Entities;
 using IHolder.Business.Interfaces;
 using IHolder.Business.Interfaces.Notifications;
 using IHolder.Business.Interfaces.Services;

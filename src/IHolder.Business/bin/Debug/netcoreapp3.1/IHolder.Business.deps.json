@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "IHolder.Business/1.0.0": {
         "dependencies": {
-          "FluentValidation": "8.6.2"
+          "FluentValidation": "8.6.2",
+          "IHolder.Domain": "1.0.0"
         },
         "runtime": {
           "IHolder.Business.dll": {}
@@ -25,7 +26,12 @@
           }
         }
       },
-      "System.ComponentModel.Annotations/4.4.1": {}
+      "System.ComponentModel.Annotations/4.4.1": {},
+      "IHolder.Domain/1.0.0": {
+        "runtime": {
+          "IHolder.Domain.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -47,6 +53,11 @@
       "sha512": "sha512-ToiYqSCioqhtspq2O/jYKtyTC/T0uwWHBTYlzCi6PRbSSHArN1IaRWeHffDamvms5sye5FDUWCfNZgubQpNRsA==",
       "path": "system.componentmodel.annotations/4.4.1",
       "hashPath": "system.componentmodel.annotations.4.4.1.nupkg.sha512"
+    },
+    "IHolder.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

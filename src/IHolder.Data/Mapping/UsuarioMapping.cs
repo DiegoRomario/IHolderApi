@@ -1,9 +1,6 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IHolder.Data.Mapping
 {
@@ -20,32 +17,32 @@ namespace IHolder.Data.Mapping
             .HasColumnType("VARCHAR(40)");
             builder.Property(p => p.Senha)
             .HasColumnType("VARCHAR(240)");
-            builder.Property(p => p.Data_inclusao)
+            builder.Property(p => p.IncluidoEm)
             .IsRequired();
             builder.HasAlternateKey(a => a.Email);
             builder.Property(r => r.Genero)
                     .IsRequired()
                     .HasColumnType("TINYINT");
 
-            builder.HasMany(p => p.Distribuicoes_por_tipos_investimentos)
+            builder.HasMany(p => p.DistribuicoesPorTiposInvestimentos)
                     .WithOne(a => a.Usuario)
-                    .HasForeignKey(a => a.Usuario_id);
-            builder.HasMany(p => p.Distribuicoes_por_produtos)
+                    .HasForeignKey(a => a.UsuarioId);
+            builder.HasMany(p => p.DistribuicoesPorProdutos)
                     .WithOne(a => a.Usuario)
-                    .HasForeignKey(a => a.Usuario_id);
-            builder.HasMany(p => p.Distribuicoes_por_ativos)
+                    .HasForeignKey(a => a.UsuarioId);
+            builder.HasMany(p => p.DistribuicoesPorAtivos)
                     .WithOne(a => a.Usuario)
-                    .HasForeignKey(a => a.Usuario_id);
+                    .HasForeignKey(a => a.UsuarioId);
             builder.HasMany(p => p.Aportes)
                     .WithOne(a => a.Usuario)
-                    .HasForeignKey(a => a.Usuario_id);
+                    .HasForeignKey(a => a.UsuarioId);
             builder.HasMany(p => p.Ativos)
                     .WithOne(a => a.Usuario)
-                    .HasForeignKey(a => a.Usuario_id);
+                    .HasForeignKey(a => a.UsuarioId);
 
-            builder.HasMany(p => p.Situacoes_por_ativos)
+            builder.HasMany(p => p.SituacoesPorAtivos)
             .WithOne(a => a.Usuario)
-            .HasForeignKey(a => a.Usuario_id);
+            .HasForeignKey(a => a.UsuarioId);
 
             builder.ToTable("Usuario");
         }

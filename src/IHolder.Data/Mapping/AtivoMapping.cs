@@ -1,29 +1,28 @@
-﻿using IHolder.Business.Entities;
+﻿using IHolder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IHolder.Data.Mapping
 {
-    public class AtivoMapping : Informacoes_baseMapping<Ativo>
+    public class AtivoMapping : IEntityTypeConfiguration<Ativo>
     {
 
-        public override void Configure(EntityTypeBuilder<Ativo> builder)
+        public void Configure(EntityTypeBuilder<Ativo> builder)
         {
-            base.Configure(builder);
+            builder.HasKey(a => a.Id);
+            builder.Property(r => r.Informacoes.Descricao).IsRequired().HasColumnType("VARCHAR(30)");
+            builder.Property(r => r.Informacoes.Caracteristicas).IsRequired().HasColumnType("VARCHAR(240)");
             builder.Property(a => a.Ticker).HasColumnType("VARCHAR(50)").IsRequired();
             builder.Property(a => a.Cotacao).IsRequired();
             builder.Property(a => a.Risco)
                     .IsRequired()
                     .HasColumnType("TINYINT");
-            builder.Property(a => a.Produto_id).IsRequired();
-            builder.Property(p => p.Data_inclusao).IsRequired();
-            builder.Property(p => p.Usuario_id).IsRequired();
-            builder.HasMany(r => r.Distribuicoes_por_ativos).WithOne(d => d.Ativo).HasForeignKey(d => d.Ativo_id);
-            builder.HasMany(r => r.Aportes).WithOne(d => d.Ativo).HasForeignKey(d => d.Ativo_id);
-            builder.HasMany(r => r.Situacoes_por_ativos).WithOne(d => d.Ativo).HasForeignKey(d => d.Ativo_id);
+            builder.Property(a => a.ProdutoId).IsRequired();
+            builder.Property(p => p.IncluidoEm).IsRequired();
+            builder.Property(p => p.UsuarioId).IsRequired();
+            builder.HasMany(r => r.DistribuicoesPorAtivos).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
+            builder.HasMany(r => r.Aportes).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
+            builder.HasMany(r => r.SituacoesPorAtivos).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
             builder.ToTable("Ativo");
         }
     }
