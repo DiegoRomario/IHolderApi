@@ -24,24 +24,20 @@ namespace IHolder.Api.Controllers.V1
         private readonly IAtivoService _ativoService;
 
         public AtivoController(IAtivoService ativoService, IMapper mapper, INotifier notifier, IUser user) 
-                                : base(notifier, mapper, user)
         {
             this._ativoService = ativoService;
         }
         [HttpGet()]
         public async Task<ActionResult> GetAll()
         {
-            var response = _mapper.Map<IEnumerable<AtivoViewModel>>(await _ativoService.GetAll());
+            //var response = _mapper.Map<IEnumerable<AtivoViewModel>>(await _ativoService.GetAll());
             return ResponseBase();
         }
 
         [HttpPost]
         public async Task<ActionResult> Insert(AtivoViewModel model)
         {
-            if (!ModelState.IsValid)
-                return ResponseBase(ModelState);
-
-            var response = await _ativoService.Insert(_mapper.Map<Ativo>(model));
+            //var response = await _ativoService.Insert(_mapper.Map<Ativo>(model));
             return ResponseBase();
         }
 

@@ -4,23 +4,35 @@ using System.Linq;
 
 namespace IHolder.Business.Base
 {
-    public class Response
+    public class Response : IResponse
     {
-        private readonly IList<string> _messages;
-        public IEnumerable<string> Messages { get; }
-        public object Data { get; }
-        public bool Success { get;  }
-        public Response(object result = null)
+        private readonly List<string> _messages;
+        public IEnumerable<string> Errors { get; }
+        public object Data { get; private set; }
+        public bool Result { get; private set; }
+        public Response()
         {
             _messages = new List<string>();
-            Messages = new ReadOnlyCollection<string>(_messages);
-            Success = _messages.Count <= 0;
-            Data = result;
+            Errors = new ReadOnlyCollection<string>(_messages);
         }
 
-        public Response AddError(string message)
+        public Response Success(object result)
+        {
+            Data = result;
+            Result = true;
+            return this;
+        }
+
+        public Response Error(string message)
         {
             _messages.Add(message);
+            Result = false;
+            return this;
+        }
+        public Response Error(IEnumerable<string> messages)
+        {
+            _messages.AddRange(messages);
+            Result = false;
             return this;
         }
     }

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +11,12 @@ namespace IHolder.Business.Base
          where TRequest : IRequest<TResponse> where TResponse : Response
     {
         private readonly IEnumerable<IValidator> _validators;
+        private readonly IResponse _response;
 
-        public FailFastRequestBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public FailFastRequestBehavior(IEnumerable<IValidator<TRequest>> validators, IResponse response)
         {
             _validators = validators;
+            _response = response;
         }
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -26,21 +27,16 @@ namespace IHolder.Business.Base
                 .Where(f => f != null)
                 .ToList();
 
-            return failures.Any()
-                ? Errors(failures)
-                : next();
-        }
-
-        private static Task<TResponse> Errors(IEnumerable<ValidationFailure> failures)
-        {
-            var response = new Response();
-
-            foreach (var failure in failures)
+            if (failures.Any())
             {
-                response.AddError(failure.ErrorMessage);
+                foreach (var failure in failures)
+                {
+                    _response.Error(failure.ErrorMessage);
+                }
+                return Task.FromResult(_response as TResponse);
             }
 
-            return Task.FromResult(response as TResponse);
+            return  next();
         }
     }
 }

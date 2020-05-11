@@ -25,7 +25,6 @@ namespace IHolder.Api.Controllers.V1
         public TipoInvestimentoController(INotifier notifier,
             IMapper mapper,
             ITipoInvestimentoService tipoInvestimentoService, IUser user)
-            : base(notifier, mapper, user)
         {
             _tipoInvestimentoService = tipoInvestimentoService;
         }
@@ -33,23 +32,23 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost()]
         public async Task<ActionResult> Insert(TipoInvestimentoViewModel model)
         {
-            if (!ModelState.IsValid)
-                return ResponseBase(ModelState);
-            await _tipoInvestimentoService.Insert(_mapper.Map<TipoInvestimento>(model));
+            //if (!ModelState.IsValid)
+            //    return ResponseBase(ModelState);
+            //await _tipoInvestimentoService.Insert(_mapper.Map<TipoInvestimento>(model));
             return ResponseBase();
         }
 
         [HttpPut("{id:guid}")]
         public async Task <ActionResult> Update(Guid id, TipoInvestimentoViewModel model)
         {
-            if (!ModelState.IsValid)
-                return ResponseBase(ModelState);
-            if (id != model.Id)
-            {
-                NotifyError("O ID do registro informado para alteração está inválido.");
-                return ResponseBase();
-            }
-            await _tipoInvestimentoService.Update(_mapper.Map<TipoInvestimento>(model));
+            //if (!ModelState.IsValid)
+            //    return ResponseBase(ModelState);
+            //if (id != model.Id)
+            //{
+            //    NotifyError("O ID do registro informado para alteração está inválido.");
+            //    return ResponseBase();
+            //}
+            //await _tipoInvestimentoService.Update(_mapper.Map<TipoInvestimento>(model));
             return ResponseBase();
         }
 
@@ -57,7 +56,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<TipoInvestimentoViewModel>>> GetAll()
         {
-            IEnumerable<TipoInvestimento> response = await _tipoInvestimentoService.GetAll();
+            //IEnumerable<TipoInvestimento> response = await _tipoInvestimentoService.GetAll();
             return ResponseBase();
         }
 
