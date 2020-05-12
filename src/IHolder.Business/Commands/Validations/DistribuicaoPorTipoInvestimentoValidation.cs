@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using IHolder.Domain.Interfaces;
+using IHolder.Domain.DomainObjects;
 using System;
 using System.Linq;
 
@@ -7,8 +7,8 @@ namespace IHolder.Domain.Entities.Validations
 {
     public class DistribuicaoPorTipoInvestimentoValidation : AbstractValidator<DistribuicaoPorTipoInvestimento>
     {
-        private readonly IDistribuicaoPorTipoInvestimentoRepository _distribuicaoPorTipoInvestimentoRepository;
-        public DistribuicaoPorTipoInvestimentoValidation(IDistribuicaoPorTipoInvestimentoRepository distribuicaoPorTipoInvestimentoRepository)
+        private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoPorTipoInvestimentoRepository;
+        public DistribuicaoPorTipoInvestimentoValidation(IRepositoryBase<DistribuicaoPorTipoInvestimento> distribuicaoPorTipoInvestimentoRepository)
         {
             _distribuicaoPorTipoInvestimentoRepository = distribuicaoPorTipoInvestimentoRepository;
             RuleFor(d => d.Valores.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O Percentual objetivo deve estar entre {From} e {To}.");

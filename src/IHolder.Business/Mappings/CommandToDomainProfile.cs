@@ -9,6 +9,7 @@ namespace IHolder.Business.Mappings
         public CommandToDomainProfile()
         {
             CreateMap<CadastrarUsuarioCommand, Usuario>();
+            CreateMap<CadastrarDistribuicaoPorTipoInvestimentoCommand, DistribuicaoPorTipoInvestimento>();
         }
     }
 }

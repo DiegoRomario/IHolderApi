@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using IHolder.Domain.Interfaces;
+using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Data.Repository
 {
-    public class TipoInvestimentoRepository : RepositoryBase<TipoInvestimento>, ITipoInvestimentoRepository
+    public class TipoInvestimentoRepository : RepositoryBase<TipoInvestimento>, IRepositoryBase<TipoInvestimento>
     {
         public TipoInvestimentoRepository(IHolderContext context) : base(context)
         {

@@ -10,16 +10,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using IHolder.Domain.Interfaces;
+using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Business.Services
 {
     public class DistribuicaoPorTipoInvestimentoService : ServiceBase, IDistribuicaoPorTipoInvestimentoService
     {
-        private readonly IDistribuicaoPorTipoInvestimentoRepository _distribuicaoPorTipoInvestimentoRepository;
+        private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoPorTipoInvestimentoRepository;
         private readonly IAporteRepository _aporteRepository;
         private readonly DistribuicaoPorTipoInvestimentoValidation _validation;
         public DistribuicaoPorTipoInvestimentoService(INotifier notifier,
-                                                         IDistribuicaoPorTipoInvestimentoRepository distribuicaoPorTipoInvestimentoRepository, IAporteRepository aporteRepository) : base(notifier)
+                                                         IRepositoryBase<DistribuicaoPorTipoInvestimento> distribuicaoPorTipoInvestimentoRepository, IAporteRepository aporteRepository) : base(notifier)
         {
             _distribuicaoPorTipoInvestimentoRepository = distribuicaoPorTipoInvestimentoRepository;
             _aporteRepository = aporteRepository;

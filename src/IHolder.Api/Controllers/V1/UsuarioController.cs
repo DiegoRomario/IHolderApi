@@ -25,13 +25,13 @@ namespace IHolder.Api.Controllers.V1
         }
         [AllowAnonymous]
         [HttpPost("entrar")]
-        public async Task<ActionResult<Usuario_resposta_autenticacaoViewModel>> Login([FromBody] UsuarioLoginArgs login)
+        public async Task<ActionResult> Login([FromBody] UsuarioLoginArgs login)
         {
             return ResponseBase(await _usuarioQueries.AutenticarUsuario(login));
         }
         [AllowAnonymous]
         [HttpPost("cadastrar")]
-        public async Task<ActionResult<UsuarioViewModel>> Insert ([FromBody] CadastrarUsuarioCommand model)
+        public async Task<ActionResult> Insert ([FromBody] CadastrarUsuarioCommand model)
         {
             return ResponseBase(await mediator.Send(model));
         }

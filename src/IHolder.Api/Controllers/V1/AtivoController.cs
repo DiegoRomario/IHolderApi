@@ -23,23 +23,23 @@ namespace IHolder.Api.Controllers.V1
     {
         private readonly IAtivoService _ativoService;
 
-        public AtivoController(IAtivoService ativoService, IMapper mapper, INotifier notifier, IUser user) 
-        {
-            this._ativoService = ativoService;
-        }
-        [HttpGet()]
-        public async Task<ActionResult> GetAll()
-        {
-            //var response = _mapper.Map<IEnumerable<AtivoViewModel>>(await _ativoService.GetAll());
-            return ResponseBase();
-        }
+        //public AtivoController(IAtivoService ativoService, IMapper mapper, INotifier notifier, IUser user) 
+        //{
+        //    this._ativoService = ativoService;
+        //}
+        //[HttpGet()]
+        //public async Task<ActionResult> GetAll()
+        //{
+        //    //var response = _mapper.Map<IEnumerable<AtivoViewModel>>(await _ativoService.GetAll());
+        //    return ResponseBase();
+        //}
 
-        [HttpPost]
-        public async Task<ActionResult> Insert(AtivoViewModel model)
-        {
-            //var response = await _ativoService.Insert(_mapper.Map<Ativo>(model));
-            return ResponseBase();
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> Insert(AtivoViewModel model)
+        //{
+        //    //var response = await _ativoService.Insert(_mapper.Map<Ativo>(model));
+        //    return ResponseBase();
+        //}
 
     }
 }

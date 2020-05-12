@@ -2,10 +2,9 @@
 {
     public class Valores
     {
-        public Valores(decimal percentualObjetivo, decimal valorAtual)
+        public Valores(decimal percentualObjetivo)
         {
             PercentualObjetivo = percentualObjetivo;
-            ValorAtual = valorAtual;
         }
 
         public decimal PercentualObjetivo { get; private set; }

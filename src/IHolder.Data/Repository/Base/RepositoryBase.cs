@@ -11,12 +11,12 @@ using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Data.Repository.Base
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entity
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entity
     {
         protected readonly IHolderContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
-        protected RepositoryBase(IHolderContext context)
+        public RepositoryBase(IHolderContext context)
         {
             this._context = context;
             _dbSet = context.Set<TEntity>();
