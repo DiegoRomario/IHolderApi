@@ -29,12 +29,14 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUser, AspNetUser>();
             services.AddTransient<IUsuarioQueries, UsuarioQueries>();
+            services.AddTransient<IDistribuicaoPorTipoInvestimentoQueries, DistribuicaoPorTipoInvestimentoQueries>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IAporteRepository, AporteRepository>();  
             services.AddScoped<IAtivoService, AtivoService>();
 
             services.AddScoped<ITipoInvestimentoService, TipoInvestimentoService>();
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddScoped<IDistribuicaoPorTipoInvestimentoRepository, DistribuicaoPorTipoInvestimentoRepository>();
             services.AddScoped<IDistribuicaoPorTipoInvestimentoService, DistribuicaoPorTipoInvestimentoService>();
 
             services.AddScoped<IAporteRepository, AporteRepository>();

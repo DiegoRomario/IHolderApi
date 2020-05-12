@@ -18,7 +18,6 @@ namespace IHolder.Business.Queries
         private readonly IRepositoryBase<Usuario> _repositoryBase;
         private readonly IMapper _mapper;
         private readonly IResponse _response;
-
         private readonly AppSettings _appSettings;
         public UsuarioQueries(IRepositoryBase<Usuario> repositoryBase, IMapper mapper, IOptions<AppSettings> appSettings, IResponse response)
         {

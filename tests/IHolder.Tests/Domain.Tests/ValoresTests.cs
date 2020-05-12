@@ -6,7 +6,7 @@ namespace IHolder.Tests.Domain.Tests
 
     public class ValoresTests
     {
-        Valores valores = new Valores(10, 6500);
+        Valores valores = new Valores(10);
 
         public ValoresTests()
         {

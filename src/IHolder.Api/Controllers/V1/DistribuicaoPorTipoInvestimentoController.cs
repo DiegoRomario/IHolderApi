@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using IHolder.Api.Controllers.Base;
-using IHolder.Api.ViewModels;
-using IHolder.Domain.Entities;
-using IHolder.Business.Interfaces;
-using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using IHolder.Business.Commands;
+using IHolder.Business.Base;
+using IHolder.Domain.Interfaces;
+using IHolder.Business.Queries;
 
 namespace IHolder.Api.Controllers.V1
 {
@@ -21,50 +17,45 @@ namespace IHolder.Api.Controllers.V1
     public class DistribuicaoPorTipoInvestimentoController : ResponseBaseController
     {
         private readonly IMediator _mediator;
+        private readonly IResponse _response;
+        private readonly IDistribuicaoPorTipoInvestimentoQueries _distribuicaoPorTipoInvestimentoQueries;
 
-        public DistribuicaoPorTipoInvestimentoController(IMediator mediator)
+        public DistribuicaoPorTipoInvestimentoController(IMediator mediator, IResponse response, IDistribuicaoPorTipoInvestimentoQueries distribuicaoPorTipoInvestimentoQueries)
         {
-            this._mediator = mediator;
+            _mediator = mediator;
+            _response = response;
+            _distribuicaoPorTipoInvestimentoQueries = distribuicaoPorTipoInvestimentoQueries;
         }
 
         [HttpPost()]
         [AllowAnonymous]
-        public async Task<ActionResult> Insert([FromBody]CadastrarDistribuicaoPorTipoInvestimentoCommand command)
+        public async Task<ActionResult> Cadastrar([FromBody]CadastrarDistribuicaoPorTipoInvestimentoCommand command)
         { 
             return ResponseBase(await _mediator.Send(command));
         }
 
-        //[HttpPut("{id:guid}")]
-        //public async Task<ActionResult> Insert(Guid id, DistribuicaoPorTipoInvestimentoViewModel model)
-        //{
-        //    //if (!ModelState.IsValid)
-        //    //    return ResponseBase(ModelState);
-        //    //if (id != model.Id)
-        //    //{
-        //    //    NotifyError("O ID do registro informado para alteração está inválido.");
-        //    //    return ResponseBase();
-        //    //}
-        //    //await _distribuicaoPorTipoInvestimentoService.Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(model));
-        //    return ResponseBase();
+        [HttpPut("{id:guid}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Alterar(Guid id, AlterarDistribuicaoPorTipoInvestimentoCommand command)
+        {
+            if (id != command.Id)            
+                return ResponseBase(_response.Error("O ID do registro informado para alteração está inválido."));
+            else
+                return ResponseBase(await _mediator.Send(command));
+        }
 
-        //}
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult> ObterDistribuicoesPorTipoInvestimento()
+        {
+            return ResponseBase(await _distribuicaoPorTipoInvestimentoQueries.ObterDistribuicaoPorTipoInvestimento());
+        }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<DistribuicaoPorTipoInvestimentoViewModel>>> GetManyBy()
-        //{
-        //    //IEnumerable<DistribuicaoPorTipoInvestimento> response = await _distribuicaoPorTipoInvestimentoService.GetManyBy(d => d.UsuarioId == _user.GetUserId());
-        //    return ResponseBase();
-        //}
-
-        //[HttpPost("recalcular")]
-        //public async Task<ActionResult> Recalcular(DistribuicaoPorTipoInvestimentoViewModel model)
-        //{
-        //    //if (!ModelState.IsValid)
-        //    //    return ResponseBase(ModelState);
-        //    //await _distribuicaoPorTipoInvestimentoService.Recalcular(_mapper.Map<DistribuicaoPorTipoInvestimento>(model));
-        //    return ResponseBase();
-
-        //}
+        [HttpPost("recalcular")]
+        public async Task<ActionResult> Recalcular()
+        {
+            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand(new Guid("EC1C63CE-5733-47B5-860C-23D7E62660E7"))));
+        }
 
     }
 }

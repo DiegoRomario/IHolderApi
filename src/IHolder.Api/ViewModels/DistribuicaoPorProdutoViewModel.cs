@@ -15,8 +15,6 @@ namespace IHolder.Api.ViewModels
         public int ProdutoId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public EOrientacao Orientacao { get; set; }
-
-        public DistribuicaoPorTipoInvestimentoViewModel DistribuicaoPorTipoInvestimento { get; set; }
         public ProdutoViewModel Produto { get; set; }
     }
 }

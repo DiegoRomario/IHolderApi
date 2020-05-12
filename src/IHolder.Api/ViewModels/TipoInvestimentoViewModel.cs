@@ -12,7 +12,6 @@ namespace IHolder.Api.ViewModels
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public ERisco Risco { get; set; }
-        public IEnumerable<DistribuicaoPorTipoInvestimentoViewModel> DistribuicoesPorTiposInvestimentos { get; private set; }
         public IEnumerable<ProdutoViewModel> Produtos { get; private set; }
     }
 }
