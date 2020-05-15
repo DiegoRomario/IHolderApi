@@ -14,7 +14,7 @@ namespace IHolder.Domain.Entities
         {
             AtivoId = ativoId;
             UsuarioId = usuarioId;
-            Orientacao = EOrientacao.Manter;
+            Orientacao = EOrientacao.Hold;
             Valores = valores;
         }
 

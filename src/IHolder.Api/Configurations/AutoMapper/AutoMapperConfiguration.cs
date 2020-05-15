@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using IHolder.Business.Mappings;
+using IHolder.Application.Mappings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IHolder.Api.Configurations.AutoMapper

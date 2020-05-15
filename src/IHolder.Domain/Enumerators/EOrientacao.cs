@@ -2,8 +2,8 @@
 {
     public enum EOrientacao : ushort
     {
-        Manter = 1,
-        Comprar = 2,
-        Vender = 3
+        Hold = 1,
+        Buy = 2,
+        Sell = 3
     }
 }

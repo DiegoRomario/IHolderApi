@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IHolder.Business\IHolder.Business.csproj" />
+    <ProjectReference Include="..\IHolder.Application\IHolder.Application.csproj" />
   </ItemGroup>
 
 </Project>

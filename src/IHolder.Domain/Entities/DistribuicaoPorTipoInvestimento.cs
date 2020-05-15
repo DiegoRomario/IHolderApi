@@ -16,7 +16,7 @@ namespace IHolder.Domain.Entities
         public DistribuicaoPorTipoInvestimento(Guid tipoInvestimentoId, Guid usuarioId, Valores valores)
         {
             TipoInvestimentoId = tipoInvestimentoId;
-            Orientacao = EOrientacao.Manter;
+            Orientacao = EOrientacao.Hold;
             UsuarioId = usuarioId;
             Valores = valores;
         }
@@ -37,9 +37,9 @@ namespace IHolder.Domain.Entities
         public void AtualizarOrientacao()
         {
             if (Valores.PercentualDiferenca <= 0)
-                Orientacao = EOrientacao.Manter;
+                Orientacao = EOrientacao.Hold;
             else
-                Orientacao = EOrientacao.Comprar;
+                Orientacao = EOrientacao.Buy;
         }
 
     }

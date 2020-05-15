@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Base;
+﻿using IHolder.Application.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

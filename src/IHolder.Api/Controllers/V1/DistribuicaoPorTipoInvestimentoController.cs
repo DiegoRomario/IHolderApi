@@ -4,10 +4,10 @@ using IHolder.Api.Controllers.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using IHolder.Business.Commands;
-using IHolder.Business.Base;
-using IHolder.Domain.Interfaces;
-using IHolder.Business.Queries;
+using IHolder.Application.Commands;
+using IHolder.Application.Base;
+using IHolder.Application.Queries;
+using System.Threading;
 
 namespace IHolder.Api.Controllers.V1
 {
@@ -54,6 +54,7 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
+
             return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand(new Guid("EC1C63CE-5733-47B5-860C-23D7E62660E7"))));
         }
 

@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Api", "src\IHolder.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Data", "src\IHolder.Data\IHolder.Data.csproj", "{DE095F9C-54D5-44CD-90A2-A30CA828ABB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Business", "src\IHolder.Business\IHolder.Business.csproj", "{87340917-B921-495C-A2A7-A5A1A6915BDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Application", "src\IHolder.Application\IHolder.Application.csproj", "{87340917-B921-495C-A2A7-A5A1A6915BDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Tests", "tests\IHolder.Tests\IHolder.Tests.csproj", "{D5F7517A-FC83-4A21-9120-9E0E357329CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IHolder.Domain", "src\IHolder.Domain\IHolder.Domain.csproj", "{CF7926A9-7B84-46A0-9029-AD615D84444E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IHolder.Domain", "src\IHolder.Domain\IHolder.Domain.csproj", "{CF7926A9-7B84-46A0-9029-AD615D84444E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

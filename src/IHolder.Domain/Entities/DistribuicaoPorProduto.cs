@@ -15,7 +15,7 @@ namespace IHolder.Domain.Entities
         {
             DistribuicaoPorTipoInvestimentoId = distribuicaoPorTipoInvestimentoId;
             ProdutoId = produtoId;
-            Orientacao = EOrientacao.Manter;
+            Orientacao = EOrientacao.Hold;
             UsuarioId = usuarioId;
             Valores = valores;
         }

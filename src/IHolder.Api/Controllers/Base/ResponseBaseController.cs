@@ -1,4 +1,4 @@
-﻿using IHolder.Business.Base;
+﻿using IHolder.Application.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IHolder.Api.Controllers.Base

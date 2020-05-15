@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\IHolder.Business\IHolder.Business.csproj" />
+    <ProjectReference Include="..\..\src\IHolder.Application\IHolder.Application.csproj" />
   </ItemGroup>
 
 </Project>

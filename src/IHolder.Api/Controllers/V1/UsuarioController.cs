@@ -3,10 +3,10 @@ using IHolder.Api.Controllers.Base;
 using IHolder.Api.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IHolder.Business.Queries;
+using IHolder.Application.Queries;
 using MediatR;
-using IHolder.Business.Commands;
-using IHolder.Business.Base;
+using IHolder.Application.Commands;
+using IHolder.Application.Base;
 
 namespace IHolder.Api.Controllers.V1
 {

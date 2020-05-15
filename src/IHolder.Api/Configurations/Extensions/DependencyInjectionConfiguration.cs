@@ -1,18 +1,18 @@
-﻿using IHolder.Business.Interfaces;
-using IHolder.Business.Interfaces.Services;
-using IHolder.Business.Services;
+﻿using IHolder.Application.Interfaces;
+using IHolder.Application.Interfaces.Services;
+using IHolder.Application.Services;
 using IHolder.Data.Context;
 using IHolder.Data.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using IHolder.Business.Queries;
+using IHolder.Application.Queries;
 using IHolder.Domain.DomainObjects;
 using IHolder.Domain.Interfaces;
-using IHolder.Business.Base;
-using IHolder.Business.Interfaces.Notifications;
-using IHolder.Business.Notifications;
+using IHolder.Application.Base;
+using IHolder.Application.Interfaces.Notifications;
+using IHolder.Application.Notifications;
 using IHolder.Data.Repository.Base;
 
 namespace IHolder.Api.Configurations.Extensions
