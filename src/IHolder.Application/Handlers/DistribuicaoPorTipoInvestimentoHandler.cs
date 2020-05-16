@@ -13,40 +13,50 @@ using System.Threading.Tasks;
 
 namespace IHolder.Application.Handlers
 {
-    public class DistribuicaoPorTipoInvestimentoHandler : 
-        IRequestHandler<CadastrarDistribuicaoPorTipoInvestimentoCommand, Response>,
-        IRequestHandler<AlterarDistribuicaoPorTipoInvestimentoCommand, Response>,
-        IRequestHandler<RecalcularDistribuicaoPorTipoInvestimentoCommand, Response>
+    public class DistribuicaoPorTipoInvestimentoHandler :
+        IRequestHandler<CadastrarDistribuicaoPorTipoInvestimentoCommand, bool>,
+        IRequestHandler<AlterarDistribuicaoPorTipoInvestimentoCommand, bool>,
+        IRequestHandler<RecalcularDistribuicaoPorTipoInvestimentoCommand, bool>
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoPorTipoInvestimentoRepository;
         private readonly IAporteRepository _aporteRepository;
-        private readonly IResponse _response;
+        private readonly IHandlerBase _handlerBase;
 
-        public DistribuicaoPorTipoInvestimentoHandler(IMapper mapper, IRepositoryBase<DistribuicaoPorTipoInvestimento> distribuicaoPorTipoInvestimentoRepository, IResponse response, IAporteRepository aporteRepository)
+        public DistribuicaoPorTipoInvestimentoHandler(IMapper mapper, 
+            IRepositoryBase<DistribuicaoPorTipoInvestimento> distribuicaoPorTipoInvestimentoRepository, 
+            IAporteRepository aporteRepository, 
+            IHandlerBase handlerBase) 
         {
             _mapper = mapper;
             _distribuicaoPorTipoInvestimentoRepository = distribuicaoPorTipoInvestimentoRepository;
-            _response = response;
             _aporteRepository = aporteRepository;
+            _handlerBase = handlerBase;
         }
 
-        public async Task<Response> Handle(CadastrarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CadastrarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
+            if (!_handlerBase.ValidateCommand(request))
+                return false;
+
             if (PercentualObjetivoAcumulado(request.TipoInvestimentoId, request.PercentualObjetivo) > 100)
-                return _response.Error("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+            {
+                _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+                return false;
+            }                
 
             await _distribuicaoPorTipoInvestimentoRepository.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
-            return _response.Success("Distribuição cadastrada com sucesso");
+            return true;
         }
 
-        public async Task<Response> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
-            await Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
-            return _response.Success("Distribuição alteradas com sucesso");
+            if (!_handlerBase.ValidateCommand(request))
+                return false;            
+            return await Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(request)); ;
         }
 
-        public async Task<Response> Handle(RecalcularDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(RecalcularDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
             List<DistribuicaoPorTipoInvestimento> distribuicoes = _distribuicaoPorTipoInvestimentoRepository.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
             var valor_total = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
@@ -59,7 +69,7 @@ namespace IHolder.Application.Handlers
                 await Update(item);
             }
 
-            return _response.Success("Distribuições atualizadas com sucesso");
+            return true;
         }
 
         private decimal PercentualObjetivoAcumulado(Guid id, decimal percentualObjetivo)

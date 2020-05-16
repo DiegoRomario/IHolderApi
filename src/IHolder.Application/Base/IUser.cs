@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace IHolder.Application.Interfaces
+namespace IHolder.Application.Base
 {
     public interface IUser
     {

@@ -14,7 +14,7 @@ namespace IHolder.Api.Configurations.Extensions
             Assembly assembly = AppDomain.CurrentDomain.Load("IHolder.Application");
             AssemblyScanner.FindValidatorsInAssembly(assembly)
                  .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
+            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
             services.AddMediatR(typeof(Startup));
             services.AddMediatR(assembly);
             return services;

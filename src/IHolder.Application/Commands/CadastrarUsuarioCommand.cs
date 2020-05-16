@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace IHolder.Application.Commands
 {
-    public class CadastrarUsuarioCommand : IRequest<Response>
+    public class CadastrarUsuarioCommand : Command<bool>
     {
         [JsonConstructor]
         public CadastrarUsuarioCommand(string nome, string email, string senha, string confirmacaoSenha, EGenero genero)
@@ -22,11 +22,17 @@ namespace IHolder.Application.Commands
         public string Email { get; set; }
         public string Senha { get; set; }
         public string ConfirmacaoSenha { get; set; }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new CadastrarUsuarioCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
+        }
     }
 
-    public class CadastrarUsuarioValidator : AbstractValidator<CadastrarUsuarioCommand>
+    public class CadastrarUsuarioCommandValidator : AbstractValidator<CadastrarUsuarioCommand>
     {
-        public CadastrarUsuarioValidator()
+        public CadastrarUsuarioCommandValidator()
         {
             RuleFor(c => c.Email).EmailAddress().WithMessage("O login do usuário deve ser um e-mail válido");
             RuleFor(c => c.Nome).NotEmpty().WithMessage("O nome do usuário deve ser preenchido");

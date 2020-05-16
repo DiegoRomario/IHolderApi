@@ -5,7 +5,7 @@ using System;
 
 namespace IHolder.Application.Commands
 {
-    public class AlterarDistribuicaoPorTipoInvestimentoCommand : IRequest<Response>
+    public class AlterarDistribuicaoPorTipoInvestimentoCommand : Command<bool>
     {
         public AlterarDistribuicaoPorTipoInvestimentoCommand(Guid id, Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
         {
@@ -20,6 +20,11 @@ namespace IHolder.Application.Commands
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
+        public override bool IsValid()
+        {
+            ValidationResult = new AlterarDistribuicaoPorTipoInvestimentoCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
+        }
     }
 
     public class AlterarDistribuicaoPorTipoInvestimentoCommandValidator : AbstractValidator<AlterarDistribuicaoPorTipoInvestimentoCommand>

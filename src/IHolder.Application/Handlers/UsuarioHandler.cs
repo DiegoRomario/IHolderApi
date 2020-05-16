@@ -9,23 +9,29 @@ using System.Threading.Tasks;
 
 namespace IHolder.Application.Handlers
 {
-    public class UsuarioHandler : IRequestHandler<CadastrarUsuarioCommand, Response>
+    public class UsuarioHandler : IRequestHandler<CadastrarUsuarioCommand, bool>
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<Usuario> _repository;
-        private readonly IResponse _response;
+        private readonly IHandlerBase _handlerBase;
 
-        public UsuarioHandler(IMapper mapper, IRepositoryBase<Usuario> repository, IResponse response)
+        public UsuarioHandler(IMapper mapper, IRepositoryBase<Usuario> repository, IHandlerBase handlerBase)
         {
             _mapper = mapper;
             _repository = repository;
-            _response = response;
+            _handlerBase = handlerBase;
         }
 
-        public async Task<Response> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            await _repository.Insert(_mapper.Map<Usuario>(request));
-            return _response.Success("Usuario cadastrado com sucesso.");
+            if (!_handlerBase.ValidateCommand(request))
+                return false;
+
+           Usuario usuario = await _repository.GetBy(u => (u.Email == request.Email));
+            if (usuario != null)
+                _handlerBase.PublishNotification("O e-mail informado já está cadastrado em nossa base de dados");
+
+            return await _repository.Insert(_mapper.Map<Usuario>(request));
         }
 
     }

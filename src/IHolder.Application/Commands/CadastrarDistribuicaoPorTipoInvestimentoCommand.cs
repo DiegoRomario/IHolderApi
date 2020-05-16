@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 using IHolder.Application.Base;
-using MediatR;
 using System;
 
 namespace IHolder.Application.Commands
 {
-    public class CadastrarDistribuicaoPorTipoInvestimentoCommand : IRequest<Response>
+    public class CadastrarDistribuicaoPorTipoInvestimentoCommand : Command<bool>
     {
         public CadastrarDistribuicaoPorTipoInvestimentoCommand(Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
         {
@@ -18,6 +17,11 @@ namespace IHolder.Application.Commands
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
+        public override bool IsValid()
+        {
+            ValidationResult = new CadastrarDistribuicaoPorTipoInvestimentoCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
+        }
     }
 
     public class CadastrarDistribuicaoPorTipoInvestimentoCommandValidator : AbstractValidator<CadastrarDistribuicaoPorTipoInvestimentoCommand>

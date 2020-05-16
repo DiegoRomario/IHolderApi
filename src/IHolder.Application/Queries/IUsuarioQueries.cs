@@ -6,6 +6,6 @@ namespace IHolder.Application.Queries
 {
     public interface IUsuarioQueries
     {
-       Task<Response> AutenticarUsuario(UsuarioLoginArgs login);
+       Task<UsuarioAutenticadoViewModel> AutenticarUsuario(UsuarioLoginArgs login);
     }
 }

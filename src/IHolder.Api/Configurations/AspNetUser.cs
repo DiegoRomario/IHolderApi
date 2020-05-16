@@ -1,4 +1,4 @@
-﻿using IHolder.Application.Interfaces;
+﻿using IHolder.Application.Base;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

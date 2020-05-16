@@ -17,29 +17,26 @@ namespace IHolder.Application.Queries
     {
         private readonly IRepositoryBase<Usuario> _repositoryBase;
         private readonly IMapper _mapper;
-        private readonly IResponse _response;
         private readonly AppSettings _appSettings;
-        public UsuarioQueries(IRepositoryBase<Usuario> repositoryBase, IMapper mapper, IOptions<AppSettings> appSettings, IResponse response)
+        public UsuarioQueries(IRepositoryBase<Usuario> repositoryBase, IMapper mapper, IOptions<AppSettings> appSettings)
         {
             this._repositoryBase = repositoryBase;
             _mapper = mapper;
             _appSettings = appSettings.Value;
-            _response = response;
         }
 
-        public async Task<Response> AutenticarUsuario(UsuarioLoginArgs login)
+        public async Task<UsuarioAutenticadoViewModel> AutenticarUsuario(UsuarioLoginArgs login)
         {
             Usuario usuario = await _repositoryBase.GetBy(u => u.Email == login.Email && u.Senha == login.Senha);
-            if (usuario == null)
-            {
-                return _response.Error("Usuario e/ou senha invalidos");
-            }
-            else
+
+            if (usuario != null)
             {
                 var usuario_logado = _mapper.Map<UsuarioAutenticadoViewModel>(usuario);
                 GerarToken(usuario_logado);
-                return _response.Success(usuario_logado);
+                return usuario_logado;
             }
+
+            return null;
 
         }
 

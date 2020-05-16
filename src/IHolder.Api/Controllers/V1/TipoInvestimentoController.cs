@@ -4,30 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using IHolder.Api.Controllers.Base;
-using IHolder.Api.ViewModels;
 using IHolder.Domain.Entities;
-using IHolder.Application.Interfaces;
-using IHolder.Application.Interfaces.Notifications;
-using IHolder.Application.Interfaces.Services;
-using IHolder.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IHolder.Api.Controllers.V1
 {
-    [Authorize]
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    public class TipoInvestimentoController : ResponseBaseController
-    {
-        private readonly ITipoInvestimentoService _tipoInvestimentoService;
-        public TipoInvestimentoController(INotifier notifier,
-            IMapper mapper,
-            ITipoInvestimentoService tipoInvestimentoService, IUser user)
-        {
-            _tipoInvestimentoService = tipoInvestimentoService;
-        }
+    //[Authorize]
+    //[ApiVersion("1.0")]
+    //[Route("api/v{version:apiVersion}/[controller]")]
+    //public class TipoInvestimentoController : ResponseBaseController
+   // {
+        //private readonly ITipoInvestimentoService _tipoInvestimentoService;
+        //public TipoInvestimentoController(INotifier notifier,
+        //    IMapper mapper,
+        //    ITipoInvestimentoService tipoInvestimentoService, IUser user)
+        //{
+        //    _tipoInvestimentoService = tipoInvestimentoService;
+        //}
 
         //[HttpPost()]
         //public async Task<ActionResult> Insert(TipoInvestimentoViewModel model)
@@ -60,5 +55,5 @@ namespace IHolder.Api.Controllers.V1
         //    return ResponseBase();
         //}
 
-    }
+   //}
 }
