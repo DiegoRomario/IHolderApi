@@ -5,7 +5,6 @@ namespace IHolder.Domain.Entities
 {
     public class Aporte : Entity
     {
-
         public Aporte(Guid ativoId, decimal precoMedio, decimal quantidade, Guid usuarioId, DateTime dataAporte)
         {
             AtivoId = ativoId;

@@ -9,7 +9,7 @@ namespace IHolder.Api.Controllers.Base
     [ApiController]
     public abstract class ResponseBaseController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        protected readonly IMediator _mediator;
         private readonly NotificationHandler _notifications;
 
         protected ResponseBaseController(IMediator mediator,

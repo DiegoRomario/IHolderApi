@@ -1,5 +1,4 @@
-﻿using IHolder.Domain.Enumerators;
-using System;
+﻿using System;
 namespace IHolder.Application.ViewModels
 {
     public class DistribuicaoPorTipoInvestimentoViewModel

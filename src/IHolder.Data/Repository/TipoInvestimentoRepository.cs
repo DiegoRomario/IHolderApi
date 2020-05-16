@@ -1,13 +1,9 @@
 ﻿using IHolder.Domain.Entities;
-
 using IHolder.Data.Context;
 using IHolder.Data.Repository.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using IHolder.Domain.Interfaces;
 using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Data.Repository

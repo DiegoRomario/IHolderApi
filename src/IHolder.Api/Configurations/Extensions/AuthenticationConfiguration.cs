@@ -33,7 +33,7 @@ namespace IHolder.Api.Configurations.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = appSettings.Valido_em,
+                    ValidAudience = appSettings.ValidoEm,
                     ValidIssuer = appSettings.Emissor
                 };
             });

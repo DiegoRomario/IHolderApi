@@ -31,7 +31,9 @@ namespace IHolder.Application.Handlers
             if (usuario != null)
                 _handlerBase.PublishNotification("O e-mail informado já está cadastrado em nossa base de dados");
 
-            return await _repository.Insert(_mapper.Map<Usuario>(request));
+            _repository.Insert(_mapper.Map<Usuario>(request));
+
+            return await _repository.UnitOfWork.Commit();
         }
 
     }

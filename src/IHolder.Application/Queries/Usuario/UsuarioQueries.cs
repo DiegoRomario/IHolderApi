@@ -28,7 +28,6 @@ namespace IHolder.Application.Queries
         public async Task<UsuarioAutenticadoViewModel> AutenticarUsuario(UsuarioLoginArgs login)
         {
             Usuario usuario = await _repositoryBase.GetBy(u => u.Email == login.Email && u.Senha == login.Senha);
-
             if (usuario != null)
             {
                 var usuario_logado = _mapper.Map<UsuarioAutenticadoViewModel>(usuario);
@@ -48,11 +47,11 @@ namespace IHolder.Application.Queries
             };
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Chave);
-            DateTime ExpiresIn = DateTime.UtcNow.AddHours(_appSettings.Expiracao_horas);
+            DateTime ExpiresIn = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Issuer = _appSettings.Emissor,
-                Audience = _appSettings.Valido_em,
+                Audience = _appSettings.ValidoEm,
                 Subject = new ClaimsIdentity(claims),
                 Expires = ExpiresIn,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

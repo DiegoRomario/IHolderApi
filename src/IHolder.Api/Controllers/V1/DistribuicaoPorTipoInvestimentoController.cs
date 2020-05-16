@@ -9,6 +9,7 @@ using IHolder.Application.Base;
 using IHolder.Application.Queries;
 using System.Collections.Generic;
 using IHolder.Application.ViewModels;
+using IHolder.Domain.DomainObjects;
 
 namespace IHolder.Api.Controllers.V1
 {
@@ -17,15 +18,15 @@ namespace IHolder.Api.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DistribuicaoPorTipoInvestimentoController : ResponseBaseController
     {
-        private readonly IMediator _mediator;
+        private readonly IUser _user;
         private readonly IDistribuicaoPorTipoInvestimentoQueries _distribuicaoPorTipoInvestimentoQueries;
 
         public DistribuicaoPorTipoInvestimentoController(IMediator mediator,
             IDistribuicaoPorTipoInvestimentoQueries distribuicaoPorTipoInvestimentoQueries,
-            INotificationHandler<Notification> notificationHandler) : base(mediator, notificationHandler)
+            INotificationHandler<Notification> notificationHandler, IUser user) : base(mediator, notificationHandler)
         {
-            _mediator = mediator;
             _distribuicaoPorTipoInvestimentoQueries = distribuicaoPorTipoInvestimentoQueries;
+            _user = user;
         }
 
         [HttpPost()]
@@ -46,10 +47,9 @@ namespace IHolder.Api.Controllers.V1
                 NotifyError("O ID do registro informado para alteração está inválido.");
                 return ResponseBase();
             }
-            else
-            {
-                return ResponseBase(await _mediator.Send(command));
-            }
+
+            return ResponseBase(await _mediator.Send(command));
+
         }
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand(new Guid("EC1C63CE-5733-47B5-860C-23D7E62660E7"))));
+            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand(_user.GetUserId())));
         }
 
     }

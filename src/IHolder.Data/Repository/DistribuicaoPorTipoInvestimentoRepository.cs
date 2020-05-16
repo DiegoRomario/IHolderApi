@@ -3,7 +3,9 @@ using IHolder.Data.Repository.Base;
 using IHolder.Domain.Entities;
 using IHolder.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IHolder.Data.Repository
@@ -14,9 +16,16 @@ namespace IHolder.Data.Repository
         {
         }
 
-        public async Task<IEnumerable<DistribuicaoPorTipoInvestimento>> ObterDistribuicaoPorTipoInvestimento()
+        public async Task<IEnumerable<DistribuicaoPorTipoInvestimento>> ObterDistribuicaoPorTipoInvestimento
+            (params Expression<Func<DistribuicaoPorTipoInvestimento, object>>[] expressions)
         {
-            return await _dbSet.AsNoTracking().Include(d => d.TipoInvestimento).ToListAsync();
+            var query = _dbSet.AsNoTracking();
+            foreach (var item in expressions)
+            {
+                query = query.Include(item);
+            }
+            return await query.ToListAsync();
         }
+
     }
 }

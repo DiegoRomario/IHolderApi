@@ -1,4 +1,5 @@
-﻿using IHolder.Domain.Entities;
+﻿using IHolder.Domain.DomainObjects;
+using IHolder.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -6,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace IHolder.Data.Context
 {
-    public class IHolderContext : DbContext
+    public class IHolderContext : DbContext, IUnitOfWork
     {
-        public IHolderContext(DbContextOptions<IHolderContext> options)
-            : base(options) { }
+        public IHolderContext(DbContextOptions<IHolderContext> options) : base(options) { }
 
         public DbSet<Aporte> Aportes { get; set; }
         public DbSet<Ativo> Ativos { get; set; }
@@ -23,10 +23,10 @@ namespace IHolder.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            HandleFieldType(modelBuilder, "VARCHAR(100)", typeof(string));
-            HandleFieldType(modelBuilder, "DATETIME", typeof(DateTime));
-            HandleFieldType(modelBuilder, "DATETIME", typeof(Nullable<DateTime>));
-            HandleFieldType(modelBuilder, "DECIMAL(12,2)", typeof(decimal));
+            FieldTypeHandler(modelBuilder, "VARCHAR(100)", typeof(string));
+            FieldTypeHandler(modelBuilder, "DATETIME", typeof(DateTime));
+            FieldTypeHandler(modelBuilder, "DATETIME", typeof(Nullable<DateTime>));
+            FieldTypeHandler(modelBuilder, "DECIMAL(12,2)", typeof(decimal));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IHolderContext).Assembly);
 
@@ -35,7 +35,7 @@ namespace IHolder.Data.Context
             base.OnModelCreating(modelBuilder);
         }
 
-        private static void HandleFieldType(ModelBuilder modelBuilder, string sqlFieldType, Type type)
+        private static void FieldTypeHandler(ModelBuilder modelBuilder, string sqlFieldType, Type type)
         {
             foreach (var property in modelBuilder
                   .Model

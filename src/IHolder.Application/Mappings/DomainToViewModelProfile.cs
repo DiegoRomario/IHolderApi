@@ -19,6 +19,16 @@ namespace IHolder.Application.Mappings
                 .ForMember(d => d.ValorDiferenca, s => s.MapFrom(s => s.Valores.ValorDiferenca))
                 .ForMember(d => d.Orientacao, s => s.MapFrom(s => s.Orientacao));
 
+            CreateMap<DistribuicaoPorAtivo, DistribuicaoPorAtivoViewModel>()
+                .ForMember(d => d.DescricaoAtivo, s => s.MapFrom(s => s.Ativo.Informacoes.Descricao))
+                .ForMember(d => d.CaracteristicasAtivo, s => s.MapFrom(s => s.Ativo.Informacoes.Caracteristicas))
+                .ForMember(d => d.PercentualObjetivo, s => s.MapFrom(s => s.Valores.PercentualObjetivo))
+                .ForMember(d => d.PercentualAtual, s => s.MapFrom(s => s.Valores.PercentualAtual))
+                .ForMember(d => d.PercentualDiferenca, s => s.MapFrom(s => s.Valores.PercentualDiferenca))
+                .ForMember(d => d.ValorAtual, s => s.MapFrom(s => s.Valores.ValorAtual))
+                .ForMember(d => d.ValorDiferenca, s => s.MapFrom(s => s.Valores.ValorDiferenca))
+                .ForMember(d => d.Orientacao, s => s.MapFrom(s => s.Orientacao));
+
         }
     }
 }

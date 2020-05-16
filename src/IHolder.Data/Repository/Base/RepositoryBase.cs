@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using IHolder.Domain.DomainObjects;
 
@@ -16,10 +15,25 @@ namespace IHolder.Data.Repository.Base
         protected readonly IHolderContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
+        public IUnitOfWork UnitOfWork => _context;
+
         public RepositoryBase(IHolderContext context)
         {
             this._context = context;
             _dbSet = context.Set<TEntity>();
+        }
+
+        public void Insert(TEntity entity)
+        {
+            _dbSet.Add(entity);
+        }
+        public void Update(TEntity entity)
+        {
+            _dbSet.Update(entity);
+        }
+        public void Delete(Guid id)
+        {
+            _dbSet.Remove(_dbSet.Single(d => d.Id == id));
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAll()
@@ -31,39 +45,40 @@ namespace IHolder.Data.Repository.Base
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetManyBy(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> GetManyBy(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
-        }
-        public virtual async Task<bool> Insert(TEntity entity)
-        {
-            _dbSet.Add(entity);
-            return await SaveChanges();
-        }
-        public virtual async Task<bool> Update(TEntity entity)
-        {
-            _dbSet.Update(entity);
-            return await SaveChanges();
-        }
-        public virtual async Task <bool> Delete(Guid id)
-        {
-            string entityName = typeof(TEntity).Name;
-            int response = await _context.Database.ExecuteSqlRawAsync($"DELETE {entityName} WHERE ID = {0} ", new object[] {id});
-            return response > 1;
+
+            var query = _dbSet.AsNoTracking();
+
+            foreach (var item in includes)
+            {
+                query = query.Include(item);
+            }
+
+            if (where != null)
+                query = query.Where(where);
+
+            return await query.ToListAsync();
         }
 
-        public async Task<bool> SaveChanges()
+        public async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await _context.Commit();
+            var query = _dbSet.AsNoTracking();
+
+            foreach (var item in includes)
+            {
+                query = query.Include(item);
+            }
+
+            if (where != null)
+                query = query.Where(where);
+
+            return await query.FirstOrDefaultAsync();
         }
         public void Dispose()
         {
             _context?.Dispose();
         }
 
-        public async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> predicate)
-        {
-            return await _dbSet.AsNoTracking().Where(predicate).FirstOrDefaultAsync();
-        }
     }
 }

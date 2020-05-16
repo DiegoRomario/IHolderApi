@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IHolder.Application.Base
+namespace IHolder.Domain.DomainObjects
 {
     public interface IUser
     {

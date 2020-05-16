@@ -19,7 +19,7 @@ namespace IHolder.Application.Handlers
         IRequestHandler<RecalcularDistribuicaoPorTipoInvestimentoCommand, bool>
     {
         private readonly IMapper _mapper;
-        private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoPorTipoInvestimentoRepository;
+        private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoRepositorio;
         private readonly IAporteRepository _aporteRepository;
         private readonly IHandlerBase _handlerBase;
 
@@ -29,7 +29,7 @@ namespace IHolder.Application.Handlers
             IHandlerBase handlerBase) 
         {
             _mapper = mapper;
-            _distribuicaoPorTipoInvestimentoRepository = distribuicaoPorTipoInvestimentoRepository;
+            _distribuicaoRepositorio = distribuicaoPorTipoInvestimentoRepository;
             _aporteRepository = aporteRepository;
             _handlerBase = handlerBase;
         }
@@ -45,8 +45,8 @@ namespace IHolder.Application.Handlers
                 return false;
             }                
 
-            await _distribuicaoPorTipoInvestimentoRepository.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
-            return true;
+            _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
+            return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
         public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
@@ -58,7 +58,7 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(RecalcularDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
-            List<DistribuicaoPorTipoInvestimento> distribuicoes = _distribuicaoPorTipoInvestimentoRepository.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
+            List<DistribuicaoPorTipoInvestimento> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
             var valor_total = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)
@@ -74,13 +74,14 @@ namespace IHolder.Application.Handlers
 
         private decimal PercentualObjetivoAcumulado(Guid id, decimal percentualObjetivo)
         {
-            decimal percentualAcumulado = _distribuicaoPorTipoInvestimentoRepository.GetManyBy(d => d.Id != id).Result.Sum(d => d.Valores.PercentualObjetivo);
+            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.Id != id).Result.Sum(d => d.Valores.PercentualObjetivo);
             return percentualAcumulado + percentualObjetivo;
         }
 
         private async Task<bool> Update(DistribuicaoPorTipoInvestimento entity)
         {
-            return await _distribuicaoPorTipoInvestimentoRepository.Update(entity);
+            _distribuicaoRepositorio.Update(entity);
+            return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
     }
