@@ -4,9 +4,9 @@ using System;
 
 namespace IHolder.Application.Commands
 {
-    public class AlterarDistribuicaoPorTipoInvestimentoCommand : Command<bool>
+    public class AlterarDistribuicaoPorAtivoCommand : Command<bool>
     {
-        public AlterarDistribuicaoPorTipoInvestimentoCommand(Guid id, Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
+        public AlterarDistribuicaoPorAtivoCommand(Guid id, Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
         {
             Id = id;
             UsuarioId = usuarioId;
@@ -21,17 +21,17 @@ namespace IHolder.Application.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new AlterarDistribuicaoPorTipoInvestimentoCommandValidator().Validate(this);
+            ValidationResult = new AlterarDistribuicaoPorAtivoCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }
 
-    public class AlterarDistribuicaoPorTipoInvestimentoCommandValidator : AbstractValidator<AlterarDistribuicaoPorTipoInvestimentoCommand>
+    public class AlterarDistribuicaoPorAtivoCommandValidator : AbstractValidator<AlterarDistribuicaoPorAtivoCommand>
     {
-        public AlterarDistribuicaoPorTipoInvestimentoCommandValidator()
+        public AlterarDistribuicaoPorAtivoCommandValidator()
         {
             RuleFor(c => c.Id).NotEmpty().WithMessage("O ID da distribuição deve ser informada");
-            RuleFor(c => c.TipoInvestimentoId).NotEmpty().WithMessage("O tipo de investimento deve ser informado");
+            RuleFor(c => c.TipoInvestimentoId).NotEmpty().WithMessage("O ativo deve ser informado");
             RuleFor(c => c.UsuarioId).NotEmpty().WithMessage("O usuario deve ser informado");
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");
         }

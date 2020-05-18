@@ -11,60 +11,61 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace IHolder.Application.Handlers
 {
-    public class DistribuicaoPorTipoInvestimentoHandler :
-        IRequestHandler<CadastrarDistribuicaoPorTipoInvestimentoCommand, bool>,
-        IRequestHandler<AlterarDistribuicaoPorTipoInvestimentoCommand, bool>,
-        IRequestHandler<RecalcularDistribuicaoPorTipoInvestimentoCommand, bool>
+    public class DistribuicaoPorAtivoHandler :
+        IRequestHandler<CadastrarDistribuicaoPorAtivoCommand, bool>,
+        IRequestHandler<AlterarDistribuicaoPorAtivoCommand, bool>,
+        IRequestHandler<RecalcularDistribuicaoPorAtivoCommand, bool>
     {
         private readonly IMapper _mapper;
-        private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoRepositorio;
+        private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepositorio;
         private readonly IAporteRepository _aporteRepository;
         private readonly IHandlerBase _handlerBase;
 
-        public DistribuicaoPorTipoInvestimentoHandler(IMapper mapper,
-            IRepositoryBase<DistribuicaoPorTipoInvestimento> distribuicaoPorTipoInvestimentoRepository,
+        public DistribuicaoPorAtivoHandler(IMapper mapper,
+            IRepositoryBase<DistribuicaoPorAtivo> distribuicaoPorAtivoRepository,
             IAporteRepository aporteRepository,
             IHandlerBase handlerBase)
         {
             _mapper = mapper;
-            _distribuicaoRepositorio = distribuicaoPorTipoInvestimentoRepository;
+            _distribuicaoRepositorio = distribuicaoPorAtivoRepository;
             _aporteRepository = aporteRepository;
             _handlerBase = handlerBase;
         }
 
-        public async Task<bool> Handle(CadastrarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CadastrarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
-            if (PercentualObjetivoAcumulado(request.TipoInvestimentoId, request.PercentualObjetivo) > 100)
+            if (PercentualObjetivoAcumulado(request.AtivoId, request.PercentualObjetivo) > 100)
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
                 return false;
             }
 
-            _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
+            _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorAtivo>(request));
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
-        public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(AlterarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
             if (!_handlerBase.ValidateCommand(request))
                 return false;
-            return await Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(request)); ;
+            return await Update(_mapper.Map<DistribuicaoPorAtivo>(request)); ;
         }
 
-        public async Task<bool> Handle(RecalcularDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(RecalcularDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-            List<DistribuicaoPorTipoInvestimento> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
+            List<DistribuicaoPorAtivo> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
             var valor_total = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)
             {
-                var valorTotalPorTipoInvestimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(item.TipoInvestimentoId, request.UsuarioId).Result;
-                item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipoInvestimento, valor_total);
+               var valorTotalPorAtivo = _aporteRepository.ObterTotalAplicadoPorAtivo(item.AtivoId, request.UsuarioId).Result;
+                item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, valor_total);
                 item.AtualizarOrientacao();
                 await Update(item);
             }
@@ -78,7 +79,7 @@ namespace IHolder.Application.Handlers
             return percentualAcumulado + percentualObjetivo;
         }
 
-        private async Task<bool> Update(DistribuicaoPorTipoInvestimento entity)
+        private async Task<bool> Update(DistribuicaoPorAtivo entity)
         {
             _distribuicaoRepositorio.Update(entity);
             return await _distribuicaoRepositorio.UnitOfWork.Commit();

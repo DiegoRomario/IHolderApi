@@ -7,6 +7,8 @@ using IHolder.Application.Base;
 using System.Collections.Generic;
 using IHolder.Domain.DomainObjects;
 using IHolder.Application.Queries.Distribuicoes;
+using IHolder.Application.Commands;
+using System;
 
 namespace IHolder.Api.Controllers.V1
 {
@@ -26,28 +28,27 @@ namespace IHolder.Api.Controllers.V1
             _user = user;
         }
 
-        //[HttpPost()]
-        //[AllowAnonymous]
-        //public async Task<ActionResult> Cadastrar([FromBody]CadastrarDistribuicaoPorAtivoCommand command)
-        //{
-        //    bool test = await _mediator.Send(command);
-        //    return ResponseBase("Distribuição cadastrada com sucesso");
+        [HttpPost()]
+        [AllowAnonymous]
+        public async Task<ActionResult> Cadastrar([FromBody] CadastrarDistribuicaoPorAtivoCommand command)
+        {
+            await _mediator.Send(command);
+            return ResponseBase("Distribuição cadastrada com sucesso");
+        }
 
-        //}
+        [HttpPut("{id:guid}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Alterar(Guid id, AlterarDistribuicaoPorAtivoCommand command)
+        {
+            if (id != command.Id)
+            {
+                NotifyError("O ID do registro informado para alteração está inválido.");
+                return ResponseBase();
+            }
 
-        //[HttpPut("{id:guid}")]
-        //[AllowAnonymous]
-        //public async Task<ActionResult> Alterar(Guid id, AlterarDistribuicaoPorAtivoCommand command)
-        //{
-        //    if (id != command.Id)
-        //    {
-        //        NotifyError("O ID do registro informado para alteração está inválido.");
-        //        return ResponseBase();
-        //    }
+            return ResponseBase(await _mediator.Send(command));
 
-        //    return ResponseBase(await _mediator.Send(command));
-
-        //}
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -58,11 +59,11 @@ namespace IHolder.Api.Controllers.V1
             return ResponseBase(distribuicoes);
         }
 
-        //[HttpPost("recalcular")]
-        //public async Task<ActionResult> Recalcular()
-        //{
-        //    return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand(_user.GetUserId())));
-        //}
+        [HttpPost("recalcular")]
+        public async Task<ActionResult> Recalcular()
+        {
+            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand(_user.GetUserId())));
+        }
 
     }
 }

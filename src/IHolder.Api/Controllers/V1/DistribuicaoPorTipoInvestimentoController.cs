@@ -33,7 +33,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> Cadastrar([FromBody]CadastrarDistribuicaoPorTipoInvestimentoCommand command)
         {
-            bool test = await _mediator.Send(command);
+            await _mediator.Send(command);
             return ResponseBase("Distribuição cadastrada com sucesso");
 
         }

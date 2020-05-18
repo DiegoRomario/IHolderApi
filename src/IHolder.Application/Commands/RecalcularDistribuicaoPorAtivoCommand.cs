@@ -3,9 +3,9 @@ using System;
 
 namespace IHolder.Application.Commands
 {
-    public class RecalcularDistribuicaoPorTipoInvestimentoCommand : Command<bool>
+    public class RecalcularDistribuicaoPorAtivoCommand : Command<bool>
     {
-        public RecalcularDistribuicaoPorTipoInvestimentoCommand(Guid usuarioId)
+        public RecalcularDistribuicaoPorAtivoCommand(Guid usuarioId)
         {
             this.UsuarioId = usuarioId;
         }
