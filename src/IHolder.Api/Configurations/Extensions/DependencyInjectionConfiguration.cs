@@ -10,6 +10,7 @@ using IHolder.Domain.Interfaces;
 using IHolder.Application.Base;
 using IHolder.Data.Repository.Base;
 using MediatR;
+using IHolder.Application.Queries.Distribuicoes;
 
 namespace IHolder.Api.Configurations.Extensions
 {
@@ -27,10 +28,9 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddTransient<IUser, AspNetUser>();
             services.AddTransient<IUsuarioQueries, UsuarioQueries>();
             services.AddTransient<IDistribuicaoPorTipoInvestimentoQueries, DistribuicaoPorTipoInvestimentoQueries>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddTransient<IDistribuicaoPorAtivoQueries, DistribuicaoPorAtivoQueries>();
             services.AddScoped<IAporteRepository, AporteRepository>();  
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-            services.AddScoped<IDistribuicaoPorTipoInvestimentoRepository, DistribuicaoPorTipoInvestimentoRepository>();
             services.AddScoped<IAporteRepository, AporteRepository>();
 
 

@@ -28,14 +28,13 @@ namespace IHolder.Domain.Entities
         public Ativo Ativo { get; private set; }
         public Usuario Usuario { get; private set; }
 
-        //public void AtualizarOrientacao (decimal percentual_diferenca)   
-        //{
-        //    if (percentual_diferenca <= 0)
-        //        Orientacao = EOrientacao.Manter;
-        //    else
-        //        Orientacao = EOrientacao.Comprar;
-
-        //}
+        public void AtualizarOrientacao()
+        {
+            if (Valores.PercentualDiferenca <= 0)
+                Orientacao = EOrientacao.Hold;
+            else
+                Orientacao = EOrientacao.Buy;
+        }
 
     }
 }

@@ -13,8 +13,6 @@ namespace IHolder.Domain.DomainObjects
         Task<TEntity> GetById(Guid id);
         Task<IEnumerable<TEntity>> GetAll();
         Task<IEnumerable<TEntity>> GetManyBy(Expression<Func<TEntity, bool>> where = null, params Expression<Func<TEntity, object>>[] includes);
-        //Task<IEnumerable<TEntity>> GetManyBy(Expression<Func<TEntity, bool>> where);
-        //Task<TEntity> GetBy(Expression<Func<TEntity, bool>> where);
         Task<TEntity> GetBy(Expression<Func<TEntity, bool>> where = null, params Expression<Func<TEntity, object>>[] includes);
 
         IUnitOfWork UnitOfWork { get; }

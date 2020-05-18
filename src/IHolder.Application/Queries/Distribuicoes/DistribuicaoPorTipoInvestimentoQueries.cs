@@ -15,9 +15,9 @@ namespace IHolder.Application.Queries
         private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _repository;
         private readonly IMapper _mapper;
 
-        public DistribuicaoPorTipoInvestimentoQueries(IDistribuicaoPorTipoInvestimentoRepository distribuicaoPorTipoInvestimentoRepository, IMapper mapper)
+        public DistribuicaoPorTipoInvestimentoQueries(IRepositoryBase<DistribuicaoPorTipoInvestimento> repository, IMapper mapper)
         {
-            _repository = distribuicaoPorTipoInvestimentoRepository;
+            _repository = repository;
             _mapper = mapper;
         }
 
