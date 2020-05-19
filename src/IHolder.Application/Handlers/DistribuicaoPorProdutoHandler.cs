@@ -37,23 +37,42 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarDistribuicaoPorProdutoCommand request, CancellationToken cancellationToken)
         {
+
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
-            if (PercentualObjetivoAcumulado(request.ProdutoId, request.PercentualObjetivo) > 100)
+            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.ProdutoId, request.PercentualObjetivo))
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
-                return false;
+            }
+
+            if (ProdutoJaCadastrado(request.ProdutoId))
+            {
+                _handlerBase.PublishNotification("Este Produto já possuí um percentual de distribuição definido");
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorProduto>(request));
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
+
         public async Task<bool> Handle(AlterarDistribuicaoPorProdutoCommand request, CancellationToken cancellationToken)
         {
             if (!_handlerBase.ValidateCommand(request))
                 return false;
+
+            if (!ProdutoJaCadastrado(request.ProdutoId))
+            {
+                _handlerBase.PublishNotification("Distribuição por Produto não encontrada");
+                return false;
+            }
+
+            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.ProdutoId, request.PercentualObjetivo))
+            {
+                _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+                return false;
+            }
+
             return await Update(_mapper.Map<DistribuicaoPorProduto>(request)); ;
         }
 
@@ -73,10 +92,10 @@ namespace IHolder.Application.Handlers
             return true;
         }
 
-        private decimal PercentualObjetivoAcumulado(Guid id, decimal percentualObjetivo)
+        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid ProdutoId, decimal percentualObjetivo)
         {
-            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.Id != id).Result.Sum(d => d.Valores.PercentualObjetivo);
-            return percentualAcumulado + percentualObjetivo;
+            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.ProdutoId != ProdutoId).Result.Sum(d => d.Valores.PercentualObjetivo);
+            return (percentualAcumulado + percentualObjetivo) > 100;
         }
 
         private async Task<bool> Update(DistribuicaoPorProduto entity)
@@ -84,5 +103,11 @@ namespace IHolder.Application.Handlers
             _distribuicaoRepositorio.Update(entity);
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
+
+        private bool ProdutoJaCadastrado(Guid ProdutoId)
+        {
+            return _distribuicaoRepositorio.GetBy(d => d.ProdutoId == ProdutoId).Result != null;
+        }
+
     }
 }

@@ -39,20 +39,46 @@ namespace IHolder.Application.Handlers
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
-            if (PercentualObjetivoAcumulado(request.TipoInvestimentoId, request.PercentualObjetivo) > 100)
+            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoInvestimentoId, request.PercentualObjetivo))
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
                 return false;
+            }
+
+            if (TipoInvestimentoJaCadastrado(request.TipoInvestimentoId))
+            {
+                _handlerBase.PublishNotification("Este tipo de investimento já possuí um percentual de distribuição definido");
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
+        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid TipoInvestimentoId, decimal percentualObjetivo )
+        {
+            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.TipoInvestimentoId != TipoInvestimentoId).Result.Sum(d => d.Valores.PercentualObjetivo);
+            return percentualAcumulado + percentualObjetivo > 100;
+        }
+
         public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
             if (!_handlerBase.ValidateCommand(request))
                 return false;
+
+            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoInvestimentoId, request.PercentualObjetivo))
+            {
+                _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+                return false;
+            }
+
+
+            if (!TipoInvestimentoJaCadastrado(request.TipoInvestimentoId))
+            {
+                _handlerBase.PublishNotification("Distribuição por tipo de investimento não encontrada");
+                return false;
+            }
+
+
             return await Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(request)); ;
         }
 
@@ -72,16 +98,17 @@ namespace IHolder.Application.Handlers
             return true;
         }
 
-        private decimal PercentualObjetivoAcumulado(Guid id, decimal percentualObjetivo)
-        {
-            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.Id != id).Result.Sum(d => d.Valores.PercentualObjetivo);
-            return percentualAcumulado + percentualObjetivo;
-        }
 
         private async Task<bool> Update(DistribuicaoPorTipoInvestimento entity)
         {
             _distribuicaoRepositorio.Update(entity);
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
+
+        private bool TipoInvestimentoJaCadastrado(Guid tipoInvestimentoId)
+        {
+            return _distribuicaoRepositorio.GetBy(d => d.TipoInvestimentoId == tipoInvestimentoId).Result != null;
+        }
+
     }
 }

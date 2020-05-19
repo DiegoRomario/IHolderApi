@@ -42,6 +42,7 @@ namespace IHolder.Application.Queries
         private void GerarToken(UsuarioAutenticadoViewModel usuario)
         {
             Claim[] claims = new Claim[] {
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
                 new Claim(ClaimTypes.Name, usuario.Nome.ToString()),
                 new Claim(ClaimTypes.Email, usuario.Email.ToString()),
             };
