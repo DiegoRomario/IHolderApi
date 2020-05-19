@@ -49,6 +49,7 @@ namespace IHolder.Api.Configurations.Extensions
                     }
                 });
             });
+            services.AddSwaggerGenNewtonsoftSupport();
             return services;
         }
 

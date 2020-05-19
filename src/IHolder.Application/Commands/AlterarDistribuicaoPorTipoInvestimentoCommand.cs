@@ -21,7 +21,7 @@ namespace IHolder.Application.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new AlterarDistribuicaoPorTipoInvestimentoCommandValidator().Validate(this);
+             ValidationResult = new AlterarDistribuicaoPorTipoInvestimentoCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }

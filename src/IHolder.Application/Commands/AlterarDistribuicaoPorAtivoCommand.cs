@@ -6,16 +6,16 @@ namespace IHolder.Application.Commands
 {
     public class AlterarDistribuicaoPorAtivoCommand : Command<bool>
     {
-        public AlterarDistribuicaoPorAtivoCommand(Guid id, Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
+        public AlterarDistribuicaoPorAtivoCommand(Guid id, Guid ativoId, Guid usuarioId, decimal percentualObjetivo)
         {
             Id = id;
             UsuarioId = usuarioId;
             PercentualObjetivo = percentualObjetivo;
-            TipoInvestimentoId = tipoInvestimentoId;
+            AtivoId = ativoId;
         }
 
         public Guid Id { get; set; }
-        public Guid TipoInvestimentoId { get; set; }
+        public Guid AtivoId { get; set; }
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
@@ -31,7 +31,7 @@ namespace IHolder.Application.Commands
         public AlterarDistribuicaoPorAtivoCommandValidator()
         {
             RuleFor(c => c.Id).NotEmpty().WithMessage("O ID da distribuição deve ser informada");
-            RuleFor(c => c.TipoInvestimentoId).NotEmpty().WithMessage("O ativo deve ser informado");
+            RuleFor(c => c.AtivoId).NotEmpty().WithMessage("O ativo deve ser informado");
             RuleFor(c => c.UsuarioId).NotEmpty().WithMessage("O usuario deve ser informado");
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");
         }

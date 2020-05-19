@@ -29,6 +29,7 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddTransient<IUsuarioQueries, UsuarioQueries>();
             services.AddTransient<IDistribuicaoPorTipoInvestimentoQueries, DistribuicaoPorTipoInvestimentoQueries>();
             services.AddTransient<IDistribuicaoPorAtivoQueries, DistribuicaoPorAtivoQueries>();
+            services.AddTransient<IDistribuicaoPorProdutoQueries, DistribuicaoPorProdutoQueries>();
             services.AddScoped<IAporteRepository, AporteRepository>();  
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IAporteRepository, AporteRepository>();
