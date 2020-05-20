@@ -37,7 +37,6 @@ namespace IHolder.Data.Mapping
                     .IsRequired()
                     .HasColumnType("TINYINT");
 
-            builder.Property(p => p.DistribuicaoPorProdutoId).IsRequired();
 
             builder.ToTable("DistribuicaoPorAtivo");
 

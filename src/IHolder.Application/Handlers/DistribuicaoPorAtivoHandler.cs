@@ -47,7 +47,7 @@ namespace IHolder.Application.Handlers
 
             if (AtivoJaCadastrado(request.AtivoId))
             {
-                _handlerBase.PublishNotification("Este tipo de investimento já possuí um percentual de distribuição definido");
+                _handlerBase.PublishNotification("Este ativo já possuí um percentual de distribuição definido");
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorAtivo>(request));
@@ -63,7 +63,7 @@ namespace IHolder.Application.Handlers
 
             if (AtivoJaCadastrado(request.AtivoId, request.Id))
             {
-                _handlerBase.PublishNotification("O novo tipo de investimento selecionado já possuí um percentual de distribuição definido");
+                _handlerBase.PublishNotification("O novo ativo selecionado já possuí um percentual de distribuição definido");
                 return false;
             }
 
@@ -72,8 +72,6 @@ namespace IHolder.Application.Handlers
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
                 return false;
             }
-
-
 
             return await Update(_mapper.Map<DistribuicaoPorAtivo>(request)); ;
         }

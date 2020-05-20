@@ -47,7 +47,7 @@ namespace IHolder.Application.Handlers
 
             if (ProdutoJaCadastrado(request.ProdutoId))
             {
-                _handlerBase.PublishNotification("Este tipo de investimento já possuí um percentual de distribuição definido");
+                _handlerBase.PublishNotification("Este produto já possuí um percentual de distribuição definido");
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorProduto>(request));

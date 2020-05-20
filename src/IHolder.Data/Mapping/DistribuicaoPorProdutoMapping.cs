@@ -36,16 +36,12 @@ namespace IHolder.Data.Mapping
                 .HasColumnName("ValorDiferenca");
             });
             builder.Property(p => p.DataInclusao).IsRequired();
-            builder.Property(p => p.DistribuicaoPorTipoInvestimentoId).IsRequired();
             builder.Property(p => p.ProdutoId).IsRequired();
             builder.Property(p => p.Orientacao)
                     .IsRequired()
                     .HasColumnType("TINYINT");
             builder.Property(p => p.UsuarioId).IsRequired();
 
-            builder.HasMany(d => d.DistribuicoesPorAtivos)
-            .WithOne(p => p.DistribuicaoPorProduto)
-            .HasForeignKey(p => p.DistribuicaoPorProdutoId);
 
             builder.ToTable("DistribuicaoPorProduto");
         }

@@ -36,9 +36,7 @@ namespace IHolder.Data.Mapping
             builder.Property(p => p.Orientacao)
                     .IsRequired()
                     .HasColumnType("TINYINT");
-            builder.HasMany(d => d.DistribuicoesPorProdutos)
-                .WithOne(p => p.DistribuicaoPorTipoInvestimento)
-                .HasForeignKey(p => p.DistribuicaoPorTipoInvestimentoId);
+
             builder.Property(p => p.DataInclusao).IsRequired();
 
             builder.ToTable("DistribuicaoPorTipoInvestimento");

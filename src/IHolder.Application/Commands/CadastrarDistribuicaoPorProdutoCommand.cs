@@ -6,14 +6,12 @@ namespace IHolder.Application.Commands
 {
     public class CadastrarDistribuicaoPorProdutoCommand : Command<bool>
     {
-        public CadastrarDistribuicaoPorProdutoCommand(Guid distribuicaoPorTipoInvestimentoId, Guid produtoId, Guid usuarioId, decimal percentualObjetivo)
+        public CadastrarDistribuicaoPorProdutoCommand(Guid produtoId, Guid usuarioId, decimal percentualObjetivo)
         {
-            DistribuicaoPorTipoInvestimentoId = distribuicaoPorTipoInvestimentoId;
             ProdutoId = produtoId;
             this.UsuarioId = usuarioId;
             PercentualObjetivo = percentualObjetivo;
         }
-        public Guid DistribuicaoPorTipoInvestimentoId { get; set; }
         public Guid ProdutoId { get; set; }
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
@@ -29,7 +27,6 @@ namespace IHolder.Application.Commands
     {
         public CadastrarDistribuicaoPorProdutoCommandValidator()
         {
-            RuleFor(c => c.DistribuicaoPorTipoInvestimentoId).NotEmpty().WithMessage("A distribuição por tipo de investimento deve ser informada");
             RuleFor(c => c.ProdutoId).NotEmpty().WithMessage("O Produto deve ser informado");
             RuleFor(c => c.UsuarioId).NotEmpty().WithMessage("O usuario deve ser informado");
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");

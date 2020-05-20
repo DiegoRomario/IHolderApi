@@ -32,8 +32,6 @@ namespace IHolder.Domain.Entities
         public TipoInvestimento TipoInvestimento { get; private set; }
 
         public Usuario Usuario { get; private set; }
-        public IEnumerable<DistribuicaoPorProduto> DistribuicoesPorProdutos { get; private set; }
-
         public void AtualizarOrientacao()
         {
             if (Valores.PercentualDiferenca <= 0)
