@@ -5,10 +5,8 @@ namespace IHolder.Application.Base
 {
     public abstract class Command<TResponse> : IRequest<TResponse>
     {
-        [JsonIgnore]
-        public ValidationResult ValidationResult { get;  set; }
-        public abstract bool IsValid();
-
-
+        //[JsonIgnore]
+        //public ValidationResult ValidationResult { get;  set; }
+        //public abstract bool IsValid();
     }
 }

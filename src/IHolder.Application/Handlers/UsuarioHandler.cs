@@ -24,9 +24,6 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            if (!_handlerBase.ValidateCommand(request))
-                return false;
-
             Usuario usuario = await _repository.GetBy(u => (u.Email == request.Email));
             if (usuario != null)
                 _handlerBase.PublishNotification("O e-mail informado já está cadastrado em nossa base de dados");

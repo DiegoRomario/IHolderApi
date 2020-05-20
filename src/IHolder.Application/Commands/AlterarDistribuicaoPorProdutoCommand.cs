@@ -19,11 +19,6 @@ namespace IHolder.Application.Commands
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new AlterarDistribuicaoPorProdutoCommandValidator().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 
     public class AlterarDistribuicaoPorProdutoCommandValidator : AbstractValidator<AlterarDistribuicaoPorProdutoCommand>
@@ -32,7 +27,7 @@ namespace IHolder.Application.Commands
         {
             RuleFor(c => c.Id).NotEmpty().WithMessage("O ID da distribuição deve ser informada");
             RuleFor(c => c.ProdutoId).NotEmpty().WithMessage("O produto deve ser informado");
-            RuleFor(c => c.UsuarioId).NotEmpty().WithMessage("O usuario deve ser informado");
+            
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");
         }
     }

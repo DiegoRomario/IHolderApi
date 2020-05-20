@@ -17,11 +17,6 @@ namespace IHolder.Application.Commands
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new CadastrarDistribuicaoPorAtivoCommandValidator().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 
     public class CadastrarDistribuicaoPorAtivoCommandValidator : AbstractValidator<CadastrarDistribuicaoPorAtivoCommand>
@@ -29,7 +24,7 @@ namespace IHolder.Application.Commands
         public CadastrarDistribuicaoPorAtivoCommandValidator()
         {
             RuleFor(c => c.AtivoId).NotEmpty().WithMessage("O ativo deve ser informado");
-            RuleFor(c => c.UsuarioId).NotEmpty().WithMessage("O usuario deve ser informado");
+            
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");
         }
     }

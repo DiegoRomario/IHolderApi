@@ -28,6 +28,10 @@ namespace IHolder.Data.Mapping
                .WithOne(d => d.Produto)
                .HasForeignKey(d => d.ProdutoId);
 
+            builder.Property(a => a.Risco)
+                .IsRequired()
+                .HasColumnType("TINYINT");
+
             builder.HasMany(p => p.Ativos)
                 .WithOne(a => a.Produto)
                 .HasForeignKey(a => a.ProdutoId);

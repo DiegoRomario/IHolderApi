@@ -11,12 +11,11 @@ namespace IHolder.Domain.Entities
         private Ativo()
         {
         }
-        public Ativo(Guid produtoid, Informacoes informacoes, string ticker, decimal cotacao, ERisco risco, Guid usuarioId) 
+        public Ativo(Guid produtoid, Informacoes informacoes, string ticker, decimal cotacao, Guid usuarioId) 
         {
             ProdutoId = produtoid;
             Ticker = ticker;
             Cotacao = cotacao;
-            Risco = risco;
             UsuarioId = usuarioId;
             Informacoes = informacoes;
         }
@@ -28,7 +27,6 @@ namespace IHolder.Domain.Entities
         public Guid UsuarioId { get; set; }
         public DateTime DataInclusao { get; private set; }
         public DateTime? DataAlteracao { get; private set; }
-        public ERisco Risco { get; private set; }
         public Produto Produto { get; private set; }
         public Usuario Usuario { get; private set; }
 

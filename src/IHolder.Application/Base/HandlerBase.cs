@@ -10,18 +10,6 @@ namespace IHolder.Application.Base
             _mediator = mediator;
         }
 
-        public bool ValidateCommand<T>(Command<T> command)
-        {
-            if (command.IsValid())
-                return true;
-
-            foreach (var item in command.ValidationResult?.Errors)
-            {
-                PublishNotification(item.ErrorMessage);
-            }
-            return false;
-        }
-
         public void PublishNotification(string message)
         {
             _mediator.Publish(new Notification(message));

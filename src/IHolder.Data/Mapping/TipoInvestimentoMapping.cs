@@ -20,9 +20,6 @@ namespace IHolder.Data.Mapping
                             .HasColumnName("Caracteristicas")
                             .HasColumnType("VARCHAR(240)");
             });
-            builder.Property(t => t.Risco)
-            .IsRequired()
-            .HasColumnType("TINYINT");
             builder.HasMany(t => t.DistribuicoesPorTiposInvestimentos).WithOne(d => d.TipoInvestimento).HasForeignKey(t => t.TipoInvestimentoId);
             builder.HasMany(t => t.Produtos).WithOne(p => p.TipoInvestimento).HasForeignKey(p => p.TipoInvestimentoId);
             builder.ToTable("TipoInvestimento");

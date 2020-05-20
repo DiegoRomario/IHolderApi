@@ -36,8 +36,6 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-            if (!_handlerBase.ValidateCommand(request))
-                return false;
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.AtivoId, request.PercentualObjetivo))
             {
@@ -57,9 +55,6 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(AlterarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-            if (!_handlerBase.ValidateCommand(request))
-                return false;
-
 
             if (AtivoJaCadastrado(request.AtivoId, request.Id))
             {

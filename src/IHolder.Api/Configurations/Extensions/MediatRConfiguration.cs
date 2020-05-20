@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using IHolder.Application.Base;
 using IHolder.Business.Base;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

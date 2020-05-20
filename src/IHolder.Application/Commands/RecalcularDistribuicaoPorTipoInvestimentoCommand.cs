@@ -11,9 +11,6 @@ namespace IHolder.Application.Commands
         }
         public Guid UsuarioId { get; set; }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+
     }
 }

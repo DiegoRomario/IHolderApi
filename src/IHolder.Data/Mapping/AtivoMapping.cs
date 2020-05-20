@@ -28,9 +28,6 @@ namespace IHolder.Data.Mapping
 
             builder.Property(a => a.Ticker).HasColumnType("VARCHAR(50)").IsRequired();
             builder.Property(a => a.Cotacao).IsRequired();
-            builder.Property(a => a.Risco)
-                    .IsRequired()
-                    .HasColumnType("TINYINT");
             builder.Property(a => a.ProdutoId).IsRequired();
             builder.Property(p => p.DataInclusao).IsRequired();
             builder.Property(p => p.UsuarioId).IsRequired();

@@ -36,9 +36,6 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
-            if (!_handlerBase.ValidateCommand(request))
-                return false;
-
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoInvestimentoId, request.PercentualObjetivo))
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
@@ -57,9 +54,6 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
-            if (!_handlerBase.ValidateCommand(request))
-                return false;
-
 
             if (TipoInvestimentoJaCadastrado(request.TipoInvestimentoId, request.Id))
             {

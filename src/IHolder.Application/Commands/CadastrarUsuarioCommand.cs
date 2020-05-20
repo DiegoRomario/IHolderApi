@@ -23,11 +23,6 @@ namespace IHolder.Application.Commands
         public string Senha { get; set; }
         public string ConfirmacaoSenha { get; set; }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new CadastrarUsuarioCommandValidator().Validate(this);
-            return ValidationResult.IsValid;
-        }
     }
 
     public class CadastrarUsuarioCommandValidator : AbstractValidator<CadastrarUsuarioCommand>

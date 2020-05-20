@@ -17,11 +17,7 @@ namespace IHolder.Application.Commands
         public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
-        public override bool IsValid()
-        {
-            ValidationResult = new CadastrarDistribuicaoPorTipoInvestimentoCommandValidator().Validate(this);
-            return ValidationResult.IsValid;
-        }
+
     }
 
     public class CadastrarDistribuicaoPorTipoInvestimentoCommandValidator : AbstractValidator<CadastrarDistribuicaoPorTipoInvestimentoCommand>
@@ -29,7 +25,7 @@ namespace IHolder.Application.Commands
         public CadastrarDistribuicaoPorTipoInvestimentoCommandValidator()
         {
             RuleFor(c => c.TipoInvestimentoId).NotEmpty().WithMessage("O tipo de investimento deve ser informado");
-            RuleFor(c => c.UsuarioId).NotEmpty().WithMessage("O usuario deve ser informado");
+            
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");
         }
     }
