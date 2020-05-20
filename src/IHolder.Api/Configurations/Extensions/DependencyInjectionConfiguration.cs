@@ -10,7 +10,6 @@ using IHolder.Domain.Interfaces;
 using IHolder.Application.Base;
 using IHolder.Data.Repository.Base;
 using MediatR;
-using IHolder.Application.Queries;
 
 namespace IHolder.Api.Configurations.Extensions
 {
@@ -31,6 +30,7 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddTransient<IDistribuicaoPorAtivoQueries, DistribuicaoPorAtivoQueries>();
             services.AddTransient<IDistribuicaoPorProdutoQueries, DistribuicaoPorProdutoQueries>();
             services.AddTransient<IAtivoQueries, AtivoQueries>();
+            services.AddTransient<IProdutoQueries, ProdutoQueries>();
             services.AddScoped<IAporteRepository, AporteRepository>();  
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IAporteRepository, AporteRepository>();

@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using IHolder.Api.Controllers.Base;
 using IHolder.Application.Base;
 using IHolder.Application.Commands;
 using IHolder.Application.Queries;
 using IHolder.Domain.DomainObjects;
-using IHolder.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IHolder.Api.Controllers.V1

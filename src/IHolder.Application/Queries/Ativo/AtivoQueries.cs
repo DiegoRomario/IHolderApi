@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using IHolder.Application.ViewModels;
 using IHolder.Domain.DomainObjects;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IHolder.Domain.Entities;

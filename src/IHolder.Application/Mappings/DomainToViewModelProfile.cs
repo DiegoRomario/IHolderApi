@@ -47,6 +47,9 @@ namespace IHolder.Application.Mappings
                 .ForMember(d => d.Caracteristicas, s => s.MapFrom(s => s.Informacoes.Caracteristicas))
                 .ForMember(d => d.ProdutoDescricao, s => s.MapFrom(s => s.Produto.Informacoes.Descricao));
 
+            CreateMap<Produto, ProdutoViewModel>()
+                .ForMember(d => d.Descricao, s => s.MapFrom(s => s.Informacoes.Descricao));
+
         }
     }
 }
