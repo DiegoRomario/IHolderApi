@@ -2,6 +2,10 @@
 {
     public class Informacoes
     {
+        private Informacoes()
+        {
+
+        }
         public Informacoes(string descricao, string caracteristicas)
         {
             Descricao = descricao;

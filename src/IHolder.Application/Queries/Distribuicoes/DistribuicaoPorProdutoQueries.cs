@@ -4,7 +4,7 @@ using IHolder.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IHolder.Application.Queries.Distribuicoes
+namespace IHolder.Application.Queries
 {
     public class DistribuicaoPorProdutoQueries : IDistribuicaoPorProdutoQueries
     {

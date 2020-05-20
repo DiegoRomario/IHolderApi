@@ -6,7 +6,7 @@ using MediatR;
 using IHolder.Application.Base;
 using System.Collections.Generic;
 using IHolder.Domain.DomainObjects;
-using IHolder.Application.Queries.Distribuicoes;
+using IHolder.Application.Queries;
 using IHolder.Application.Commands;
 using System;
 
@@ -32,7 +32,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> Cadastrar([FromBody] CadastrarDistribuicaoPorAtivoCommand command)
         {
-            var teste = await _mediator.Send(command);
+            await _mediator.Send(command);
             return ResponseBase("Distribuição cadastrada com sucesso");
         }
 

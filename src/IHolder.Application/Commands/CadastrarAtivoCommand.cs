@@ -14,13 +14,15 @@ namespace IHolder.Application.Commands
             Ticker = ticker;
             Cotacao = cotacao;
             UsuarioId = usuarioId;
-            Informacoes = new Informacoes(descricao, caracteristicas);
+            Descricao = descricao;
+            Caracteristicas = caracteristicas;
         }
 
-        public Guid ProdutoId { get; private set; }
-        public Informacoes Informacoes { get; set; }
-        public string Ticker { get; private set; }
-        public decimal Cotacao { get; private set; }
+        public Guid ProdutoId { get; set; }
+        public string Descricao { get; set; }
+        public string Caracteristicas { get; set; }
+        public string Ticker { get; set; }
+        public decimal Cotacao { get; set; }
         public Guid UsuarioId { get; set; }
 
     }

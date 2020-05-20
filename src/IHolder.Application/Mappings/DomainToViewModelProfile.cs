@@ -4,7 +4,7 @@ using IHolder.Domain.Entities;
 
 namespace IHolder.Application.Mappings
 {
-    public class DomainToViewModelProfile : Profile 
+    public class DomainToViewModelProfile : Profile
     {
         public DomainToViewModelProfile()
         {
@@ -41,6 +41,11 @@ namespace IHolder.Application.Mappings
                 .ForMember(d => d.ValorAtual, s => s.MapFrom(s => s.Valores.ValorAtual))
                 .ForMember(d => d.ValorDiferenca, s => s.MapFrom(s => s.Valores.ValorDiferenca))
                 .ForMember(d => d.Orientacao, s => s.MapFrom(s => s.Orientacao));
+
+            CreateMap<Ativo, AtivoViewModel>()
+                .ForMember(d => d.Descricao, s => s.MapFrom(s => s.Informacoes.Descricao))
+                .ForMember(d => d.Caracteristicas, s => s.MapFrom(s => s.Informacoes.Caracteristicas))
+                .ForMember(d => d.ProdutoDescricao, s => s.MapFrom(s => s.Produto.Informacoes.Descricao));
 
         }
     }

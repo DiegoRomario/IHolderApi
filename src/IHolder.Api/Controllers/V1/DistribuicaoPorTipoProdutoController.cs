@@ -6,7 +6,7 @@ using MediatR;
 using IHolder.Application.Base;
 using System.Collections.Generic;
 using IHolder.Domain.DomainObjects;
-using IHolder.Application.Queries.Distribuicoes;
+using IHolder.Application.Queries;
 using IHolder.Application.Commands;
 using System;
 

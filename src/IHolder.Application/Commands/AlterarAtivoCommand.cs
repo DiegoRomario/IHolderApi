@@ -8,18 +8,24 @@ namespace IHolder.Application.Commands
     public class AlterarAtivoCommand : Command<bool>
     {
 
-        public AlterarAtivoCommand(Guid produtoid, string descricao, string caracteristicas, string ticker, decimal cotacao)
+        public AlterarAtivoCommand(Guid id, Guid produtoid, string descricao, string caracteristicas, string ticker, decimal cotacao, Guid usuarioId)
         {
+            Id = id;
             ProdutoId = produtoid;
             Ticker = ticker;
             Cotacao = cotacao;
-            Informacoes = new Informacoes(descricao, caracteristicas);
+            Descricao = descricao;
+            Caracteristicas = caracteristicas;
+            UsuarioId = usuarioId;
         }
 
-        public Guid ProdutoId { get; private set; }
-        public Informacoes Informacoes { get; set; }
-        public string Ticker { get; private set; }
-        public decimal Cotacao { get; private set; }
+        public Guid Id { get; set; }
+        public Guid ProdutoId { get; set; }
+        public string Descricao { get; set; }
+        public string Caracteristicas { get; set; }
+        public string Ticker { get; set; }
+        public decimal Cotacao { get; set; }
+        public Guid UsuarioId { get; set; }
 
     }
 

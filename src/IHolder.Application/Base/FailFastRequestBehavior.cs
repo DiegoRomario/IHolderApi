@@ -28,7 +28,7 @@ namespace IHolder.Business.Base
 
         public Task<bool> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<bool> next)
         {
-#if DEBUG
+#if !DEBUG
             PropertyInfo propriedade = typeof(TRequest).GetProperty("UsuarioId");
 
             object valor = propriedade?.GetValue(request, null);
