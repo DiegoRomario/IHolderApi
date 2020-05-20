@@ -54,7 +54,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> ObterDistribuicoesPorProduto()
         {
-            IEnumerable<DistribuicaoPorProdutoViewModel> distribuicoes
+            IEnumerable<DistribuicaoViewModel> distribuicoes
                 = await _distribuicaoPorProdutoQueries.ObterDistribuicaoPorProduto();
             return ResponseBase(distribuicoes);
         }

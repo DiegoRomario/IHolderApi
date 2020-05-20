@@ -1,11 +1,11 @@
 ﻿using System;
 
-public class DistribuicaoPorProdutoViewModel
+public class DistribuicaoViewModel
 {
     public Guid Id { get; set; }
-    public Guid ProdutoId { get; set; }
-    public string DescricaoProduto { get; set; }
-    public string CaracteristicasProduto { get; set; }
+    public Guid TipoDistribuicaoId { get; set; }
+    public string Descricao { get; set; }
+    public string Caracteristicas { get; set; }
     public decimal PercentualObjetivo { get; set; }
     public decimal PercentualAtual { get; set; }
     public decimal PercentualDiferenca { get; set; }

@@ -6,6 +6,6 @@ namespace IHolder.Application.Queries
 {
     public interface IDistribuicaoPorTipoInvestimentoQueries
     {
-        Task<IEnumerable<DistribuicaoPorTipoInvestimentoViewModel>> ObterDistribuicaoPorTipoInvestimento();
+        Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorTipoInvestimento();
     }
 }

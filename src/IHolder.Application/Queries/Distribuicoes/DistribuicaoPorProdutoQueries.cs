@@ -17,9 +17,9 @@ namespace IHolder.Application.Queries.Distribuicoes
             _repository = repository;
         }
 
-        public async Task<IEnumerable<DistribuicaoPorProdutoViewModel>> ObterDistribuicaoPorProduto()
+        public async Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorProduto()
         {
-            var distribuicoes = _mapper.Map<IEnumerable<DistribuicaoPorProdutoViewModel>>(await _repository.GetManyBy(includes: d => d.Produto));
+            var distribuicoes = _mapper.Map<IEnumerable<DistribuicaoViewModel>>(await _repository.GetManyBy(includes: d => d.Produto));
             return distribuicoes;
         }
     }

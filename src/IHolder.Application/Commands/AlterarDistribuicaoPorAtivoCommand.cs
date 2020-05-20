@@ -6,12 +6,12 @@ namespace IHolder.Application.Commands
 {
     public class AlterarDistribuicaoPorAtivoCommand : Command<bool>
     {
-        public AlterarDistribuicaoPorAtivoCommand(Guid id,Guid ativoId, Guid usuarioId, decimal percentualObjetivo)
+        public AlterarDistribuicaoPorAtivoCommand(Guid id, Guid ativoId, Guid usuarioId, decimal percentualObjetivo)
         {
             Id = id;
+            AtivoId = ativoId;
             UsuarioId = usuarioId;
             PercentualObjetivo = percentualObjetivo;
-            AtivoId = ativoId;
         }
 
         public Guid Id { get; set; }

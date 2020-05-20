@@ -56,7 +56,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> ObterDistribuicoesPorTipoInvestimento()
         {
-            IEnumerable<DistribuicaoPorTipoInvestimentoViewModel> distribuicoes
+            IEnumerable<DistribuicaoViewModel> distribuicoes
                 = await _distribuicaoPorTipoInvestimentoQueries.ObterDistribuicaoPorTipoInvestimento();
             return ResponseBase(distribuicoes);
         }

@@ -7,6 +7,6 @@ namespace IHolder.Application.Queries.Distribuicoes
 {
     public interface IDistribuicaoPorAtivoQueries
     {
-        Task<IEnumerable<DistribuicaoPorAtivoViewModel>> ObterDistribuicaoPorAtivo();
+        Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorAtivo();
     }
 }

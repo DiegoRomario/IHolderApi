@@ -9,9 +9,10 @@ namespace IHolder.Application.Mappings
         public DomainToViewModelProfile()
         {
             CreateMap<Usuario, UsuarioAutenticadoViewModel>();
-            CreateMap<DistribuicaoPorTipoInvestimento, DistribuicaoPorTipoInvestimentoViewModel>()
-                .ForMember(d => d.DescricaoTipoInvestimento, s => s.MapFrom(s => s.TipoInvestimento.Informacoes.Descricao))
-                .ForMember(d => d.CaracteristicasTipoInvestimento, s => s.MapFrom(s => s.TipoInvestimento.Informacoes.Caracteristicas))
+            CreateMap<DistribuicaoPorTipoInvestimento, DistribuicaoViewModel>()
+                .ForMember(d => d.TipoDistribuicaoId, s => s.MapFrom(s => s.TipoInvestimento.Id))
+                .ForMember(d => d.Descricao, s => s.MapFrom(s => s.TipoInvestimento.Informacoes.Descricao))
+                .ForMember(d => d.Caracteristicas, s => s.MapFrom(s => s.TipoInvestimento.Informacoes.Caracteristicas))
                 .ForMember(d => d.PercentualObjetivo, s => s.MapFrom(s => s.Valores.PercentualObjetivo))
                 .ForMember(d => d.PercentualAtual, s => s.MapFrom(s => s.Valores.PercentualAtual))
                 .ForMember(d => d.PercentualDiferenca, s => s.MapFrom(s => s.Valores.PercentualDiferenca))
@@ -19,9 +20,10 @@ namespace IHolder.Application.Mappings
                 .ForMember(d => d.ValorDiferenca, s => s.MapFrom(s => s.Valores.ValorDiferenca))
                 .ForMember(d => d.Orientacao, s => s.MapFrom(s => s.Orientacao));
 
-            CreateMap<DistribuicaoPorAtivo, DistribuicaoPorAtivoViewModel>()
-                .ForMember(d => d.DescricaoAtivo, s => s.MapFrom(s => s.Ativo.Informacoes.Descricao))
-                .ForMember(d => d.CaracteristicasAtivo, s => s.MapFrom(s => s.Ativo.Informacoes.Caracteristicas))
+            CreateMap<DistribuicaoPorAtivo, DistribuicaoViewModel>()
+                .ForMember(d => d.TipoDistribuicaoId, s => s.MapFrom(s => s.Ativo.Id))
+                .ForMember(d => d.Descricao, s => s.MapFrom(s => s.Ativo.Ticker))
+                .ForMember(d => d.Caracteristicas, s => s.MapFrom(s => s.Ativo.Informacoes.Caracteristicas))
                 .ForMember(d => d.PercentualObjetivo, s => s.MapFrom(s => s.Valores.PercentualObjetivo))
                 .ForMember(d => d.PercentualAtual, s => s.MapFrom(s => s.Valores.PercentualAtual))
                 .ForMember(d => d.PercentualDiferenca, s => s.MapFrom(s => s.Valores.PercentualDiferenca))
@@ -29,9 +31,10 @@ namespace IHolder.Application.Mappings
                 .ForMember(d => d.ValorDiferenca, s => s.MapFrom(s => s.Valores.ValorDiferenca))
                 .ForMember(d => d.Orientacao, s => s.MapFrom(s => s.Orientacao));
 
-            CreateMap<DistribuicaoPorProduto, DistribuicaoPorProdutoViewModel>()
-                .ForMember(d => d.DescricaoProduto, s => s.MapFrom(s => s.Produto.Informacoes.Descricao))
-                .ForMember(d => d.CaracteristicasProduto, s => s.MapFrom(s => s.Produto.Informacoes.Caracteristicas))
+            CreateMap<DistribuicaoPorProduto, DistribuicaoViewModel>()
+                .ForMember(d => d.TipoDistribuicaoId, s => s.MapFrom(s => s.Produto.Id))
+                .ForMember(d => d.Descricao, s => s.MapFrom(s => s.Produto.Informacoes.Descricao))
+                .ForMember(d => d.Caracteristicas, s => s.MapFrom(s => s.Produto.Informacoes.Caracteristicas))
                 .ForMember(d => d.PercentualObjetivo, s => s.MapFrom(s => s.Valores.PercentualObjetivo))
                 .ForMember(d => d.PercentualAtual, s => s.MapFrom(s => s.Valores.PercentualAtual))
                 .ForMember(d => d.PercentualDiferenca, s => s.MapFrom(s => s.Valores.PercentualDiferenca))

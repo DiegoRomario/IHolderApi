@@ -21,9 +21,9 @@ namespace IHolder.Application.Queries
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DistribuicaoPorTipoInvestimentoViewModel>> ObterDistribuicaoPorTipoInvestimento()
+        public async Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorTipoInvestimento()
         {
-            var distribuicoes = _mapper.Map<IEnumerable<DistribuicaoPorTipoInvestimento>, IEnumerable<DistribuicaoPorTipoInvestimentoViewModel>>
+            var distribuicoes = _mapper.Map<IEnumerable<DistribuicaoPorTipoInvestimento>, IEnumerable<DistribuicaoViewModel>>
                 (await _repository.GetManyBy(includes: a => a.TipoInvestimento));
             return distribuicoes;
         }

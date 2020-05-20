@@ -54,7 +54,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> ObterDistribuicoesPorAtivo()
         {
-            IEnumerable<DistribuicaoPorAtivoViewModel> distribuicoes
+            IEnumerable<DistribuicaoViewModel> distribuicoes
                 = await _distribuicaoPorAtivoQueries.ObterDistribuicaoPorAtivo();
             return ResponseBase(distribuicoes);
         }
