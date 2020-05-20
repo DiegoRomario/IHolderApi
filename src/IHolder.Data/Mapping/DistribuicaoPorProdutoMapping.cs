@@ -42,6 +42,11 @@ namespace IHolder.Data.Mapping
                     .IsRequired()
                     .HasColumnType("TINYINT");
             builder.Property(p => p.UsuarioId).IsRequired();
+
+            builder.HasMany(d => d.DistribuicoesPorAtivos)
+            .WithOne(p => p.DistribuicaoPorProduto)
+            .HasForeignKey(p => p.DistribuicaoPorProdutoId);
+
             builder.ToTable("DistribuicaoPorProduto");
         }
     }

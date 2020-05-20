@@ -11,7 +11,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace IHolder.Application.Handlers
 {
     public class DistribuicaoPorAtivoHandler :
@@ -37,18 +36,18 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.AtivoId, request.PercentualObjetivo))
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+                return false;
             }
 
             if (AtivoJaCadastrado(request.AtivoId))
             {
-                _handlerBase.PublishNotification("Este ativo já possuí um percentual de distribuição definido");
+                _handlerBase.PublishNotification("Este tipo de investimento já possuí um percentual de distribuição definido");
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorAtivo>(request));
@@ -61,9 +60,10 @@ namespace IHolder.Application.Handlers
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
-            if (!AtivoJaCadastrado(request.AtivoId))
+
+            if (AtivoJaCadastrado(request.AtivoId, request.Id))
             {
-                _handlerBase.PublishNotification("Distribuição por ativo não encontrada");
+                _handlerBase.PublishNotification("O novo tipo de investimento selecionado já possuí um percentual de distribuição definido");
                 return false;
             }
 
@@ -72,6 +72,8 @@ namespace IHolder.Application.Handlers
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
                 return false;
             }
+
+
 
             return await Update(_mapper.Map<DistribuicaoPorAtivo>(request)); ;
         }
@@ -83,7 +85,7 @@ namespace IHolder.Application.Handlers
 
             foreach (var item in distribuicoes)
             {
-               var valorTotalPorAtivo = _aporteRepository.ObterTotalAplicadoPorAtivo(item.AtivoId, request.UsuarioId).Result;
+                var valorTotalPorAtivo = _aporteRepository.ObterTotalAplicadoPorAtivo(item.AtivoId, request.UsuarioId).Result;
                 item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, valor_total);
                 item.AtualizarOrientacao();
                 await Update(item);
@@ -92,11 +94,6 @@ namespace IHolder.Application.Handlers
             return true;
         }
 
-        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid ativoId, decimal percentualObjetivo)
-        {
-            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.AtivoId != ativoId).Result.Sum(d => d.Valores.PercentualObjetivo);
-            return (percentualAcumulado + percentualObjetivo) > 100;
-        }
 
         private async Task<bool> Update(DistribuicaoPorAtivo entity)
         {
@@ -104,9 +101,15 @@ namespace IHolder.Application.Handlers
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
-        private bool AtivoJaCadastrado(Guid AtivoId)
+        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid AtivoId, decimal percentualObjetivo, Nullable<Guid> distribuicaoId = null)
         {
-            return _distribuicaoRepositorio.GetBy(d => d.AtivoId == AtivoId).Result != null;
+            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.AtivoId != AtivoId && d.Id != distribuicaoId).Result.Sum(d => d.Valores.PercentualObjetivo);
+            return percentualAcumulado + percentualObjetivo > 100;
+        }
+
+        private bool AtivoJaCadastrado(Guid AtivoId, Nullable<Guid> distribuicaoId = null)
+        {
+            return _distribuicaoRepositorio.GetBy(d => d.AtivoId == AtivoId && d.Id != distribuicaoId).Result != null;
         }
 
     }

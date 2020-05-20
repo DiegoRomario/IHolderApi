@@ -10,14 +10,15 @@ namespace IHolder.Domain.Entities
         private DistribuicaoPorAtivo()
         {
         }
-        public DistribuicaoPorAtivo(Guid ativoId, Guid usuarioId, Valores valores)
+        public DistribuicaoPorAtivo(Guid distribuicaoPorProdutoId, Guid ativoId, Guid usuarioId, Valores valores)
         {
+            DistribuicaoPorProdutoId = distribuicaoPorProdutoId;
             AtivoId = ativoId;
             UsuarioId = usuarioId;
             Orientacao = EOrientacao.Hold;
             Valores = valores;
         }
-
+        public Guid DistribuicaoPorProdutoId { get; private set; }
         public  Valores Valores { get; private set; }
         public Guid AtivoId { get; private set; }
         public Guid UsuarioId { get; private set; }
@@ -25,6 +26,7 @@ namespace IHolder.Domain.Entities
         public DateTime DataInclusao { get; private set; }
         public DateTime? DataAlteracao { get; private set; }
 
+        public DistribuicaoPorProduto DistribuicaoPorProduto { get; private set; }
         public Ativo Ativo { get; private set; }
         public Usuario Usuario { get; private set; }
 

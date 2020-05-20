@@ -2,6 +2,7 @@
 using IHolder.Domain.Enumerators;
 using IHolder.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace IHolder.Domain.Entities
 {
@@ -27,6 +28,7 @@ namespace IHolder.Domain.Entities
         public DateTime DataInclusao { get; private set; }
         public DateTime? DataAlteracao { get; private set; }
 
+        public IEnumerable<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; private set; }
         public DistribuicaoPorTipoInvestimento DistribuicaoPorTipoInvestimento { get; private set; }
         public Produto Produto { get; private set; }
         public Usuario Usuario { get; private set; }

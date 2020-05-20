@@ -54,16 +54,18 @@ namespace IHolder.Application.Handlers
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
-        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid TipoInvestimentoId, decimal percentualObjetivo )
-        {
-            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.TipoInvestimentoId != TipoInvestimentoId).Result.Sum(d => d.Valores.PercentualObjetivo);
-            return percentualAcumulado + percentualObjetivo > 100;
-        }
 
         public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
             if (!_handlerBase.ValidateCommand(request))
                 return false;
+
+
+            if (TipoInvestimentoJaCadastrado(request.TipoInvestimentoId, request.Id))
+            {
+                _handlerBase.PublishNotification("O novo tipo de investimento selecionado já possuí um percentual de distribuição definido");
+                return false;
+            }
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoInvestimentoId, request.PercentualObjetivo))
             {
@@ -71,12 +73,6 @@ namespace IHolder.Application.Handlers
                 return false;
             }
 
-
-            if (!TipoInvestimentoJaCadastrado(request.TipoInvestimentoId))
-            {
-                _handlerBase.PublishNotification("Distribuição por tipo de investimento não encontrada");
-                return false;
-            }
 
 
             return await Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(request)); ;
@@ -105,9 +101,15 @@ namespace IHolder.Application.Handlers
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
-        private bool TipoInvestimentoJaCadastrado(Guid tipoInvestimentoId)
+        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid TipoInvestimentoId, decimal percentualObjetivo, Nullable<Guid> distribuicaoId = null)
         {
-            return _distribuicaoRepositorio.GetBy(d => d.TipoInvestimentoId == tipoInvestimentoId).Result != null;
+            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.TipoInvestimentoId != TipoInvestimentoId && d.Id != distribuicaoId).Result.Sum(d => d.Valores.PercentualObjetivo);
+            return percentualAcumulado + percentualObjetivo > 100;
+        }
+
+        private bool TipoInvestimentoJaCadastrado(Guid tipoInvestimentoId, Nullable<Guid> distribuicaoId = null)
+        {
+            return _distribuicaoRepositorio.GetBy(d => d.TipoInvestimentoId == tipoInvestimentoId && d.Id != distribuicaoId).Result != null;
         }
 
     }

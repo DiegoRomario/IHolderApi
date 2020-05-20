@@ -11,7 +11,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace IHolder.Application.Handlers
 {
     public class DistribuicaoPorProdutoHandler :
@@ -37,18 +36,18 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarDistribuicaoPorProdutoCommand request, CancellationToken cancellationToken)
         {
-
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.ProdutoId, request.PercentualObjetivo))
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+                return false;
             }
 
             if (ProdutoJaCadastrado(request.ProdutoId))
             {
-                _handlerBase.PublishNotification("Este Produto já possuí um percentual de distribuição definido");
+                _handlerBase.PublishNotification("Este tipo de investimento já possuí um percentual de distribuição definido");
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorProduto>(request));
@@ -61,9 +60,9 @@ namespace IHolder.Application.Handlers
             if (!_handlerBase.ValidateCommand(request))
                 return false;
 
-            if (!ProdutoJaCadastrado(request.ProdutoId))
+            if (ProdutoJaCadastrado(request.ProdutoId, request.Id))
             {
-                _handlerBase.PublishNotification("Distribuição por Produto não encontrada");
+                _handlerBase.PublishNotification("O novo produto selecionado já possuí um percentual de distribuição definido");
                 return false;
             }
 
@@ -92,11 +91,6 @@ namespace IHolder.Application.Handlers
             return true;
         }
 
-        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid ProdutoId, decimal percentualObjetivo)
-        {
-            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.ProdutoId != ProdutoId).Result.Sum(d => d.Valores.PercentualObjetivo);
-            return (percentualAcumulado + percentualObjetivo) > 100;
-        }
 
         private async Task<bool> Update(DistribuicaoPorProduto entity)
         {
@@ -104,9 +98,15 @@ namespace IHolder.Application.Handlers
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
-        private bool ProdutoJaCadastrado(Guid ProdutoId)
+        private bool PercentualObjetivoAcumuladoUltrapasa100PorCento(Guid ProdutoId, decimal percentualObjetivo, Nullable<Guid> distribuicaoId = null)
         {
-            return _distribuicaoRepositorio.GetBy(d => d.ProdutoId == ProdutoId).Result != null;
+            decimal percentualAcumulado = _distribuicaoRepositorio.GetManyBy(d => d.ProdutoId != ProdutoId && d.Id != distribuicaoId).Result.Sum(d => d.Valores.PercentualObjetivo);
+            return percentualAcumulado + percentualObjetivo > 100;
+        }
+
+        private bool ProdutoJaCadastrado(Guid ProdutoId, Nullable<Guid> distribuicaoId = null)
+        {
+            return _distribuicaoRepositorio.GetBy(d => d.ProdutoId == ProdutoId && d.Id != distribuicaoId).Result != null;
         }
 
     }

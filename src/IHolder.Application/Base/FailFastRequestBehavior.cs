@@ -23,6 +23,7 @@ namespace IHolder.Business.Base
 
         public Task<bool> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<bool> next)
         {
+#if !DEBUG
             PropertyInfo propriedade = typeof(TRequest).GetProperty("UsuarioId");
 
             object valor = propriedade?.GetValue(request, null);
@@ -37,6 +38,7 @@ namespace IHolder.Business.Base
                     return Task.FromResult(false);
                 }
             }
+#endif
 
             return next();
         }
