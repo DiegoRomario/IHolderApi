@@ -28,22 +28,27 @@ namespace IHolder.Business.Base
 
         public Task<bool> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<bool> next)
         {
-#if !DEBUG
+
             PropertyInfo propriedade = typeof(TRequest).GetProperty("UsuarioId");
+#if DEBUG
+            propriedade?.SetValue(request, new Guid("EC1C63CE-5733-47B5-860C-23D7E62660E7"));
 
-            object valor = propriedade?.GetValue(request, null);
-
-            if (valor != null)
-            {
-                Guid user = Guid.Parse(valor.ToString());
-
-                if (user != _user.GetUserId())
-                {
-                    _mediator.Publish(new Notification(message: "O usuário informado não corresponde ao usuário logado"));
-                    return Task.FromResult(false);
-                }
-            }
+#else 
+            propriedade?.SetValue(request, _user.GetUserId());
 #endif
+            //object valor = propriedade?.GetValue(request, null);
+
+            //if (valor != null)
+            //{
+            //    Guid user = Guid.Parse(valor.ToString());
+
+            //    if (user != _user.GetUserId())
+            //    {
+            //        _mediator.Publish(new Notification(message: "O usuário informado não corresponde ao usuário logado"));
+            //        return Task.FromResult(false);
+            //    }
+            //}
+
 
             var falhas = _validators.Select(v => v.Validate(request))
                 .SelectMany(result => result.Errors)

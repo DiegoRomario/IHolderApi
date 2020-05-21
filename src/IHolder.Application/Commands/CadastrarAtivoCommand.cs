@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using IHolder.Application.Base;
-using IHolder.Domain.ValueObjects;
 using System;
 
 namespace IHolder.Application.Commands
@@ -8,12 +7,11 @@ namespace IHolder.Application.Commands
     public class CadastrarAtivoCommand : Command<bool>
     {
 
-        public CadastrarAtivoCommand(Guid produtoid, string descricao, string caracteristicas, string ticker, decimal cotacao, Guid usuarioId)
+        public CadastrarAtivoCommand(Guid produtoid, string descricao, string caracteristicas, string ticker, decimal cotacao)
         {
             ProdutoId = produtoid;
             Ticker = ticker;
             Cotacao = cotacao;
-            UsuarioId = usuarioId;
             Descricao = descricao;
             Caracteristicas = caracteristicas;
         }
@@ -23,7 +21,6 @@ namespace IHolder.Application.Commands
         public string Caracteristicas { get; set; }
         public string Ticker { get; set; }
         public decimal Cotacao { get; set; }
-        public Guid UsuarioId { get; set; }
 
     }
 

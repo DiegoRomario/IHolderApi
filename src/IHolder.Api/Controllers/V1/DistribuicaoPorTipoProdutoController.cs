@@ -17,15 +17,13 @@ namespace IHolder.Api.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DistribuicaoPorProdutoController : ResponseBaseController
     {
-        private readonly IUser _user;
         private readonly IDistribuicaoPorProdutoQueries _distribuicaoPorProdutoQueries;
 
         public DistribuicaoPorProdutoController(IMediator mediator,
             IDistribuicaoPorProdutoQueries distribuicaoPorProdutoQueries,
-            INotificationHandler<Notification> notificationHandler, IUser user) : base(mediator, notificationHandler)
+            INotificationHandler<Notification> notificationHandler) : base(mediator, notificationHandler)
         {
             _distribuicaoPorProdutoQueries = distribuicaoPorProdutoQueries;
-            _user = user;
         }
 
         [HttpPost()]
@@ -62,7 +60,7 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorProdutoCommand(_user.GetUserId())));
+            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorProdutoCommand()));
         }
 
     }

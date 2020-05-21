@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using IHolder.Application.Base;
 using System.Collections.Generic;
-using IHolder.Domain.DomainObjects;
 using IHolder.Application.Queries;
 using IHolder.Application.Commands;
 using System;
@@ -17,15 +16,13 @@ namespace IHolder.Api.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DistribuicaoPorAtivoController : ResponseBaseController
     {
-        private readonly IUser _user;
         private readonly IDistribuicaoPorAtivoQueries _distribuicaoPorAtivoQueries;
 
         public DistribuicaoPorAtivoController(IMediator mediator,
             IDistribuicaoPorAtivoQueries distribuicaoPorAtivoQueries,
-            INotificationHandler<Notification> notificationHandler, IUser user) : base(mediator, notificationHandler)
+            INotificationHandler<Notification> notificationHandler) : base(mediator, notificationHandler)
         {
             _distribuicaoPorAtivoQueries = distribuicaoPorAtivoQueries;
-            _user = user;
         }
 
         [HttpPost()]
@@ -62,7 +59,7 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand(_user.GetUserId())));
+            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand()));
         }
 
     }

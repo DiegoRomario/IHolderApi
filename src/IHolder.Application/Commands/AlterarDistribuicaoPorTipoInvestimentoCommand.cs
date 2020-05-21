@@ -6,17 +6,15 @@ namespace IHolder.Application.Commands
 {
     public class AlterarDistribuicaoPorTipoInvestimentoCommand : Command<bool>
     {
-        public AlterarDistribuicaoPorTipoInvestimentoCommand(Guid id, Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
+        public AlterarDistribuicaoPorTipoInvestimentoCommand(Guid id, Guid tipoInvestimentoId, decimal percentualObjetivo)
         {
             Id = id;
-            UsuarioId = usuarioId;
             PercentualObjetivo = percentualObjetivo;
             TipoInvestimentoId = tipoInvestimentoId;
         }
 
         public Guid Id { get; set; }
         public Guid TipoInvestimentoId { get; set; }
-        public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
     }
 

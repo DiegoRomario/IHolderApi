@@ -6,15 +6,13 @@ namespace IHolder.Application.Commands
 {
     public class CadastrarDistribuicaoPorTipoInvestimentoCommand : Command<bool>
     {
-        public CadastrarDistribuicaoPorTipoInvestimentoCommand(Guid tipoInvestimentoId, Guid usuarioId, decimal percentualObjetivo)
+        public CadastrarDistribuicaoPorTipoInvestimentoCommand(Guid tipoInvestimentoId, decimal percentualObjetivo)
         {
             TipoInvestimentoId = tipoInvestimentoId;
-            this.UsuarioId = usuarioId;
             PercentualObjetivo = percentualObjetivo;
         }
 
         public Guid TipoInvestimentoId { get; set; }
-        public Guid UsuarioId { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
 

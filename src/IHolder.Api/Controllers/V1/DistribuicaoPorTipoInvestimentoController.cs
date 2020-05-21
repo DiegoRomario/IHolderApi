@@ -8,9 +8,6 @@ using IHolder.Application.Commands;
 using IHolder.Application.Base;
 using IHolder.Application.Queries;
 using System.Collections.Generic;
-using IHolder.Application.ViewModels;
-using IHolder.Domain.DomainObjects;
-
 namespace IHolder.Api.Controllers.V1
 {
     [Authorize]
@@ -18,15 +15,13 @@ namespace IHolder.Api.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class DistribuicaoPorTipoInvestimentoController : ResponseBaseController
     {
-        private readonly IUser _user;
         private readonly IDistribuicaoPorTipoInvestimentoQueries _distribuicaoPorTipoInvestimentoQueries;
 
         public DistribuicaoPorTipoInvestimentoController(IMediator mediator,
             IDistribuicaoPorTipoInvestimentoQueries distribuicaoPorTipoInvestimentoQueries,
-            INotificationHandler<Notification> notificationHandler, IUser user) : base(mediator, notificationHandler)
+            INotificationHandler<Notification> notificationHandler) : base(mediator, notificationHandler)
         {
             _distribuicaoPorTipoInvestimentoQueries = distribuicaoPorTipoInvestimentoQueries;
-            _user = user;
         }
 
         [HttpPost()]
@@ -64,7 +59,7 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand(_user.GetUserId())));
+            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand()));
         }
 
     }

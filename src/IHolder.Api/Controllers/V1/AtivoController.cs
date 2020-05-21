@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using IHolder.Api.Controllers.Base;
 using IHolder.Application.Base;
@@ -25,10 +26,11 @@ namespace IHolder.Api.Controllers.V1
             _user = user;
         }
 
-        [HttpPost]
+        [HttpPost("cadastrar")]
         [AllowAnonymous]
         public async Task<ActionResult> Insert(CadastrarAtivoCommand command)
         {
+            Thread.Sleep(3000);
             await _mediator.Send(command);
             return ResponseBase("Ativo cadastrado com sucesso");
         }

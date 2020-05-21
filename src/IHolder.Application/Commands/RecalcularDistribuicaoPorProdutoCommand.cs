@@ -5,11 +5,6 @@ namespace IHolder.Application.Commands
 {
     public class RecalcularDistribuicaoPorProdutoCommand : Command<bool>
     {
-        public RecalcularDistribuicaoPorProdutoCommand(Guid usuarioId)
-        {
-            this.UsuarioId = usuarioId;
-        }
-        public Guid UsuarioId { get; set; }
 
     }
 }
