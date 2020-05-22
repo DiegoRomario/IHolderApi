@@ -4,9 +4,6 @@ using IHolder.Application.Commands;
 using IHolder.Domain.DomainObjects;
 using IHolder.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,13 +25,14 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarAtivoCommand request, CancellationToken cancellationToken)
         {
-            if (_repository.GetBy(a => a.Ticker == request.Ticker).Result != null)
+            //if (_repository.GetBy(a => a.Ticker == request.Ticker).Result != null)
+            if (request.Descricao == null)
             {
                 _handlerBase.PublishNotification("Já existe um ativo cadastrado com o mesmo Ticker");
                 return false;
             }
 
-           _repository.Insert(_mapper.Map<Ativo>(request));
+            _repository.Insert(_mapper.Map<Ativo>(request));
             return await _repository.UnitOfWork.Commit();
         }
 

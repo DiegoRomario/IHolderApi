@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using IHolder.Application.Base;
-using IHolder.Domain.ValueObjects;
 using System;
 
 namespace IHolder.Application.Commands
