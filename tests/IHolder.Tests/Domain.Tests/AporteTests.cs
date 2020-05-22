@@ -13,7 +13,11 @@ namespace IHolder.Tests.Domain.Tests
         public void Aporte_DadoPrecoMedioEQuantidade_DeveCalcularValorTotal()
         {
             // Arrange
-            Aporte aporte = new Aporte(Guid.NewGuid(), 33.45M, 825, Guid.NewGuid(), DateTime.Now);
+            Aporte aporte = new Aporte(
+                ativoId: Guid.NewGuid(), 
+                precoMedio: 33.45M, quantidade:  825, 
+                usuarioId: Guid.NewGuid(), 
+                dataAporte: DateTime.Now);
             // Act
             aporte.CalcularPrecoTotal();
             // Assert 

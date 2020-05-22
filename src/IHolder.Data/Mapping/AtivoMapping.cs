@@ -31,9 +31,10 @@ namespace IHolder.Data.Mapping
             builder.Property(a => a.ProdutoId).IsRequired();
             builder.Property(p => p.DataInclusao).IsRequired();
             builder.Property(p => p.UsuarioId).IsRequired();
+            builder.Property(p => p.Situacao)
+                    .HasColumnType("TINYINT");
             builder.HasMany(r => r.DistribuicoesPorAtivos).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
             builder.HasMany(r => r.Aportes).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
-            builder.HasMany(r => r.SituacoesPorAtivos).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
             builder.ToTable("Ativo");
         }
     }

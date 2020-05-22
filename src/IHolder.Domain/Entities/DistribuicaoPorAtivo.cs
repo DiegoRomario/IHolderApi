@@ -26,12 +26,24 @@ namespace IHolder.Domain.Entities
         public Ativo Ativo { get; private set; }
         public Usuario Usuario { get; private set; }
 
-        public void AtualizarOrientacao()
+        public void AlterarAtivo (Ativo ativo)
         {
-            if (Valores.PercentualDiferenca <= 0)
-                Orientacao = EOrientacao.Hold;
-            else
+            Ativo = ativo;
+            AtivoId = ativo.Id;
+        }
+
+        public void AtualizarOrientacao(decimal valorTotalPorAtivo, decimal totalGeral)
+        {
+            Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, totalGeral);
+
+#warning IMPLEMENTAR REGRA BASEADO EM X PERIODO DE QUARENTENA
+            if (Valores.PercentualDiferenca > 0 && Ativo.Situacao != ESituacao.Quarentena)
                 Orientacao = EOrientacao.Buy;
+            else if (Valores.PercentualDiferenca <= 0 && Ativo.Situacao != ESituacao.Quarentena)
+                Orientacao = EOrientacao.Hold;
+            else 
+                Orientacao = EOrientacao.Sell;
+
         }
 
     }

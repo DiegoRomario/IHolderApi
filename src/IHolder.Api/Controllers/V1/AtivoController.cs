@@ -27,10 +27,8 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpPost("cadastrar")]
-        [AllowAnonymous]
         public async Task<ActionResult> Insert(CadastrarAtivoCommand command)
         {
-            Thread.Sleep(3000);
             await _mediator.Send(command);
             return ResponseBase("Ativo cadastrado com sucesso");
         }

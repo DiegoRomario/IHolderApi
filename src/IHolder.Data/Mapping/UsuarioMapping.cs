@@ -40,10 +40,6 @@ namespace IHolder.Data.Mapping
                     .WithOne(a => a.Usuario)
                     .HasForeignKey(a => a.UsuarioId);
 
-            builder.HasMany(p => p.SituacoesPorAtivos)
-            .WithOne(a => a.Usuario)
-            .HasForeignKey(a => a.UsuarioId);
-
             builder.ToTable("Usuario");
         }
     }

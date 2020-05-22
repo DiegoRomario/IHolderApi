@@ -74,13 +74,13 @@ namespace IHolder.Application.Handlers
         public async Task<bool> Handle(RecalcularDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
             List<DistribuicaoPorAtivo> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
-            var valor_total = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
+            var valorTotalGeral = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)
             {
                 var valorTotalPorAtivo = _aporteRepository.ObterTotalAplicadoPorAtivo(item.AtivoId, request.UsuarioId).Result;
-                item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, valor_total);
-                item.AtualizarOrientacao();
+                item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, valorTotalGeral);
+                item.AtualizarOrientacao(valorTotalPorAtivo, valorTotalGeral);
                 await Update(item);
             }
 

@@ -18,6 +18,7 @@ namespace IHolder.Domain.Entities
             Cotacao = cotacao;
             UsuarioId = usuarioId;
             Informacoes = informacoes;
+            Situacao = ESituacao.Normal;
         }
 
         public Guid ProdutoId { get; private set; }
@@ -25,6 +26,7 @@ namespace IHolder.Domain.Entities
         public string Ticker { get; private set; }
         public decimal Cotacao { get; private set; }
         public Guid UsuarioId { get; set; }
+        public ESituacao Situacao { get; private set; }
         public DateTime DataInclusao { get; private set; }
         public DateTime? DataAlteracao { get; private set; }
         public Produto Produto { get; private set; }
@@ -33,11 +35,14 @@ namespace IHolder.Domain.Entities
 
         public IEnumerable<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; private set; }
         public IEnumerable<Aporte> Aportes { get; private set; }
-        public IEnumerable<SituacaoPorAtivo> SituacoesPorAtivos { get; private set; }
-
         public void AtualizarCotacao(decimal cotacao)
         {
             Cotacao = cotacao;
+        }
+
+        public void AtualizarSitucao(ESituacao situacao)
+        {
+            Situacao = situacao;
         }
 
     }

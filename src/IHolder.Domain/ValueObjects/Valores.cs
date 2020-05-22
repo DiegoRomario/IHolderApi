@@ -22,26 +22,25 @@
             ValorAtual = valorAtual;
         }
 
-
-        public void AtualizarPercentualAtual (decimal valorInvestidoTotal)
+        private void AtualizarPercentualAtual (decimal valorInvestidoTotal)
         {
             PercentualAtual = (ValorAtual / valorInvestidoTotal) * 100;
         }
 
-        public void AtualizarPercentualDiferenca()
+        private void AtualizarPercentualDiferenca()
         {
             PercentualDiferenca = PercentualObjetivo - PercentualAtual;
         }
 
-        public void AtualizarValorDiferenca()
+        private void AtualizarValorDiferenca()
         {
             ValorDiferenca = (ValorAtual / PercentualAtual) * PercentualDiferenca;
         }
 
-        public void OrquestrarAtualizacaoDeValoresEPercentuais(decimal valorTotalPorTipoInvestimento, decimal totalGeral)
+        public void OrquestrarAtualizacaoDeValoresEPercentuais(decimal valorTotalPorTipo, decimal valorTotalGeral)
         {
-            AtualizarValorAtual(valorTotalPorTipoInvestimento);
-            AtualizarPercentualAtual(totalGeral);
+            AtualizarValorAtual(valorTotalPorTipo);
+            AtualizarPercentualAtual(valorTotalGeral);
             AtualizarPercentualDiferenca();
             AtualizarValorDiferenca();
         }
