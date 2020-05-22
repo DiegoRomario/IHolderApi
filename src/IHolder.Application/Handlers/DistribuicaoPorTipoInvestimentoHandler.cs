@@ -67,8 +67,6 @@ namespace IHolder.Application.Handlers
                 return false;
             }
 
-
-
             return await Update(_mapper.Map<DistribuicaoPorTipoInvestimento>(request)); ;
         }
 
@@ -81,7 +79,7 @@ namespace IHolder.Application.Handlers
             {
                 var valorTotalPorTipoInvestimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(item.TipoInvestimentoId, request.UsuarioId).Result;
                 item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipoInvestimento, valor_total);
-                item.AtualizarOrientacao();
+                item.AtualizarOrientacao(valorTotalPorTipoInvestimento, valor_total);
                 await Update(item);
             }
 

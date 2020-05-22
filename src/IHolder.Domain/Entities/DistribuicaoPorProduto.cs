@@ -26,8 +26,10 @@ namespace IHolder.Domain.Entities
         public DateTime? DataAlteracao { get; private set; }
         public Produto Produto { get; private set; }
         public Usuario Usuario { get; private set; }
-        public void AtualizarOrientacao()
+        public void AtualizarOrientacao(decimal valorTotalPorProduto, decimal totalGeral)
         {
+            Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorProduto, totalGeral);
+
             if (Valores.PercentualDiferenca <= 0)
                 Orientacao = EOrientacao.Hold;
             else

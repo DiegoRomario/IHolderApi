@@ -2,7 +2,7 @@
 using IHolder.Domain.Enumerators;
 using IHolder.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
+
 
 namespace IHolder.Domain.Entities
 {
@@ -32,8 +32,10 @@ namespace IHolder.Domain.Entities
         public TipoInvestimento TipoInvestimento { get; private set; }
 
         public Usuario Usuario { get; private set; }
-        public void AtualizarOrientacao()
+        public void AtualizarOrientacao(decimal valorTotalPorTipo, decimal totalGeral)
         {
+            Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipo, totalGeral);
+
             if (Valores.PercentualDiferenca <= 0)
                 Orientacao = EOrientacao.Hold;
             else

@@ -78,7 +78,7 @@ namespace IHolder.Application.Handlers
             {
                 var valorTotalPorProduto = _aporteRepository.ObterTotalAplicadoPorProduto(item.ProdutoId, request.UsuarioId).Result;
                 item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorProduto, valor_total);
-                item.AtualizarOrientacao();
+                item.AtualizarOrientacao(valorTotalPorProduto, valor_total);
                 await Update(item);
             }
 
