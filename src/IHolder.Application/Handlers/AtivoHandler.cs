@@ -25,9 +25,8 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarAtivoCommand request, CancellationToken cancellationToken)
         {
-            //if (_repository.GetBy(a => a.Ticker == request.Ticker).Result != null)
-            if (request.Descricao == null)
-            {
+            if (_repository.GetBy(a => a.Ticker == request.Ticker).Result != null)
+            { 
                 _handlerBase.PublishNotification("Já existe um ativo cadastrado com o mesmo Ticker");
                 return false;
             }

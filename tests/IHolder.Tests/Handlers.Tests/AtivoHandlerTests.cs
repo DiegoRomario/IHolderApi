@@ -18,9 +18,8 @@ namespace IHolder.Tests.Handlers.Tests
 {
     public class AtivoHandlerTests
     {
-
         [Fact(DisplayName = "Cadastro Ativo")]
-        [Trait("Aporte", "Ativo Trait Testes")]
+        [Trait("Ativo", "Ativo Trait Testes")]
         public async Task AtivoHandler_DadoUmComandoValido_DeveCadastrarAtivo ()
         {
             // Arrange
@@ -36,6 +35,21 @@ namespace IHolder.Tests.Handlers.Tests
             // Assert
             repository.Verify(r => r.Insert(ativo), Times.Once);
 
+        }
+
+        [Fact(DisplayName = "Cadastro Ativo Command")]
+        [Trait("Ativo", "Ativo Trait Testes")]
+        public async Task AtivoCommand_DadoUmComandoInvalido_DeveRetornarErros()
+        {
+            // Arrange
+            var validator = new CadastrarAtivoCommandValidator();
+            var command = new CadastrarAtivoCommand(Guid.NewGuid(), "Empresa", "Empresa legal", "WEGE3", -1);
+
+            // Act
+            var validationResult = await validator.ValidateAsync(command);
+
+            // Assert
+            Assert.Equal(1, validationResult.Errors.Count);
         }
     }
 }
