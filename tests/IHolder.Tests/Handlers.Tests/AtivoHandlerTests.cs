@@ -1,8 +1,6 @@
 ﻿using IHolder.Application.Commands;
 using IHolder.Application.Handlers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 using Moq;
 using AutoMapper;
@@ -11,23 +9,28 @@ using IHolder.Domain.Entities;
 using IHolder.Application.Base;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using IHolder.Domain.ValueObjects;
+using IHolder.Data.Repository.Base;
+using System.Linq.Expressions;
 
 namespace IHolder.Tests.Handlers.Tests
 {
     public class AtivoHandlerTests
     {
+        CadastrarAtivoCommand command = new CadastrarAtivoCommand(Guid.NewGuid(), "Empresa", "Empresa legal", "TEST3", 10);
+        Mock<IMapper> mapper = new Mock<IMapper>();
+        Mock<IRepositoryBase<Ativo>> repository = new Mock<IRepositoryBase<Ativo>>();
+        Mock<IHandlerBase> handlerBase = new Mock<IHandlerBase>();
+        public AtivoHandlerTests()
+        {
+            repository.Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
+            
+        }
         [Fact(DisplayName = "Cadastro Ativo")]
-        [Trait("Ativo", "Ativo Trait Testes")]
-        public async Task AtivoHandler_DadoUmComandoValido_DeveCadastrarAtivo ()
+        [Trait("Ativo", "Ativo Testes")]
+        public async Task AtivoHandler_DadoUmComandoValido_DeveCadastrarAtivo()
         {
             // Arrange
-            CadastrarAtivoCommand command = new CadastrarAtivoCommand(new Guid(), "Empresa", "Empresa legal", "WEGE3", 10);
-            var mapper = new Mock<IMapper>();
-            var repository = new Mock<IRepositoryBase<Ativo>>();
-            repository.Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
-            var handlerBase = new Mock<IHandlerBase>();
             var handler = new AtivoHandler(repository.Object, handlerBase.Object, mapper.Object);
             Ativo ativo = mapper.Object.Map<Ativo>(command);
             // Act
@@ -37,13 +40,32 @@ namespace IHolder.Tests.Handlers.Tests
 
         }
 
+        [Fact(DisplayName = "Cadastro Ativo Existente")]
+        [Trait("Ativo", "Ativo Testes")]
+        public async Task AtivoHandler_DadoUmComandoValidoDeUmAtivoExistente_DevePublicarNotificacao()
+        {
+            // Arrange
+            Ativo ativo = new Ativo(Guid.NewGuid(), new Informacoes("Empresa", "Empresa legal"), "TEST3", 10, Guid.NewGuid());
+            repository.Setup(r => r.GetBy(It.IsAny<Expression<Func<Ativo, bool>>>())).Returns(Task.FromResult(ativo));
+            var handler = new AtivoHandler(repository.Object, handlerBase.Object, mapper.Object);
+
+            // Act
+            bool retorno = await handler.Handle(command, CancellationToken.None);
+            // Assert
+
+            handlerBase.Verify(b => b.PublishNotification("Já existe um ativo cadastrado com o mesmo Ticker"), Times.Once);
+            Assert.False(retorno);
+
+        }
+
+
         [Fact(DisplayName = "Cadastro Ativo Command")]
-        [Trait("Ativo", "Ativo Trait Testes")]
+        [Trait("Ativo", "Ativo Testes")]
         public async Task AtivoCommand_DadoUmComandoInvalido_DeveRetornarErros()
         {
             // Arrange
             var validator = new CadastrarAtivoCommandValidator();
-            var command = new CadastrarAtivoCommand(Guid.NewGuid(), "Empresa", "Empresa legal", "WEGE3", -1);
+            var command = new CadastrarAtivoCommand(Guid.NewGuid(), "Empresa", "Empresa legal", "TEST3", -1);
 
             // Act
             var validationResult = await validator.ValidateAsync(command);
@@ -51,5 +73,7 @@ namespace IHolder.Tests.Handlers.Tests
             // Assert
             Assert.Equal(1, validationResult.Errors.Count);
         }
+
+
     }
 }

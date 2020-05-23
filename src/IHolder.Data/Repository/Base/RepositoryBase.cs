@@ -15,7 +15,7 @@ namespace IHolder.Data.Repository.Base
         protected readonly IHolderContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public IUnitOfWork UnitOfWork => _context;
+        public virtual IUnitOfWork UnitOfWork => _context;
 
         public RepositoryBase(IHolderContext context)
         {
@@ -23,15 +23,15 @@ namespace IHolder.Data.Repository.Base
             _dbSet = context.Set<TEntity>();
         }
 
-        public void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
         }
-        public void Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
             _dbSet.Update(entity);
         }
-        public void Delete(Guid id)
+        public virtual void Delete(Guid id)
         {
             _dbSet.Remove(_dbSet.Single(d => d.Id == id));
         }
@@ -45,7 +45,7 @@ namespace IHolder.Data.Repository.Base
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetManyBy(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)
+        public virtual async Task<IEnumerable<TEntity>> GetManyBy(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)
         {
 
             var query = _dbSet.AsNoTracking();
@@ -61,7 +61,7 @@ namespace IHolder.Data.Repository.Base
             return await query.ToListAsync();
         }
 
-        public async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)
+        public virtual async Task<TEntity> GetBy(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] includes)
         {
             var query = _dbSet.AsNoTracking();
 
