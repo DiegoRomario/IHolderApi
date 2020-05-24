@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using Moq;
 using Moq.AutoMock;
@@ -21,33 +20,61 @@ namespace IHolder.Tests.Handlers.Tests
 {
     public class DistribuicaoPorAtivoHandlerTests
     {
-
-        [Fact(DisplayName = "Cadastro Distribuição Por Ativo")]
-        [Trait("DistribuicaoPorAtivo", "Distribuicao Testes")]
-        public async Task DistribuicaoPorAtivo_DadoPercentualObjetivoMaiorQue100_DeveImpedirOCadastro()
+        CadastrarDistribuicaoPorAtivoCommand command;
+        AutoMocker mocker;
+        Mock<IRepositoryBase<DistribuicaoPorAtivo>> distribuicaoRepository;
+        Mock<IMapper> mapper;
+        Mock<IAporteRepository> aporteRepository;
+        Mock<IHandlerBase> handlerBase;
+        IEnumerable<DistribuicaoPorAtivo> distribuicoes;
+        public DistribuicaoPorAtivoHandlerTests()
         {
-            // Arrange  
-            var command = new CadastrarDistribuicaoPorAtivoCommand(Guid.NewGuid(), 1);
-            var mocker = new AutoMocker();
-            var distribuicaoRepository = mocker.GetMock<IRepositoryBase<DistribuicaoPorAtivo>>();
-            IEnumerable<DistribuicaoPorAtivo> distribuicoes = new List<DistribuicaoPorAtivo>() {
-                new DistribuicaoPorAtivo(Guid.NewGuid(),Guid.NewGuid(), new Valores(50)),
-                new DistribuicaoPorAtivo(Guid.NewGuid(), Guid.NewGuid(), new Valores(50))
+            command = new CadastrarDistribuicaoPorAtivoCommand(Guid.NewGuid(), 1);
+            mocker = new AutoMocker();
+            distribuicaoRepository = mocker.GetMock<IRepositoryBase<DistribuicaoPorAtivo>>();
+            mapper = mocker.GetMock<IMapper>();
+            aporteRepository = mocker.GetMock<IAporteRepository>();
+            handlerBase = mocker.GetMock<IHandlerBase>();
+            distribuicoes = new List<DistribuicaoPorAtivo>();
+        }
+
+        [Fact(DisplayName = "Cadastro Distribuição com % excedente")]
+        [Trait("Distribuicao Por Ativo", "Distribuicao Testes")]
+        public async Task DistribuicaoPorAtivo_DadoPercentualObjetivoQueSomadoAoAcumuladoUltrapassa100_DeveImpedirOCadastro()
+        {
+            // Arrange             
+            distribuicoes = new List<DistribuicaoPorAtivo>() {
+                new DistribuicaoPorAtivo(Guid.NewGuid(), Guid.NewGuid(), new Valores(100))
             };
             distribuicaoRepository.Setup(r => r.GetManyBy(It.IsAny<Expression<Func<DistribuicaoPorAtivo, bool>>>())).Returns(Task.FromResult(distribuicoes));
-            var mapper = mocker.GetMock<IMapper>();
-            var aporteRepository = mocker.GetMock<IAporteRepository>();
-            var handlerBase = mocker.GetMock<IHandlerBase>();
-
+            handlerBase.Setup(h => h.HasNotification()).Returns(true);
             var handler = new DistribuicaoPorAtivoHandler(mapper.Object, distribuicaoRepository.Object, aporteRepository.Object, handlerBase.Object);
 
             // Act
-
             var response = await handler.Handle(command, CancellationToken.None);
-            // Assert
 
+            // Assert
             handlerBase.Verify(h => h.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%"), Times.Once);
             Assert.False(response);
+        }
+
+        [Fact(DisplayName = "Cadastro Distribuição com % regular")]
+        [Trait("Distribuicao Por Ativo", "Distribuicao Testes")]
+        public async Task MethodName()
+        {
+            // Arrange
+            distribuicoes = new List<DistribuicaoPorAtivo>() {
+                new DistribuicaoPorAtivo(Guid.NewGuid(), Guid.NewGuid(), new Valores(50))
+            };
+            distribuicaoRepository.Setup(r => r.GetManyBy(It.IsAny<Expression<Func<DistribuicaoPorAtivo, bool>>>())).Returns(Task.FromResult(distribuicoes));
+            handlerBase.Setup(h => h.HasNotification()).Returns(false);
+            distribuicaoRepository.Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
+            var handler = new DistribuicaoPorAtivoHandler(mapper.Object, distribuicaoRepository.Object, aporteRepository.Object, handlerBase.Object);
+            // Act
+            var response = await handler.Handle(command, CancellationToken.None);
+            // Assert
+            handlerBase.Verify(h => h.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%"), Times.Never);
+            Assert.True(response);
 
         }
 

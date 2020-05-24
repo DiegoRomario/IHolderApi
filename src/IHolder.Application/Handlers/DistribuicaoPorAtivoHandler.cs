@@ -38,16 +38,13 @@ namespace IHolder.Application.Handlers
         {
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.AtivoId, request.PercentualObjetivo))
-            {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
-                return false;
-            }
 
             if (AtivoJaCadastrado(request.AtivoId))
-            {
                 _handlerBase.PublishNotification("Este ativo já possuí um percentual de distribuição definido");
+
+            if (_handlerBase.HasNotification())
                 return false;
-            }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorAtivo>(request));
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
@@ -57,17 +54,14 @@ namespace IHolder.Application.Handlers
         public async Task<bool> Handle(AlterarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
 
-            if (AtivoJaCadastrado(request.AtivoId, request.Id))
-            {
+            if (AtivoJaCadastrado(request.AtivoId, request.Id))            
                 _handlerBase.PublishNotification("O novo ativo selecionado já possuí um percentual de distribuição definido");
-                return false;
-            }
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.AtivoId, request.PercentualObjetivo))
-            {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
+
+            if (_handlerBase.HasNotification())
                 return false;
-            }
 
             return await Update(_mapper.Map<DistribuicaoPorAtivo>(request)); ;
         }
