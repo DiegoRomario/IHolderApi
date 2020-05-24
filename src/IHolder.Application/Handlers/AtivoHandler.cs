@@ -25,8 +25,8 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarAtivoCommand request, CancellationToken cancellationToken)
         {
-            if (_repository.GetBy(a => a.Ticker == request.Ticker).Result != null)
-            { 
+            if (TicketJaCadastrado(request.Ticker))
+            {
                 _handlerBase.PublishNotification("Já existe um ativo cadastrado com o mesmo Ticker");
                 return false;
             }
@@ -35,9 +35,14 @@ namespace IHolder.Application.Handlers
             return await _repository.UnitOfWork.Commit();
         }
 
+        private bool TicketJaCadastrado(string ticker)
+        {
+            return _repository.GetBy(a => a.Ticker == ticker).Result != null;
+        }
+
         public async Task<bool> Handle(AlterarAtivoCommand request, CancellationToken cancellationToken)
         {
-            if (_repository.GetBy(a => a.Ticker == request.Ticker).Result != null)
+            if (TicketJaCadastrado(request.Ticker))
             {
                 _handlerBase.PublishNotification("Já existe um ativo cadastrado com o mesmo Ticker");
                 return false;

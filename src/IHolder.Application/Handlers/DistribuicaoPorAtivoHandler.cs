@@ -46,6 +46,7 @@ namespace IHolder.Application.Handlers
             if (AtivoJaCadastrado(request.AtivoId))
             {
                 _handlerBase.PublishNotification("Este ativo já possuí um percentual de distribuição definido");
+                return false;
             }
 
             _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorAtivo>(request));

@@ -10,7 +10,6 @@ using IHolder.Application.Base;
 using System.Threading;
 using System.Threading.Tasks;
 using IHolder.Domain.ValueObjects;
-using IHolder.Data.Repository.Base;
 using System.Linq.Expressions;
 
 namespace IHolder.Tests.Handlers.Tests
@@ -42,7 +41,7 @@ namespace IHolder.Tests.Handlers.Tests
 
         [Fact(DisplayName = "Cadastro Ativo Existente")]
         [Trait("Ativo", "Ativo Testes")]
-        public async Task AtivoHandler_DadoUmComandoValidoDeUmAtivoExistente_DevePublicarNotificacao()
+        public async Task AtivoHandler_DadoUmComandoValidoDeUmAtivoJaExistente_DevePublicarNotificacao()
         {
             // Arrange
             Ativo ativo = new Ativo(Guid.NewGuid(), new Informacoes("Empresa", "Empresa legal"), "TEST3", 10, Guid.NewGuid());
