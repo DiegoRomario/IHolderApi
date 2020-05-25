@@ -45,7 +45,8 @@ namespace IHolder.Application.Mappings
             CreateMap<Ativo, AtivoViewModel>()
                 .ForMember(d => d.Descricao, s => s.MapFrom(s => s.Informacoes.Descricao))
                 .ForMember(d => d.Caracteristicas, s => s.MapFrom(s => s.Informacoes.Caracteristicas))
-                .ForMember(d => d.ProdutoDescricao, s => s.MapFrom(s => s.Produto.Informacoes.Descricao));
+                .ForMember(d => d.ProdutoDescricao, s => s.MapFrom(s => s.Produto.Informacoes.Descricao))
+                .ForMember(d => d.Situacao, s => s.MapFrom(s => s.Situacao));
 
             CreateMap<Produto, ProdutoViewModel>()
                 .ForMember(d => d.Descricao, s => s.MapFrom(s => s.Informacoes.Descricao));

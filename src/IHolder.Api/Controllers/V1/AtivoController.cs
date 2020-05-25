@@ -35,7 +35,7 @@ namespace IHolder.Api.Controllers.V1
 
 
 
-        [HttpPut("{id:guid}")]
+        [HttpPut("alterar/{id:guid}")]
         [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarAtivoCommand command)
         {

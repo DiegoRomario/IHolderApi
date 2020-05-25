@@ -30,12 +30,7 @@ namespace IHolder.Business.Base
         {
 
             PropertyInfo propriedade = typeof(TRequest).GetProperty("UsuarioId");
-#if DEBUG
-            propriedade?.SetValue(request, new Guid("EC1C63CE-5733-47B5-860C-23D7E62660E7"));
-
-#else 
             propriedade?.SetValue(request, _user.GetUserId());
-#endif
             //object valor = propriedade?.GetValue(request, null);
 
             //if (valor != null)

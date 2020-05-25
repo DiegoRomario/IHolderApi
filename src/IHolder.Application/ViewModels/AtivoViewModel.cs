@@ -11,6 +11,7 @@ namespace IHolder.Application.ViewModels
         public string Caracteristicas { get; set; }
         public string Ticker { get;  set; }
         public decimal Cotacao { get;  set; }
+        public string Situacao { get; set; }
         public Guid UsuarioId { get; set; }
 
     }

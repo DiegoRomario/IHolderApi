@@ -21,7 +21,11 @@ namespace IHolder.Api.Configurations
 
         public Guid GetUserId()
         {
+#if DEBUG 
+            return new Guid("EC1C63CE-5733-47B5-860C-23D7E62660E7");
+#else
             return IsAuthenticated() ?  Guid.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value) : Guid.Empty;
+#endif
         }
 
         public string GetUserName()

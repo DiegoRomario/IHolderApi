@@ -3,7 +3,7 @@
     public enum ESituacao : ushort
     {
         Normal = 1,
-        Oprtunidade = 2,
+        Oportunidade = 2,
         Quarentena = 3
     }
 }

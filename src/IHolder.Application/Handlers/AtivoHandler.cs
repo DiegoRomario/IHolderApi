@@ -4,6 +4,7 @@ using IHolder.Application.Commands;
 using IHolder.Domain.DomainObjects;
 using IHolder.Domain.Entities;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,14 +36,14 @@ namespace IHolder.Application.Handlers
             return await _repository.UnitOfWork.Commit();
         }
 
-        private bool TicketJaCadastrado(string ticker)
+        private bool TicketJaCadastrado(string ticker, Nullable<Guid> Id = null)
         {
-            return _repository.GetBy(a => a.Ticker == ticker).Result != null;
+            return _repository.GetBy(a => a.Ticker == ticker && a.Id != Id).Result != null;
         }
 
         public async Task<bool> Handle(AlterarAtivoCommand request, CancellationToken cancellationToken)
         {
-            if (TicketJaCadastrado(request.Ticker))
+            if (TicketJaCadastrado(request.Ticker, request.Id))
             {
                 _handlerBase.PublishNotification("Já existe um ativo cadastrado com o mesmo Ticker");
                 return false;
