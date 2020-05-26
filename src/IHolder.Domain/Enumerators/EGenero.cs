@@ -1,5 +1,8 @@
-﻿namespace IHolder.Domain.Enumerators
+﻿using System.ComponentModel;
+
+namespace IHolder.Domain.Enumerators
 {
+    [DefaultValue(Feminino)]
     public enum EGenero : ushort
     {
         Feminino = 1,

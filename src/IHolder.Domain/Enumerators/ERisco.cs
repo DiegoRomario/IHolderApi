@@ -1,5 +1,8 @@
-﻿namespace IHolder.Domain.Enumerators
+﻿using System.ComponentModel;
+
+namespace IHolder.Domain.Enumerators
 {
+    [DefaultValue(Medio)]
     public enum ERisco : ushort
     {
         Baixo = 1,

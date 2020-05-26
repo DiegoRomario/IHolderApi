@@ -1,5 +1,8 @@
-﻿namespace IHolder.Domain.Enumerators
+﻿using System.ComponentModel;
+
+namespace IHolder.Domain.Enumerators
 {
+    [DefaultValue(Normal)]
     public enum ESituacao : ushort
     {
         Normal = 1,

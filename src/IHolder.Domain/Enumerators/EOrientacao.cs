@@ -1,5 +1,8 @@
-﻿namespace IHolder.Domain.Enumerators
+﻿using System.ComponentModel;
+
+namespace IHolder.Domain.Enumerators
 {
+    [DefaultValue(Hold)]
     public enum EOrientacao : ushort
     {
         Hold = 1,
