@@ -35,12 +35,12 @@ namespace IHolder.Application.Mappings
                 a.Ticker, a.Cotacao, a.UsuarioId));
 
             CreateMap<AlterarAtivoCommand, Ativo>()
-                .ForPath(d => d.Informacoes.Descricao, o => o.MapFrom(s => s.Descricao))
+             .ForPath(d => d.Informacoes.Descricao, o => o.MapFrom(s => s.Descricao))
              .ForPath(d => d.Informacoes.Caracteristicas, o => o.MapFrom(s => s.Caracteristicas));
-            //CreateMap<AlterarAtivoCommand, Ativo>()
-            //    .ConstructUsing(a => new Ativo(a.ProdutoId,
-            //    new Informacoes(a.Descricao, a.Caracteristicas),
-            //    a.Ticker, a.Cotacao, a.UsuarioId));
+
+            CreateMap<CadastrarAporteCommand, Aporte>();
+
+            CreateMap<AlterarAporteCommand, Aporte>();
 
         }
     }
