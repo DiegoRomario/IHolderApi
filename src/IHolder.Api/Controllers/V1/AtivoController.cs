@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using IHolder.Api.Controllers.Base;
 using IHolder.Application.Base;
@@ -33,7 +32,12 @@ namespace IHolder.Api.Controllers.V1
             return ResponseBase("Ativo cadastrado com sucesso");
         }
 
-
+        [HttpGet("consultar-cotacao")]
+        [AllowAnonymous]
+        public async Task<ActionResult> ConsultarCotacao([FromQuery] AtivoConsultaCotacaoArgs args)
+        {
+            return ResponseBase(await _queries.ObterCotacaoPorTicker(args));
+        }
 
         [HttpPut("alterar/{id:guid}")]
         [AllowAnonymous]

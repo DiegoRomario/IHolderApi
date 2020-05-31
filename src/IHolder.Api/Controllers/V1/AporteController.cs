@@ -39,7 +39,7 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarAporteCommand command)
         {
-            if (id != command.Id)
+                    if (id != command?.Id)
             {
                 NotifyError("O ID do registro informado para alteração está inválido.");
                 return ResponseBase();

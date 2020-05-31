@@ -10,6 +10,7 @@ using IHolder.Domain.Interfaces;
 using IHolder.Application.Base;
 using IHolder.Data.Repository.Base;
 using MediatR;
+using IHolder.Application.Services;
 
 namespace IHolder.Api.Configurations.Extensions
 {
@@ -19,22 +20,29 @@ namespace IHolder.Api.Configurations.Extensions
         {
             services.AddScoped(typeof(IHandlerBase), typeof(HandlerBase));
             services.AddScoped<INotificationHandler<Notification>, NotificationHandler>();
-
             services.AddScoped<IHolderContext>();
-
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUser, AspNetUser>();
+            services.AddHttpClient<IConsultaCotacaoService, ConsultaCotacaoService>();
+            //services.AddTransient<IConsultaCotacaoService, ConsultaCotacaoService>();
+
+
+            #region Queries
             services.AddTransient<IUsuarioQueries, UsuarioQueries>();
-            services.AddTransient<IDistribuicaoPorTipoInvestimentoQueries, DistribuicaoPorTipoInvestimentoQueries>();
-            services.AddTransient<IDistribuicaoPorAtivoQueries, DistribuicaoPorAtivoQueries>();
-            services.AddTransient<IDistribuicaoPorProdutoQueries, DistribuicaoPorProdutoQueries>();
             services.AddTransient<IAtivoQueries, AtivoQueries>();
             services.AddTransient<IProdutoQueries, ProdutoQueries>();
             services.AddTransient<IAporteQueries, AporteQueries>();
+            services.AddTransient<IDistribuicaoPorTipoInvestimentoQueries, DistribuicaoPorTipoInvestimentoQueries>();
+            services.AddTransient<IDistribuicaoPorAtivoQueries, DistribuicaoPorAtivoQueries>();
+            services.AddTransient<IDistribuicaoPorProdutoQueries, DistribuicaoPorProdutoQueries>();
+            #endregion
+
+            #region Repositories
             services.AddScoped<IAporteRepository, AporteRepository>();  
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IAporteRepository, AporteRepository>();
+            #endregion
 
 
 

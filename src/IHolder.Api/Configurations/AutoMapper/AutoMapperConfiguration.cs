@@ -11,7 +11,8 @@ namespace IHolder.Api.Configurations.AutoMapper
             services.AddAutoMapper(
                 typeof(DomainToViewModelProfile),
                 typeof(ViewModelToDomainProfile),
-                typeof(CommandToDomainProfile)
+                typeof(CommandToDomainProfile),
+                typeof(ObjectToModelProfile)
                 );
             return services;
         }

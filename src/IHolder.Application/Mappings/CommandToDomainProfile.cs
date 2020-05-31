@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IHolder.Application.Commands;
+using IHolder.Application.Services.Models;
 using IHolder.Domain.Entities;
 using IHolder.Domain.ValueObjects;
 
