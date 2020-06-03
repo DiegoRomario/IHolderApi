@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IHolder.Data\IHolder.Data.csproj" />
     <ProjectReference Include="..\IHolder.Domain\IHolder.Domain.csproj" />
   </ItemGroup>
 

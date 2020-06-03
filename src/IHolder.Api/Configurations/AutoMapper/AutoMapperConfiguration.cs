@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IHolder.Application.Mappings;
+using IHolder.Data.Mappings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IHolder.Api.Configurations.AutoMapper
@@ -12,7 +13,7 @@ namespace IHolder.Api.Configurations.AutoMapper
                 typeof(DomainToViewModelProfile),
                 typeof(ViewModelToDomainProfile),
                 typeof(CommandToDomainProfile),
-                typeof(ObjectToModelProfile)
+                typeof(AutoMapperProfile)
                 );
             return services;
         }

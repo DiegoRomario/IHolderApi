@@ -10,7 +10,7 @@ using IHolder.Domain.Interfaces;
 using IHolder.Application.Base;
 using IHolder.Data.Repository.Base;
 using MediatR;
-using IHolder.Application.Services;
+using IHolder.Data.Services;
 
 namespace IHolder.Api.Configurations.Extensions
 {
@@ -24,8 +24,9 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUser, AspNetUser>();
+
             services.AddHttpClient<IConsultaCotacaoService, ConsultaCotacaoService>();
-            //services.AddTransient<IConsultaCotacaoService, ConsultaCotacaoService>();
+
 
 
             #region Queries

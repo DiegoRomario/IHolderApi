@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace IHolder.Application.Services.Models
+namespace IHolder.Data.Services.Models
 {
     public class Cotacao
     {
@@ -46,5 +46,11 @@ namespace IHolder.Application.Services.Models
     {
         [JsonProperty("Global Quote")]
         public CotacaoContract Cotacao { get; set; }
+    }
+
+    public class ConsultaCotacaoArgs
+    {
+        public string Ticker { get; set; }
+        public string ProdutoDescricao { get; set; }
     }
 }

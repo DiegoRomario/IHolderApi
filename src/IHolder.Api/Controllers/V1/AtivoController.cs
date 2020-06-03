@@ -4,6 +4,7 @@ using IHolder.Api.Controllers.Base;
 using IHolder.Application.Base;
 using IHolder.Application.Commands;
 using IHolder.Application.Queries;
+using IHolder.Data.Services.Models;
 using IHolder.Domain.DomainObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -34,9 +35,12 @@ namespace IHolder.Api.Controllers.V1
 
         [HttpGet("consultar-cotacao")]
         [AllowAnonymous]
-        public async Task<ActionResult> ConsultarCotacao([FromQuery] AtivoConsultaCotacaoArgs args)
+        public async Task<ActionResult> ConsultarCotacao([FromQuery] ConsultaCotacaoArgs args)
         {
-            return ResponseBase(await _queries.ObterCotacaoPorTicker(args));
+            Cotacao cotacao = await _queries.ObterCotacaoPorTicker(args);
+            if (cotacao.Preco == 0)
+                NotifyError($"O Ativo com Ticker '{args.Ticker}' referente ao Produto '{args.ProdutoDescricao}' não foi localizado");
+            return ResponseBase(cotacao);
         }
 
         [HttpPut("alterar/{id:guid}")]

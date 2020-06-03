@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using IHolder.Domain.Entities;
 using System;
-using IHolder.Application.Services.Models;
-using IHolder.Application.Services;
 using System.Threading;
+using IHolder.Data.Services;
+using IHolder.Data.Services.Models;
 
 namespace IHolder.Application.Queries
 {
@@ -30,7 +30,7 @@ namespace IHolder.Application.Queries
             return ativos;
         }
 
-        public async Task<Cotacao> ObterCotacaoPorTicker(AtivoConsultaCotacaoArgs args)
+        public async Task<Cotacao> ObterCotacaoPorTicker(ConsultaCotacaoArgs args)
         {
             Cotacao cotacao = await _service.ConsultarCotacao(args, CancellationToken.None);
             return cotacao;

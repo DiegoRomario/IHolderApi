@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IHolder.Application\IHolder.Application.csproj" />
     <ProjectReference Include="..\IHolder.Data\IHolder.Data.csproj" />
   </ItemGroup>
 

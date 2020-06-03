@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
@@ -16,10 +17,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IHolder.Application\IHolder.Application.csproj" />
+    <ProjectReference Include="..\IHolder.Domain\IHolder.Domain.csproj" />
   </ItemGroup>
-
 </Project>

@@ -1,15 +1,13 @@
 ﻿using FluentValidation;
-using IHolder.Application.Base;
 using IHolder.Domain.DomainObjects;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace IHolder.Business.Base
+namespace IHolder.Application.Base
 {
     public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, bool>
          where TRequest : Command<bool>
