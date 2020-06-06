@@ -13,4 +13,5 @@ public class DistribuicaoViewModel
     public decimal ValorDiferenca { get; set; }
     public Guid UsuarioId { get; set; }
     public string Orientacao { get; set; }
+    public bool EstaNaCarteira { get; set; }
 }

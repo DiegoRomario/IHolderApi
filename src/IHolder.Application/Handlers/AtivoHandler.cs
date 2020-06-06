@@ -3,6 +3,7 @@ using IHolder.Application.Base;
 using IHolder.Application.Commands;
 using IHolder.Domain.DomainObjects;
 using IHolder.Domain.Entities;
+using IHolder.Domain.ValueObjects;
 using MediatR;
 using System;
 using System.Threading;
@@ -14,14 +15,16 @@ namespace IHolder.Application.Handlers
         IRequestHandler<AlterarAtivoCommand, bool>
     {
         private readonly IRepositoryBase<Ativo> _repository;
+        private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepository;
         private readonly IHandlerBase _handlerBase;
         private readonly IMapper _mapper;
 
-        public AtivoHandler(IRepositoryBase<Ativo> repository, IHandlerBase handlerBase, IMapper mapper)
+        public AtivoHandler(IRepositoryBase<Ativo> repository, IHandlerBase handlerBase, IMapper mapper, IRepositoryBase<DistribuicaoPorAtivo> distribuicaoRepository)
         {
             _repository = repository;
             _handlerBase = handlerBase;
             _mapper = mapper;
+            _distribuicaoRepository = distribuicaoRepository;
         }
 
         public async Task<bool> Handle(CadastrarAtivoCommand request, CancellationToken cancellationToken)
@@ -32,7 +35,9 @@ namespace IHolder.Application.Handlers
                 return false;
             }
 
-            _repository.Insert(_mapper.Map<Ativo>(request));
+            Ativo ativo = _mapper.Map<Ativo>(request);
+            _repository.Insert(ativo);
+            _distribuicaoRepository.Insert(new DistribuicaoPorAtivo(ativo.Id, request.UsuarioId, new Valores(0)));
             return await _repository.UnitOfWork.Commit();
         }
 
