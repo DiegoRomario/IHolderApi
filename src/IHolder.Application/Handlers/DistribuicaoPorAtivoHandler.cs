@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 namespace IHolder.Application.Handlers
 {
     public class DistribuicaoPorAtivoHandler :
-        IRequestHandler<CadastrarDistribuicaoPorAtivoCommand, bool>,
         IRequestHandler<AlterarDistribuicaoPorAtivoCommand, bool>,
         IRequestHandler<RecalcularDistribuicaoPorAtivoCommand, bool>
     {
@@ -34,30 +33,14 @@ namespace IHolder.Application.Handlers
             _handlerBase = handlerBase;
         }
 
-        public async Task<bool> Handle(CadastrarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
-        {
-
-            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.AtivoId, request.PercentualObjetivo))
-                _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
-
-            if (AtivoJaCadastrado(request.AtivoId))
-                _handlerBase.PublishNotification("Este ativo já possuí um percentual de distribuição definido");
-
-            if (_handlerBase.HasNotification())
-                return false;
-
-            _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorAtivo>(request));
-            return await _distribuicaoRepositorio.UnitOfWork.Commit();
-        }
-
 
         public async Task<bool> Handle(AlterarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
 
-            if (AtivoJaCadastrado(request.AtivoId, request.Id))            
+            if (AtivoJaCadastrado(request.TipoDistribuicaoId, request.Id))            
                 _handlerBase.PublishNotification("O novo ativo selecionado já possuí um percentual de distribuição definido");
 
-            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.AtivoId, request.PercentualObjetivo))
+            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoDistribuicaoId, request.PercentualObjetivo))
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
 
             if (_handlerBase.HasNotification())

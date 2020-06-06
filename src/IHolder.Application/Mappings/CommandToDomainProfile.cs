@@ -18,10 +18,10 @@ namespace IHolder.Application.Mappings
             .ConstructUsing(p => new DistribuicaoPorTipoInvestimento(p.TipoInvestimentoId, p.UsuarioId, new Valores(p.PercentualObjetivo)));
 
             CreateMap<CadastrarDistribuicaoPorAtivoCommand, DistribuicaoPorAtivo>()
-            .ConstructUsing(p => new DistribuicaoPorAtivo(p.AtivoId, p.UsuarioId, new Valores(p.PercentualObjetivo)));
+            .ConstructUsing(p => new DistribuicaoPorAtivo(p.Id, p.UsuarioId, new Valores(p.PercentualObjetivo)));
 
             CreateMap<AlterarDistribuicaoPorAtivoCommand, DistribuicaoPorAtivo>()
-            .ConstructUsing(p => new DistribuicaoPorAtivo(p.AtivoId, p.UsuarioId, new Valores(p.PercentualObjetivo)));
+            .ConstructUsing(p => new DistribuicaoPorAtivo(p.TipoDistribuicaoId, p.UsuarioId, new Valores(p.PercentualObjetivo)));
 
             CreateMap<CadastrarDistribuicaoPorProdutoCommand, DistribuicaoPorProduto>()
              .ConstructUsing(p => new DistribuicaoPorProduto(p.ProdutoId, p.UsuarioId, new Valores(p.PercentualObjetivo)));

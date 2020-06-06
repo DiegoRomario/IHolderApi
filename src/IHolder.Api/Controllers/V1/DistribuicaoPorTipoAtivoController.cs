@@ -25,14 +25,6 @@ namespace IHolder.Api.Controllers.V1
             _distribuicaoPorAtivoQueries = distribuicaoPorAtivoQueries;
         }
 
-        [HttpPost()]
-        [AllowAnonymous]
-        public async Task<ActionResult> Cadastrar([FromBody] CadastrarDistribuicaoPorAtivoCommand command)
-        {
-            await _mediator.Send(command);
-            return ResponseBase("Distribuição cadastrada com sucesso");
-        }
-
         [HttpPut("{id:guid}")]
         [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarDistribuicaoPorAtivoCommand command)
@@ -42,8 +34,8 @@ namespace IHolder.Api.Controllers.V1
                 NotifyError("O ID do registro informado para alteração está inválido.");
                 return ResponseBase();
             }
-
-            return ResponseBase(await _mediator.Send(command));
+            await _mediator.Send(command);
+            return ResponseBase("Percentual objetivo atualizado com sucesso.");
 
         }
 

@@ -8,11 +8,11 @@ namespace IHolder.Application.Commands
     {
         public CadastrarDistribuicaoPorAtivoCommand(Guid ativoId,decimal percentualObjetivo)
         {
-            AtivoId = ativoId;
+            Id = ativoId;
             PercentualObjetivo = percentualObjetivo;
         }
 
-        public Guid AtivoId { get; set; }
+        public Guid Id { get; set; }
         public decimal PercentualObjetivo { get; set; }
 
     }
@@ -21,7 +21,7 @@ namespace IHolder.Application.Commands
     {
         public CadastrarDistribuicaoPorAtivoCommandValidator()
         {
-            RuleFor(c => c.AtivoId).NotEmpty().WithMessage("O ativo deve ser informado");
+            RuleFor(c => c.Id).NotEmpty().WithMessage("O ativo deve ser informado");
             
             RuleFor(c => c.PercentualObjetivo).InclusiveBetween(1, 100).WithMessage("O percentual objetivo deve ser entre 1% e 100%");
         }
