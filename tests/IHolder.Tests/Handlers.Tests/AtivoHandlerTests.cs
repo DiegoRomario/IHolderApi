@@ -19,6 +19,7 @@ namespace IHolder.Tests.Handlers.Tests
         CadastrarAtivoCommand command = new CadastrarAtivoCommand(Guid.NewGuid(), "Empresa", "Empresa legal", "TEST3", 10);
         Mock<IMapper> mapper = new Mock<IMapper>();
         Mock<IRepositoryBase<Ativo>> repository = new Mock<IRepositoryBase<Ativo>>();
+        Mock<IRepositoryBase<DistribuicaoPorAtivo>> distribuicaoRepository = new Mock<IRepositoryBase<DistribuicaoPorAtivo>>();
         Mock<IHandlerBase> handlerBase = new Mock<IHandlerBase>();
         public AtivoHandlerTests()
         {
@@ -30,7 +31,7 @@ namespace IHolder.Tests.Handlers.Tests
         public async Task AtivoHandler_DadoUmComandoValido_DeveCadastrarAtivo()
         {
             // Arrange
-            var handler = new AtivoHandler(repository.Object, handlerBase.Object, mapper.Object);
+            var handler = new AtivoHandler(repository.Object, handlerBase.Object, mapper.Object, distribuicaoRepository.Object);
             Ativo ativo = mapper.Object.Map<Ativo>(command);
             // Act
             bool retorno = await handler.Handle(command, CancellationToken.None);
@@ -46,7 +47,7 @@ namespace IHolder.Tests.Handlers.Tests
             // Arrange
             Ativo ativo = new Ativo(Guid.NewGuid(), new Informacoes("Empresa", "Empresa legal"), "TEST3", 10, Guid.NewGuid());
             repository.Setup(r => r.GetBy(It.IsAny<Expression<Func<Ativo, bool>>>())).Returns(Task.FromResult(ativo));
-            var handler = new AtivoHandler(repository.Object, handlerBase.Object, mapper.Object);
+            var handler = new AtivoHandler(repository.Object, handlerBase.Object, mapper.Object, distribuicaoRepository.Object);
 
             // Act
             bool retorno = await handler.Handle(command, CancellationToken.None);

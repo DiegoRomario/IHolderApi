@@ -15,29 +15,33 @@ namespace IHolder.Application.Handlers
 {
     public class DistribuicaoPorAtivoHandler :
         IRequestHandler<AlterarDistribuicaoPorAtivoCommand, bool>,
-        IRequestHandler<RecalcularDistribuicaoPorAtivoCommand, bool>
+        IRequestHandler<RecalcularDistribuicaoPorAtivoCommand, bool>,
+        IRequestHandler<DividirDistribuicaoPorAtivoCommand, bool>
     {
+        private const int PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepositorio;
+        private readonly IRepositoryBase<Ativo> _ativoRepositorio;
         private readonly IAporteRepository _aporteRepository;
         private readonly IHandlerBase _handlerBase;
 
         public DistribuicaoPorAtivoHandler(IMapper mapper,
             IRepositoryBase<DistribuicaoPorAtivo> distribuicaoPorAtivoRepository,
             IAporteRepository aporteRepository,
-            IHandlerBase handlerBase)
+            IHandlerBase handlerBase, IRepositoryBase<Ativo> ativoRepositorio)
         {
             _mapper = mapper;
             _distribuicaoRepositorio = distribuicaoPorAtivoRepository;
             _aporteRepository = aporteRepository;
             _handlerBase = handlerBase;
+            _ativoRepositorio = ativoRepositorio;
         }
 
 
         public async Task<bool> Handle(AlterarDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
 
-            if (AtivoJaCadastrado(request.TipoDistribuicaoId, request.Id))            
+            if (AtivoJaCadastrado(request.TipoDistribuicaoId, request.Id))
                 _handlerBase.PublishNotification("O novo ativo selecionado já possuí um percentual de distribuição definido");
 
             if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoDistribuicaoId, request.PercentualObjetivo))
@@ -81,6 +85,51 @@ namespace IHolder.Application.Handlers
         private bool AtivoJaCadastrado(Guid AtivoId, Nullable<Guid> distribuicaoId = null)
         {
             return _distribuicaoRepositorio.GetBy(d => d.AtivoId == AtivoId && d.Id != distribuicaoId).Result != null;
+        }
+
+        public async Task<bool> Handle(DividirDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
+        {
+            List<DistribuicaoPorAtivo> distribuicoes =
+                request.somenteAtivosEmCarteira ? ObterDistribuicoesAtivosEmCarteira(request.UsuarioId)
+                                                : ObterDistribuicoesAtivosCadastrados(request.UsuarioId);
+            int quantidadeAtivos = distribuicoes.Count();
+            int percentualDivisao = PERCENTUAL_MAXIMO / quantidadeAtivos;
+
+            foreach (var distribuicao in distribuicoes)
+            {
+                distribuicao.Valores.AtualizarPercentualObjetivo(percentualDivisao);
+                await Update(distribuicao);
+            }
+
+            return await _distribuicaoRepositorio.UnitOfWork.Commit();
+        }
+
+
+        private List<DistribuicaoPorAtivo> ObterDistribuicoesAtivosEmCarteira(Guid usuarioId)
+        {
+            IEnumerable<Guid> ativosEmCarteira = _aporteRepository.GetManyBy(where: a => a.UsuarioId == usuarioId).Result.Distinct(new AtivoAporteComparer()).Select(a => a.AtivoId);
+            List<DistribuicaoPorAtivo> distribuicoes =
+            _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId && ativosEmCarteira.Contains(d.AtivoId)).Result.ToList();
+
+            return distribuicoes;
+        }
+
+        private List<DistribuicaoPorAtivo> ObterDistribuicoesAtivosCadastrados(Guid usuarioId)
+        {
+            return _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId).Result.ToList();
+        }
+
+        public class AtivoAporteComparer : IEqualityComparer<Aporte>
+        {
+            public bool Equals(Aporte x, Aporte y)
+            {
+                return x.Id == y.Id;
+            }
+
+            int IEqualityComparer<Aporte>.GetHashCode(Aporte aporte)
+            {
+                return aporte.Id.GetHashCode();
+            }
         }
 
     }
