@@ -89,21 +89,39 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(DividirDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-            List<DistribuicaoPorAtivo> distribuicoes =
-                request.somenteAtivosEmCarteira ? ObterDistribuicoesAtivosEmCarteira(request.UsuarioId)
-                                                : ObterDistribuicoesAtivosCadastrados(request.UsuarioId);
-            int quantidadeAtivos = distribuicoes.Count();
-            int percentualDivisao = PERCENTUAL_MAXIMO / quantidadeAtivos;
+            List<DistribuicaoPorAtivo> distribuicoes = ObterDistribuicoesAtivosCadastrados(request.UsuarioId); 
+
+            if (request.somenteAtivosEmCarteira)
+                await AlterarDistribuicoesAtivosEmCarteira(request, distribuicoes);
+            else
+                await AlterarDistribuicoesAtivosCadastrados(request, distribuicoes);
+
+            return await _distribuicaoRepositorio.UnitOfWork.Commit();
+        }
+
+        private async Task AlterarDistribuicoesAtivosCadastrados(DividirDistribuicaoPorAtivoCommand request, List<DistribuicaoPorAtivo> distribuicoes)
+        {
+            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoes.Count();
 
             foreach (var distribuicao in distribuicoes)
             {
                 distribuicao.Valores.AtualizarPercentualObjetivo(percentualDivisao);
                 await Update(distribuicao);
             }
-
-            return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
+        private async Task AlterarDistribuicoesAtivosEmCarteira(DividirDistribuicaoPorAtivoCommand request, List<DistribuicaoPorAtivo> distribuicoes)
+        {
+            List<DistribuicaoPorAtivo> distribuicoesCarteira = ObterDistribuicoesAtivosEmCarteira(request.UsuarioId);
+            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoesCarteira.Count();
 
+            foreach (var distribuicao in distribuicoes)
+            {   if (distribuicoesCarteira.Where(x => x.AtivoId == distribuicao.AtivoId).Any())
+                    distribuicao.Valores.AtualizarPercentualObjetivo(percentualDivisao);
+                else
+                    distribuicao.Valores.AtualizarPercentualObjetivo(0);
+                await Update(distribuicao);
+            }
+        }
 
         private List<DistribuicaoPorAtivo> ObterDistribuicoesAtivosEmCarteira(Guid usuarioId)
         {
