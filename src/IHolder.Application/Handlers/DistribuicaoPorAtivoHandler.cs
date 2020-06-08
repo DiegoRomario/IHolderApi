@@ -21,20 +21,18 @@ namespace IHolder.Application.Handlers
         private const int PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepositorio;
-        private readonly IRepositoryBase<Ativo> _ativoRepositorio;
         private readonly IAporteRepository _aporteRepository;
         private readonly IHandlerBase _handlerBase;
 
         public DistribuicaoPorAtivoHandler(IMapper mapper,
             IRepositoryBase<DistribuicaoPorAtivo> distribuicaoPorAtivoRepository,
             IAporteRepository aporteRepository,
-            IHandlerBase handlerBase, IRepositoryBase<Ativo> ativoRepositorio)
+            IHandlerBase handlerBase)
         {
             _mapper = mapper;
             _distribuicaoRepositorio = distribuicaoPorAtivoRepository;
             _aporteRepository = aporteRepository;
             _handlerBase = handlerBase;
-            _ativoRepositorio = ativoRepositorio;
         }
 
 
@@ -91,15 +89,15 @@ namespace IHolder.Application.Handlers
         {
             List<DistribuicaoPorAtivo> distribuicoes = ObterDistribuicoesAtivosCadastrados(request.UsuarioId); 
 
-            if (request.somenteAtivosEmCarteira)
+            if (request.SomenteItensEmCarteira)
                 await AlterarDistribuicoesAtivosEmCarteira(request, distribuicoes);
             else
-                await AlterarDistribuicoesAtivosCadastrados(request, distribuicoes);
+                await AlterarDistribuicoesAtivosCadastrados(distribuicoes);
 
             return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
-        private async Task AlterarDistribuicoesAtivosCadastrados(DividirDistribuicaoPorAtivoCommand request, List<DistribuicaoPorAtivo> distribuicoes)
+        private async Task AlterarDistribuicoesAtivosCadastrados(List<DistribuicaoPorAtivo> distribuicoes)
         {
             int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoes.Count();
 
@@ -137,18 +135,7 @@ namespace IHolder.Application.Handlers
             return _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId).Result.ToList();
         }
 
-        public class AtivoAporteComparer : IEqualityComparer<Aporte>
-        {
-            public bool Equals(Aporte x, Aporte y)
-            {
-                return x.Id == y.Id;
-            }
-
-            int IEqualityComparer<Aporte>.GetHashCode(Aporte aporte)
-            {
-                return aporte.Id.GetHashCode();
-            }
-        }
+        
 
     }
 }

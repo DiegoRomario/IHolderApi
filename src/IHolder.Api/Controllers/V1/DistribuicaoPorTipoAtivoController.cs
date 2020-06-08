@@ -58,7 +58,7 @@ namespace IHolder.Api.Controllers.V1
         public async Task<ActionResult> Dividir(DividirDistribuicaoPorAtivoCommand command)
         {
             await _mediator.Send(command);
-            return ResponseBase("Percentuais divididos igualmente entre ativos" + (command.somenteAtivosEmCarteira ? " em carteira" : " cadastrados"));
+            return ResponseBase("Percentuais divididos igualmente entre ativos" + (command.SomenteItensEmCarteira ? " em carteira" : " cadastrados"));
         }
 
     }

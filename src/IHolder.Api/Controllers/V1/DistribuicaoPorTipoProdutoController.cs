@@ -26,14 +26,6 @@ namespace IHolder.Api.Controllers.V1
             _distribuicaoPorProdutoQueries = distribuicaoPorProdutoQueries;
         }
 
-        [HttpPost()]
-        [AllowAnonymous]
-        public async Task<ActionResult> Cadastrar([FromBody] CadastrarDistribuicaoPorProdutoCommand command)
-        {
-            await _mediator.Send(command);
-            return ResponseBase("Distribuição cadastrada com sucesso");
-        }
-
         [HttpPut("{id:guid}")]
         [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarDistribuicaoPorProdutoCommand command)
@@ -63,5 +55,12 @@ namespace IHolder.Api.Controllers.V1
             return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorProdutoCommand()));
         }
 
+
+        [HttpPost("dividir")]
+        public async Task<ActionResult> Dividir(DividirDistribuicaoPorProdutoCommand command)
+        {
+            await _mediator.Send(command);
+            return ResponseBase("Percentuais divididos igualmente entre produtos" + (command.SomenteItensEmCarteira ? " em carteira" : " cadastrados"));
+        }
     }
 }

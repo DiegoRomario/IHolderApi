@@ -14,10 +14,11 @@ using System.Threading.Tasks;
 namespace IHolder.Application.Handlers
 {
     public class DistribuicaoPorTipoInvestimentoHandler :
-        IRequestHandler<CadastrarDistribuicaoPorTipoInvestimentoCommand, bool>,
         IRequestHandler<AlterarDistribuicaoPorTipoInvestimentoCommand, bool>,
-        IRequestHandler<RecalcularDistribuicaoPorTipoInvestimentoCommand, bool>
+        IRequestHandler<RecalcularDistribuicaoPorTipoInvestimentoCommand, bool>,
+        IRequestHandler<DividirDistribuicaoPorTipoInvestimentoCommand, bool>
     {
+        private const int PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoRepositorio;
         private readonly IAporteRepository _aporteRepository;
@@ -34,34 +35,16 @@ namespace IHolder.Application.Handlers
             _handlerBase = handlerBase;
         }
 
-        public async Task<bool> Handle(CadastrarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
-        {
-            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoInvestimentoId, request.PercentualObjetivo))
-            {
-                _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
-                return false;
-            }
-
-            if (TipoInvestimentoJaCadastrado(request.TipoInvestimentoId))
-            {
-                _handlerBase.PublishNotification("Este tipo de investimento já possuí um percentual de distribuição definido");
-            }
-
-            _distribuicaoRepositorio.Insert(_mapper.Map<DistribuicaoPorTipoInvestimento>(request));
-            return await _distribuicaoRepositorio.UnitOfWork.Commit();
-        }
-
-
         public async Task<bool> Handle(AlterarDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
 
-            if (TipoInvestimentoJaCadastrado(request.TipoInvestimentoId, request.Id))
+            if (TipoInvestimentoJaCadastrado(request.TipoDistribuicaoId, request.Id))
             {
                 _handlerBase.PublishNotification("O novo tipo de investimento selecionado já possuí um percentual de distribuição definido");
                 return false;
             }
 
-            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoInvestimentoId, request.PercentualObjetivo))
+            if (PercentualObjetivoAcumuladoUltrapasa100PorCento(request.TipoDistribuicaoId, request.PercentualObjetivo))
             {
                 _handlerBase.PublishNotification("O Percentual objetivo informado somado ao percentual objetivo acumulado ultrapassa 100%");
                 return false;
@@ -103,6 +86,57 @@ namespace IHolder.Application.Handlers
         {
             return _distribuicaoRepositorio.GetBy(d => d.TipoInvestimentoId == tipoInvestimentoId && d.Id != distribuicaoId).Result != null;
         }
+        public async Task<bool> Handle(DividirDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
+        {
+            List<DistribuicaoPorTipoInvestimento> distribuicoes = ObterDistribuicoesTipoInvestimentosCadastrados(request.UsuarioId);
+
+            if (request.SomenteItensEmCarteira)
+                await AlterarDistribuicoesTipoInvestimentosEmCarteira(request, distribuicoes);
+            else
+                await AlterarDistribuicoesTipoInvestimentosCadastrados(distribuicoes);
+
+            return await _distribuicaoRepositorio.UnitOfWork.Commit();
+        }
+
+        private async Task AlterarDistribuicoesTipoInvestimentosCadastrados(List<DistribuicaoPorTipoInvestimento> distribuicoes)
+        {
+            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoes.Count();
+
+            foreach (var distribuicao in distribuicoes)
+            {
+                distribuicao.Valores.AtualizarPercentualObjetivo(percentualDivisao);
+                await Update(distribuicao);
+            }
+        }
+        private async Task AlterarDistribuicoesTipoInvestimentosEmCarteira(DividirDistribuicaoPorTipoInvestimentoCommand request, List<DistribuicaoPorTipoInvestimento> distribuicoes)
+        {
+            List<DistribuicaoPorTipoInvestimento> distribuicoesCarteira = ObterDistribuicoesTipoInvestimentosEmCarteira(request.UsuarioId);
+            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoesCarteira.Count();
+
+            foreach (var distribuicao in distribuicoes)
+            {
+                if (distribuicoesCarteira.Where(x => x.TipoInvestimentoId == distribuicao.TipoInvestimentoId).Any())
+                    distribuicao.Valores.AtualizarPercentualObjetivo(percentualDivisao);
+                else
+                    distribuicao.Valores.AtualizarPercentualObjetivo(0);
+                await Update(distribuicao);
+            }
+        }
+
+        private List<DistribuicaoPorTipoInvestimento> ObterDistribuicoesTipoInvestimentosEmCarteira(Guid usuarioId)
+        {
+            IEnumerable<Guid> TipoInvestimentosEmCarteira = _aporteRepository.GetManyBy(where: a => a.UsuarioId == usuarioId, a => a.Ativo, a=> a.Ativo.Produto, a => a.Ativo.Produto.TipoInvestimento).Result.Distinct(new TipoInvestimentoAporteComparer()).Select(a => a.Ativo.Produto.TipoInvestimentoId) ;
+            List<DistribuicaoPorTipoInvestimento> distribuicoes =
+            _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId && TipoInvestimentosEmCarteira.Contains(d.TipoInvestimentoId)).Result.ToList();
+            return distribuicoes;
+        }
+
+        private List<DistribuicaoPorTipoInvestimento> ObterDistribuicoesTipoInvestimentosCadastrados(Guid usuarioId)
+        {
+            return _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId).Result.ToList();
+        }
+
+
 
     }
 }

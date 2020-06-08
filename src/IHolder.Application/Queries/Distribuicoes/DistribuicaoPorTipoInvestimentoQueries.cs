@@ -14,17 +14,27 @@ namespace IHolder.Application.Queries
     {
         private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _repository;
         private readonly IMapper _mapper;
+        private readonly IRepositoryBase<Aporte> _aporteRepository;
 
-        public DistribuicaoPorTipoInvestimentoQueries(IRepositoryBase<DistribuicaoPorTipoInvestimento> repository, IMapper mapper)
+
+        public DistribuicaoPorTipoInvestimentoQueries(IRepositoryBase<DistribuicaoPorTipoInvestimento> repository, IMapper mapper, IRepositoryBase<Aporte> aporteRepository)
         {
             _repository = repository;
             _mapper = mapper;
+            _aporteRepository = aporteRepository;
         }
 
         public async Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorTipoInvestimento()
         {
             var distribuicoes = _mapper.Map<IEnumerable<DistribuicaoPorTipoInvestimento>, IEnumerable<DistribuicaoViewModel>>
                 (await _repository.GetManyBy(includes: a => a.TipoInvestimento));
+
+#warning REFATORAR!
+            foreach (var item in distribuicoes)
+            {
+                item.EstaNaCarteira = _aporteRepository.GetBy(where: a => a.Ativo.Produto.TipoInvestimentoId == item.TipoDistribuicaoId, a => a.Ativo, a => a.Ativo.Produto, a=>a.Ativo.Produto.TipoInvestimento).Result != null;
+            }
+
             return distribuicoes;
         }
     }

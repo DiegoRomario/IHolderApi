@@ -24,14 +24,6 @@ namespace IHolder.Api.Controllers.V1
             _distribuicaoPorTipoInvestimentoQueries = distribuicaoPorTipoInvestimentoQueries;
         }
 
-        [HttpPost()]
-        [AllowAnonymous]
-        public async Task<ActionResult> Cadastrar([FromBody]CadastrarDistribuicaoPorTipoInvestimentoCommand command)
-        {
-            await _mediator.Send(command);
-            return ResponseBase("Distribuição cadastrada com sucesso");
-
-        }
 
         [HttpPut("{id:guid}")]
         [AllowAnonymous]
@@ -60,6 +52,13 @@ namespace IHolder.Api.Controllers.V1
         public async Task<ActionResult> Recalcular()
         {
             return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand()));
+        }
+
+        [HttpPost("dividir")]
+        public async Task<ActionResult> Dividir(DividirDistribuicaoPorTipoInvestimentoCommand command)
+        {
+            await _mediator.Send(command);
+            return ResponseBase("Percentuais divididos igualmente entre tipos de investimentos" + (command.SomenteItensEmCarteira ? " em carteira" : " cadastrados"));
         }
 
     }

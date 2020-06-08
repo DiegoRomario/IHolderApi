@@ -20,14 +20,14 @@ namespace IHolder.Tests.Handlers.Tests
 {
     public class DistribuicaoPorAtivoHandlerTests
     {
-        AlterarDistribuicaoPorAtivoCommand command;
-        AutoMocker mocker;
-        Mock<IRepositoryBase<DistribuicaoPorAtivo>> distribuicaoRepository;
-        Mock<IMapper> mapper;
-        Mock<IAporteRepository> aporteRepository;
-        Mock<IRepositoryBase<Ativo>> ativoRepository;
-        Mock<IHandlerBase> handlerBase;
-        IEnumerable<DistribuicaoPorAtivo> distribuicoes;
+        private readonly AlterarDistribuicaoPorAtivoCommand command;
+        private readonly AutoMocker mocker;
+        private readonly Mock<IRepositoryBase<DistribuicaoPorAtivo>> distribuicaoRepository;
+        private readonly Mock<IMapper> mapper;
+        private readonly Mock<IAporteRepository> aporteRepository;
+        private readonly Mock<IRepositoryBase<Ativo>> ativoRepository;
+        private readonly Mock<IHandlerBase> handlerBase;
+        private IEnumerable<DistribuicaoPorAtivo> distribuicoes;
         public DistribuicaoPorAtivoHandlerTests()
         {
             command = new AlterarDistribuicaoPorAtivoCommand(Guid.NewGuid(),Guid.NewGuid(), 1);
@@ -50,7 +50,7 @@ namespace IHolder.Tests.Handlers.Tests
             };
             distribuicaoRepository.Setup(r => r.GetManyBy(It.IsAny<Expression<Func<DistribuicaoPorAtivo, bool>>>())).Returns(Task.FromResult(distribuicoes));
             handlerBase.Setup(h => h.HasNotification()).Returns(true);
-            var handler = new DistribuicaoPorAtivoHandler(mapper.Object, distribuicaoRepository.Object, aporteRepository.Object, handlerBase.Object, ativoRepository.Object);
+            var handler = new DistribuicaoPorAtivoHandler(mapper.Object, distribuicaoRepository.Object, aporteRepository.Object, handlerBase.Object);
 
             // Act
             var response = await handler.Handle(command, CancellationToken.None);
@@ -71,7 +71,7 @@ namespace IHolder.Tests.Handlers.Tests
             distribuicaoRepository.Setup(r => r.GetManyBy(It.IsAny<Expression<Func<DistribuicaoPorAtivo, bool>>>())).Returns(Task.FromResult(distribuicoes));
             handlerBase.Setup(h => h.HasNotification()).Returns(false);
             distribuicaoRepository.Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));
-            var handler = new DistribuicaoPorAtivoHandler(mapper.Object, distribuicaoRepository.Object, aporteRepository.Object, handlerBase.Object, ativoRepository.Object);
+            var handler = new DistribuicaoPorAtivoHandler(mapper.Object, distribuicaoRepository.Object, aporteRepository.Object, handlerBase.Object);
             // Act
             var response = await handler.Handle(command, CancellationToken.None);
             // Assert
