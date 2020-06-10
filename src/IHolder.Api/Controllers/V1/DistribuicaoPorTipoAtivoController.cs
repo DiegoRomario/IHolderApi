@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using IHolder.Application.Queries;
 using IHolder.Application.Commands;
 using System;
+using System.Threading;
 
 namespace IHolder.Api.Controllers.V1
 {
@@ -51,7 +52,9 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand()));
+            Thread.Sleep(3000);
+            await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand());
+            return ResponseBase("Recalculo efetuado com sucesso");
         }
 
         [HttpPost("dividir")]

@@ -53,7 +53,7 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(RecalcularDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-            List<DistribuicaoPorAtivo> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
+            List<DistribuicaoPorAtivo> distribuicoes = _distribuicaoRepositorio.GetManyBy(where: d => d.UsuarioId == request.UsuarioId, d => d.Ativo).Result.ToList();
             var valorTotalGeral = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)

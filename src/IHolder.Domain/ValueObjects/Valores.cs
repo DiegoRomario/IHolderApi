@@ -32,9 +32,13 @@
             PercentualDiferenca = PercentualObjetivo - PercentualAtual;
         }
 
-        private void AtualizarValorDiferenca()
+        private void AtualizarValorDiferenca(decimal valorInvestidoTotal)
         {
-            ValorDiferenca = (ValorAtual / PercentualAtual) * PercentualDiferenca;
+            if (PercentualAtual <= 0)
+                ValorDiferenca = valorInvestidoTotal * PercentualObjetivo / 100;
+            else
+                ValorDiferenca = (ValorAtual / PercentualAtual) * PercentualDiferenca;
+            
         }
 
         public void OrquestrarAtualizacaoDeValoresEPercentuais(decimal valorTotalPorTipo, decimal valorTotalGeral)
@@ -42,7 +46,7 @@
             AtualizarValorAtual(valorTotalPorTipo);
             AtualizarPercentualAtual(valorTotalGeral);
             AtualizarPercentualDiferenca();
-            AtualizarValorDiferenca();
+            AtualizarValorDiferenca(valorTotalGeral);
         }
 
 

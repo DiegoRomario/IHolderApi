@@ -51,7 +51,8 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            return ResponseBase(await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand()));
+            await _mediator.Send(new RecalcularDistribuicaoPorTipoInvestimentoCommand());
+            return ResponseBase("Recalculo efetuado com sucesso");
         }
 
         [HttpPost("dividir")]
