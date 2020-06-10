@@ -35,7 +35,8 @@ namespace IHolder.Api.Controllers.V1
                 return ResponseBase();
             }
 
-            return ResponseBase(await _mediator.Send(command));
+            await _mediator.Send(command);
+            return ResponseBase("Percentual objetivo atualizado com sucesso.");
 
         }
 
