@@ -5,7 +5,7 @@ using IHolder.Domain.Entities;
 
 namespace IHolder.Domain.Interfaces
 {
-    public interface IAporteRepository : IRepositoryBase<Aporte>
+    public interface IAtivoEmCarteiraRepository : IRepositoryBase<AtivoEmCarteira>
     {
         Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipoInvestimentoId, Guid usuarioId);
         Task<decimal> ObterTotalAplicadoPorAtivo(Guid ativoId, Guid usuarioId);

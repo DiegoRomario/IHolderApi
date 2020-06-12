@@ -12,28 +12,28 @@ using System.Threading.Tasks;
 
 namespace IHolder.Application.Queries
 {
-    public class AporteQueries : IAporteQueries
+    public class AtivoEmCarteiraQueries : IAtivoEmCarteiraQueries
     {
         private readonly IMapper _mapper;
-        private readonly IRepositoryBase<Aporte> _repository;
+        private readonly IRepositoryBase<AtivoEmCarteira> _repository;
         private readonly IConsultaCotacaoService _consultaCotacaoService;
 
-        public AporteQueries(IMapper mapper, IRepositoryBase<Aporte> repository, IConsultaCotacaoService consultaCotacaoService)
+        public AtivoEmCarteiraQueries(IMapper mapper, IRepositoryBase<AtivoEmCarteira> repository, IConsultaCotacaoService consultaCotacaoService)
         {
             _mapper = mapper;
             _repository = repository;
             _consultaCotacaoService = consultaCotacaoService;
         }
 
-        public async Task<IEnumerable<AporteViewModel>> ObterAportesPorUsuario(Guid UsuarioId)
+        public async Task<IEnumerable<AtivoEmCarteiraViewModel>> ObterAtivosEmCarteiraPorUsuario(Guid UsuarioId)
         {
-            IEnumerable<Aporte> aportes = await _repository.GetManyBy(where: a => a.UsuarioId == UsuarioId, a => a.Ativo, a => a.Ativo.Produto);
-            List<AporteViewModel> aportesViewModel = _mapper.Map<IEnumerable<AporteViewModel>>(aportes).ToList();
-            aportesViewModel.ForEach(i => CalcularValorAtualESaldo(i));
-            return aportesViewModel;
+            IEnumerable<AtivoEmCarteira> ativosEmCarteira = await _repository.GetManyBy(where: a => a.UsuarioId == UsuarioId, a => a.Ativo, a => a.Ativo.Produto);
+            List<AtivoEmCarteiraViewModel> ativosEmCarteiraViewModel = _mapper.Map<IEnumerable<AtivoEmCarteiraViewModel>>(ativosEmCarteira).ToList();
+            ativosEmCarteiraViewModel.ForEach(i => CalcularValorAtualESaldo(i));
+            return ativosEmCarteiraViewModel;
         }
 
-        private void CalcularValorAtualESaldo(AporteViewModel item)
+        private void CalcularValorAtualESaldo(AtivoEmCarteiraViewModel item)
         {
             decimal cotacao = _consultaCotacaoService.ConsultarCotacao(new ConsultaCotacaoArgs(ticker: item.AtivoTicker, produtoDescricao: item.ProdutoDescricao), CancellationToken.None).Result.Preco;
             item.ValorAtual = (item.Quantidade * cotacao);

@@ -11,13 +11,13 @@ namespace IHolder.Application.Queries
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorAtivo> _AtivoRepository;
-        private readonly IRepositoryBase<Aporte> _aporteRepository;
+        private readonly IRepositoryBase<AtivoEmCarteira> _AtivoEmCarteiraRepository;
 
-        public DistribuicaoPorAtivoQueries(IMapper mapper, IRepositoryBase<DistribuicaoPorAtivo> repository, IRepositoryBase<Aporte> aporteRepository)
+        public DistribuicaoPorAtivoQueries(IMapper mapper, IRepositoryBase<DistribuicaoPorAtivo> repository, IRepositoryBase<AtivoEmCarteira> AtivoEmCarteiraRepository)
         {
             _mapper = mapper;
             _AtivoRepository = repository;
-            _aporteRepository = aporteRepository;
+            _AtivoEmCarteiraRepository = AtivoEmCarteiraRepository;
         }
 
         public async Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorAtivo()
@@ -26,7 +26,7 @@ namespace IHolder.Application.Queries
 #warning REFATORAR!
             foreach (var item in distribuicoes)
             {
-                item.EstaNaCarteira = _aporteRepository.GetBy(where: a => a.AtivoId == item.TipoDistribuicaoId).Result != null;
+                item.EstaNaCarteira = _AtivoEmCarteiraRepository.GetBy(where: a => a.AtivoId == item.TipoDistribuicaoId).Result != null;
             }
             return distribuicoes;
         }

@@ -2,43 +2,43 @@
 using System.Collections.Generic;
 namespace IHolder.Domain.DomainObjects
 {
-    public class AtivoAporteComparer : IEqualityComparer<Aporte>
+    public class AtivoEmCarteiraComparer : IEqualityComparer<AtivoEmCarteira>
     {
-        public bool Equals(Aporte x, Aporte y)
+        public bool Equals(AtivoEmCarteira x, AtivoEmCarteira y)
         {
             return x.Id == y.Id;
         }
 
-        int IEqualityComparer<Aporte>.GetHashCode(Aporte aporte)
+        int IEqualityComparer<AtivoEmCarteira>.GetHashCode(AtivoEmCarteira ativoEmCarteira)
         {
-            return aporte.Id.GetHashCode();
+            return ativoEmCarteira.Id.GetHashCode();
         }
     }
 
 
-    public class ProdutoAporteComparer : IEqualityComparer<Aporte>
+    public class ProdutoAtivoEmCarteiraComparer : IEqualityComparer<AtivoEmCarteira>
     {
-        public bool Equals(Aporte x, Aporte y)
+        public bool Equals(AtivoEmCarteira x, AtivoEmCarteira y)
         {
             return x.Id == y.Id;
         }
 
-        int IEqualityComparer<Aporte>.GetHashCode(Aporte aporte)
+        int IEqualityComparer<AtivoEmCarteira>.GetHashCode(AtivoEmCarteira ativoEmCarteira)
         {
-            return aporte.Id.GetHashCode();
+            return ativoEmCarteira.Id.GetHashCode();
         }
     }
 
-    public class TipoInvestimentoAporteComparer : IEqualityComparer<Aporte>
+    public class TipoInvestimentoAtivoEmCarteiraComparer : IEqualityComparer<AtivoEmCarteira>
     {
-        public bool Equals(Aporte x, Aporte y)
+        public bool Equals(AtivoEmCarteira x, AtivoEmCarteira y)
         {
             return x.Id == y.Id;
         }
 
-        int IEqualityComparer<Aporte>.GetHashCode(Aporte aporte)
+        int IEqualityComparer<AtivoEmCarteira>.GetHashCode(AtivoEmCarteira ativoEmCarteira)
         {
-            return aporte.Id.GetHashCode();
+            return ativoEmCarteira.Id.GetHashCode();
         }
     }
 }

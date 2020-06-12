@@ -3,9 +3,9 @@ using System;
 
 namespace IHolder.Domain.Entities
 {
-    public class Aporte : Entity
+    public class AtivoEmCarteira : Entity
     {
-        public Aporte(Guid ativoId, decimal precoMedio, decimal quantidade, Guid usuarioId, DateTime dataPrimeiroAporte)
+        public AtivoEmCarteira(Guid ativoId, decimal precoMedio, decimal quantidade, Guid usuarioId, DateTime dataPrimeiroAporte)
         {
             AtivoId = ativoId;
             PrecoMedio = precoMedio;

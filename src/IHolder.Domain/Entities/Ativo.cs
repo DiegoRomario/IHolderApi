@@ -34,7 +34,7 @@ namespace IHolder.Domain.Entities
 
 
         public IEnumerable<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; private set; }
-        public IEnumerable<Aporte> Aportes { get; private set; }
+        public IEnumerable<AtivoEmCarteira> AtivosEmCarteira { get; private set; }
         public void AtualizarCotacao(decimal cotacao)
         {
             Cotacao = cotacao;

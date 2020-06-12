@@ -11,7 +11,7 @@ namespace IHolder.Data.Context
     {
         public IHolderContext(DbContextOptions<IHolderContext> options) : base(options) { }
 
-        public DbSet<Aporte> Aportes { get; set; }
+        public DbSet<AtivoEmCarteira> AtivosEmCarteira { get; set; }
         public DbSet<Ativo> Ativos { get; set; }
         public DbSet<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; set; }
         public DbSet<DistribuicaoPorProduto> DistribuicoesPorProdutos { get; set; }

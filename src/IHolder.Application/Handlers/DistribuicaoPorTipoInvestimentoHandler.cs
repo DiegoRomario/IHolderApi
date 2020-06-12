@@ -21,17 +21,17 @@ namespace IHolder.Application.Handlers
         private const int PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _distribuicaoRepositorio;
-        private readonly IAporteRepository _aporteRepository;
+        private readonly IAtivoEmCarteiraRepository _AtivoEmCarteiraRepository;
         private readonly IHandlerBase _handlerBase;
 
         public DistribuicaoPorTipoInvestimentoHandler(IMapper mapper,
             IRepositoryBase<DistribuicaoPorTipoInvestimento> distribuicaoPorTipoInvestimentoRepository,
-            IAporteRepository aporteRepository,
+            IAtivoEmCarteiraRepository AtivoEmCarteiraRepository,
             IHandlerBase handlerBase)
         {
             _mapper = mapper;
             _distribuicaoRepositorio = distribuicaoPorTipoInvestimentoRepository;
-            _aporteRepository = aporteRepository;
+            _AtivoEmCarteiraRepository = AtivoEmCarteiraRepository;
             _handlerBase = handlerBase;
         }
 
@@ -56,11 +56,11 @@ namespace IHolder.Application.Handlers
         public async Task<bool> Handle(RecalcularDistribuicaoPorTipoInvestimentoCommand request, CancellationToken cancellationToken)
         {
             List<DistribuicaoPorTipoInvestimento> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
-            var valor_total = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
+            var valor_total = _AtivoEmCarteiraRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)
             {
-                var valorTotalPorTipoInvestimento = _aporteRepository.ObterTotalAplicadoPorTipoInvestimento(item.TipoInvestimentoId, request.UsuarioId).Result;
+                var valorTotalPorTipoInvestimento = _AtivoEmCarteiraRepository.ObterTotalAplicadoPorTipoInvestimento(item.TipoInvestimentoId, request.UsuarioId).Result;
                 item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipoInvestimento, valor_total);
                 item.AtualizarOrientacao(valorTotalPorTipoInvestimento, valor_total);
                 await Update(item);
@@ -125,7 +125,7 @@ namespace IHolder.Application.Handlers
 
         private List<DistribuicaoPorTipoInvestimento> ObterDistribuicoesTipoInvestimentosEmCarteira(Guid usuarioId)
         {
-            IEnumerable<Guid> TipoInvestimentosEmCarteira = _aporteRepository.GetManyBy(where: a => a.UsuarioId == usuarioId, a => a.Ativo, a=> a.Ativo.Produto, a => a.Ativo.Produto.TipoInvestimento).Result.Distinct(new TipoInvestimentoAporteComparer()).Select(a => a.Ativo.Produto.TipoInvestimentoId) ;
+            IEnumerable<Guid> TipoInvestimentosEmCarteira = _AtivoEmCarteiraRepository.GetManyBy(where: a => a.UsuarioId == usuarioId, a => a.Ativo, a=> a.Ativo.Produto, a => a.Ativo.Produto.TipoInvestimento).Result.Distinct(new TipoInvestimentoAtivoEmCarteiraComparer()).Select(a => a.Ativo.Produto.TipoInvestimentoId) ;
             List<DistribuicaoPorTipoInvestimento> distribuicoes =
             _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId && TipoInvestimentosEmCarteira.Contains(d.TipoInvestimentoId)).Result.ToList();
             return distribuicoes;

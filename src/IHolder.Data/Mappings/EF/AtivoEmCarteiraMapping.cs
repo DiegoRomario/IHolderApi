@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IHolder.Data.Mapping
 {
-    public class AporteMapping : IEntityTypeConfiguration<Aporte>
+    public class AtivoEmCarteiraMapping : IEntityTypeConfiguration<AtivoEmCarteira>
     {
-        public void Configure(EntityTypeBuilder<Aporte> builder)
+        public void Configure(EntityTypeBuilder<AtivoEmCarteira> builder)
         {
             builder.HasKey(a => a.Id);
             builder.Property(p => p.AtivoId).IsRequired();
@@ -15,7 +15,7 @@ namespace IHolder.Data.Mapping
             builder.Property(p => p.UsuarioId).IsRequired();
             builder.Property(p => p.DataInclusao).IsRequired();
             builder.Property(p => p.DataPrimeiroAporte).IsRequired();
-            builder.ToTable("Aporte");
+            builder.ToTable("AtivoEmCarteira");
 
         }
     }

@@ -2,7 +2,7 @@
 
 namespace IHolder.Application.ViewModels
 {
-    public class AporteViewModel
+    public class AtivoEmCarteiraViewModel
     {
         public Guid Id { get; set; }
         public Guid AtivoId { get; set; }

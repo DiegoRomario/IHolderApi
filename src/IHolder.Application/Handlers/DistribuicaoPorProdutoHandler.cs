@@ -21,17 +21,17 @@ namespace IHolder.Application.Handlers
         private const int PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorProduto> _distribuicaoRepositorio;
-        private readonly IAporteRepository _aporteRepository;
+        private readonly IAtivoEmCarteiraRepository _AtivoEmCarteiraRepository;
         private readonly IHandlerBase _handlerBase;
 
         public DistribuicaoPorProdutoHandler(IMapper mapper,
             IRepositoryBase<DistribuicaoPorProduto> distribuicaoPorProdutoRepository,
-            IAporteRepository aporteRepository,
+            IAtivoEmCarteiraRepository AtivoEmCarteiraRepository,
             IHandlerBase handlerBase)
         {
             _mapper = mapper;
             _distribuicaoRepositorio = distribuicaoPorProdutoRepository;
-            _aporteRepository = aporteRepository;
+            _AtivoEmCarteiraRepository = AtivoEmCarteiraRepository;
             _handlerBase = handlerBase;
         }
 
@@ -55,11 +55,11 @@ namespace IHolder.Application.Handlers
         public async Task<bool> Handle(RecalcularDistribuicaoPorProdutoCommand request, CancellationToken cancellationToken)
         {
             List<DistribuicaoPorProduto> distribuicoes = _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == request.UsuarioId).Result.ToList();
-            var valor_total = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
+            var valor_total = _AtivoEmCarteiraRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)
             {
-                var valorTotalPorProduto = _aporteRepository.ObterTotalAplicadoPorProduto(item.ProdutoId, request.UsuarioId).Result;
+                var valorTotalPorProduto = _AtivoEmCarteiraRepository.ObterTotalAplicadoPorProduto(item.ProdutoId, request.UsuarioId).Result;
                 item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorProduto, valor_total);
                 item.AtualizarOrientacao(valorTotalPorProduto, valor_total);
                 await Update(item);
@@ -125,7 +125,7 @@ namespace IHolder.Application.Handlers
 
         private List<DistribuicaoPorProduto> ObterDistribuicoesProdutosEmCarteira(Guid usuarioId)
         {
-            IEnumerable<Guid> ProdutosEmCarteira = _aporteRepository.GetManyBy(where: a => a.UsuarioId == usuarioId,a => a.Ativo, a => a.Ativo.Produto).Result.Distinct(new ProdutoAporteComparer()).Select(a => a.Ativo.ProdutoId);
+            IEnumerable<Guid> ProdutosEmCarteira = _AtivoEmCarteiraRepository.GetManyBy(where: a => a.UsuarioId == usuarioId,a => a.Ativo, a => a.Ativo.Produto).Result.Distinct(new ProdutoAtivoEmCarteiraComparer()).Select(a => a.Ativo.ProdutoId);
             List<DistribuicaoPorProduto> distribuicoes =
             _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId && ProdutosEmCarteira.Contains(d.ProdutoId)).Result.ToList();
 

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace IHolder.Application.Queries
 {
-    public interface IAporteQueries
+    public interface IAtivoEmCarteiraQueries
     {
-        Task<IEnumerable<AporteViewModel>> ObterAportesPorUsuario(Guid UsuarioId);
+        Task<IEnumerable<AtivoEmCarteiraViewModel>> ObterAtivosEmCarteiraPorUsuario(Guid UsuarioId);
     }
 }

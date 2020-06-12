@@ -14,32 +14,32 @@ namespace IHolder.Api.Controllers.V1
     [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class AporteController : ResponseBaseController
+    public class AtivoEmCarteiraController : ResponseBaseController
     {
-        private readonly IAporteQueries _aporteQueries;
+        private readonly IAtivoEmCarteiraQueries _ativoEmCarteiraQueries;
         private readonly IUser _user;
 
-        public AporteController(IMediator mediator, INotificationHandler<Notification> notifications, IAporteQueries aporteQueries, IUser user)
+        public AtivoEmCarteiraController(IMediator mediator, INotificationHandler<Notification> notifications, IAtivoEmCarteiraQueries ativoEmCarteiraQueries, IUser user)
             : base(mediator, notifications)
         {
-            _aporteQueries = aporteQueries;
+            _ativoEmCarteiraQueries = ativoEmCarteiraQueries;
             _user = user;
         }
 
         [HttpPost("cadastrar")]
-        public async Task<ActionResult> Insert(CadastrarAporteCommand command)
+        public async Task<ActionResult> Insert(CadastrarAtivoEmCarteiraCommand command)
         {
             await _mediator.Send(command);
-            return ResponseBase("Aporte cadastrado com sucesso");
+            return ResponseBase("Ativo cadastrado na carteira com sucesso");
         }
 
 
 
         [HttpPut("alterar/{id:guid}")]
         [AllowAnonymous]
-        public async Task<ActionResult> Alterar(Guid id, AlterarAporteCommand command)
+        public async Task<ActionResult> Alterar(Guid id, AlterarAtivoEmCarteiraCommand command)
         {
-                    if (id != command?.Id)
+            if (id != command?.Id)
             {
                 NotifyError("O ID do registro informado para alteração está inválido.");
                 return ResponseBase();
@@ -50,10 +50,10 @@ namespace IHolder.Api.Controllers.V1
 
         [HttpGet()]
         [AllowAnonymous]
-        public async Task<ActionResult> ObterAportes()
+        public async Task<ActionResult> ObterAtivosEmCarteira()
         {
-            return ResponseBase(await _aporteQueries.ObterAportesPorUsuario(_user.GetUserId()));
+            return ResponseBase(await _ativoEmCarteiraQueries.ObterAtivosEmCarteiraPorUsuario(_user.GetUserId()));
         }
-    
+
     }
 }

@@ -14,14 +14,14 @@ namespace IHolder.Application.Queries
     {
         private readonly IRepositoryBase<DistribuicaoPorTipoInvestimento> _repository;
         private readonly IMapper _mapper;
-        private readonly IRepositoryBase<Aporte> _aporteRepository;
+        private readonly IRepositoryBase<AtivoEmCarteira> _AtivoEmCarteiraRepository;
 
 
-        public DistribuicaoPorTipoInvestimentoQueries(IRepositoryBase<DistribuicaoPorTipoInvestimento> repository, IMapper mapper, IRepositoryBase<Aporte> aporteRepository)
+        public DistribuicaoPorTipoInvestimentoQueries(IRepositoryBase<DistribuicaoPorTipoInvestimento> repository, IMapper mapper, IRepositoryBase<AtivoEmCarteira> AtivoEmCarteiraRepository)
         {
             _repository = repository;
             _mapper = mapper;
-            _aporteRepository = aporteRepository;
+            _AtivoEmCarteiraRepository = AtivoEmCarteiraRepository;
         }
 
         public async Task<IEnumerable<DistribuicaoViewModel>> ObterDistribuicaoPorTipoInvestimento()
@@ -32,7 +32,7 @@ namespace IHolder.Application.Queries
 #warning REFATORAR!
             foreach (var item in distribuicoes)
             {
-                item.EstaNaCarteira = _aporteRepository.GetBy(where: a => a.Ativo.Produto.TipoInvestimentoId == item.TipoDistribuicaoId, a => a.Ativo, a => a.Ativo.Produto, a=>a.Ativo.Produto.TipoInvestimento).Result != null;
+                item.EstaNaCarteira = _AtivoEmCarteiraRepository.GetBy(where: a => a.Ativo.Produto.TipoInvestimentoId == item.TipoDistribuicaoId, a => a.Ativo, a => a.Ativo.Produto, a=>a.Ativo.Produto.TipoInvestimento).Result != null;
             }
 
             return distribuicoes;

@@ -33,16 +33,16 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddTransient<IUsuarioQueries, UsuarioQueries>();
             services.AddTransient<IAtivoQueries, AtivoQueries>();
             services.AddTransient<IProdutoQueries, ProdutoQueries>();
-            services.AddTransient<IAporteQueries, AporteQueries>();
+            services.AddTransient<IAtivoEmCarteiraQueries, AtivoEmCarteiraQueries>();
             services.AddTransient<IDistribuicaoPorTipoInvestimentoQueries, DistribuicaoPorTipoInvestimentoQueries>();
             services.AddTransient<IDistribuicaoPorAtivoQueries, DistribuicaoPorAtivoQueries>();
             services.AddTransient<IDistribuicaoPorProdutoQueries, DistribuicaoPorProdutoQueries>();
             #endregion
 
             #region Repositories
-            services.AddScoped<IAporteRepository, AporteRepository>();  
+            services.AddScoped<IAtivoEmCarteiraRepository, AtivoEmCarteiraRepository>();  
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-            services.AddScoped<IAporteRepository, AporteRepository>();
+            services.AddScoped<IAtivoEmCarteiraRepository, AtivoEmCarteiraRepository>();
             #endregion
 
 

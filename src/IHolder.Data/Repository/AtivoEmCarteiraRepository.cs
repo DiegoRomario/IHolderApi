@@ -10,19 +10,19 @@ using IHolder.Domain.Interfaces;
 
 namespace IHolder.Data.Repository
 {
-    public class AporteRepository : RepositoryBase<Aporte>, IAporteRepository
+    public class AtivoEmCarteiraRepository : RepositoryBase<AtivoEmCarteira>, IAtivoEmCarteiraRepository
     {
-        public AporteRepository(IHolderContext context) : base(context)
+        public AtivoEmCarteiraRepository(IHolderContext context) : base(context)
         {
         }
 
         public async Task<decimal> ObterTotalAplicado(Guid usuarioId)
         {
-            decimal total = await(from aporte in _context.Aportes
-                                  join ativo in _context.Ativos on aporte.AtivoId equals ativo.Id
+            decimal total = await(from ativoEmCarteira in _context.AtivosEmCarteira
+                                  join ativo in _context.Ativos on ativoEmCarteira.AtivoId equals ativo.Id
                                   join produto in _context.Produtos on ativo.ProdutoId equals produto.Id
-                                  where aporte.UsuarioId == usuarioId
-                                  group produto.Id by new { aporte.Quantidade, ativo.Cotacao } into resultado
+                                  where ativoEmCarteira.UsuarioId == usuarioId
+                                  group produto.Id by new { ativoEmCarteira.Quantidade, ativo.Cotacao } into resultado
                                   select resultado.Key.Cotacao * resultado.Key.Quantidade)
                                         .SumAsync();
             return total;
@@ -30,10 +30,10 @@ namespace IHolder.Data.Repository
 
         public async Task<decimal> ObterTotalAplicadoPorAtivo(Guid ativoId, Guid usuarioId)
         {
-            decimal total = await (from aporte in _context.Aportes
-                                   join ativo in _context.Ativos on aporte.AtivoId equals ativo.Id
-                                   where ativo.Id == ativoId && aporte.UsuarioId == usuarioId
-                                   group ativo.Id by new { aporte.Quantidade, ativo.Cotacao } into resultado
+            decimal total = await (from ativoEmCarteira in _context.AtivosEmCarteira
+                                   join ativo in _context.Ativos on ativoEmCarteira.AtivoId equals ativo.Id
+                                   where ativo.Id == ativoId && ativoEmCarteira.UsuarioId == usuarioId
+                                   group ativo.Id by new { ativoEmCarteira.Quantidade, ativo.Cotacao } into resultado
                                    select resultado.Key.Cotacao * resultado.Key.Quantidade)
                                         .SumAsync();
             return total;
@@ -41,7 +41,7 @@ namespace IHolder.Data.Repository
 
         public async Task<decimal> ObterTotalAplicadoPorProduto(Guid produtoId, Guid usuarioId)
         {
-            decimal total = await (from ap in _context.Aportes
+            decimal total = await (from ap in _context.AtivosEmCarteira
                                    join at in _context.Ativos on ap.AtivoId equals at.Id
                                    join pr in _context.Produtos on at.ProdutoId equals pr.Id
                                    where pr.Id == produtoId && ap.UsuarioId == usuarioId
@@ -53,7 +53,7 @@ namespace IHolder.Data.Repository
 
         public async Task<decimal> ObterTotalAplicadoPorTipoInvestimento(Guid tipoInvestimentoId, Guid usuarioId)
         {
-            decimal total = await (from ap in _context.Aportes
+            decimal total = await (from ap in _context.AtivosEmCarteira
                                  join at in _context.Ativos on ap.AtivoId equals at.Id
                                  join pr in _context.Produtos on at.ProdutoId equals pr.Id
                                  where pr.TipoInvestimentoId == tipoInvestimentoId && ap.UsuarioId == usuarioId

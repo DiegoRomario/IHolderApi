@@ -4,34 +4,34 @@ using Xunit;
 
 namespace IHolder.Tests.Domain.Tests
 {
-    public class AporteTests
+    public class AtivoEmCarteiraTests
     {
         [Fact(DisplayName = "Calculo do Preço Total")]
-        [Trait("Aporte", "Aporte Testes")]
-        public void Aporte_DadoPrecoMedioEQuantidade_DeveCalcularValorTotal()
+        [Trait("AtivoEmCarteira", "AtivoEmCarteira Testes")]
+        public void AtivoEmCarteira_DadoPrecoMedioEQuantidade_DeveCalcularValorTotal()
         {
             // Arrange
-            Aporte aporte = new Aporte(
+            AtivoEmCarteira ativoEmCarteira = new AtivoEmCarteira(
                 ativoId: Guid.NewGuid(),
                 precoMedio: 33.45M, quantidade: 825,
                 usuarioId: Guid.NewGuid(),
                 dataPrimeiroAporte: DateTime.Now);
             // Act
-            aporte.CalcularValorAplicado();
+            ativoEmCarteira.CalcularValorAplicado();
             // Assert 
-            Assert.Equal(27596.25M, aporte.ValorAplicado, 2);
+            Assert.Equal(27596.25M, ativoEmCarteira.ValorAplicado, 2);
         }
 
 
         [Fact(DisplayName = "Calculo do preço total com valores maiores excedentes")]
-        [Trait("Aporte", "Aporte Testes")]
-        public void Aporte_DadoPrecoMedioEQuantidadeComValoresExcedentes_DeveRetornarExcecao()
+        [Trait("AtivoEmCarteira", "AtivoEmCarteira Testes")]
+        public void AtivoEmCarteira_DadoPrecoMedioEQuantidadeComValoresExcedentes_DeveRetornarExcecao()
         {
             // Arrange
             // Act
             var exception = Record.Exception(() =>
             {
-                Aporte aporte = new Aporte(
+                AtivoEmCarteira ativoEmCarteira = new AtivoEmCarteira(
                 ativoId: Guid.NewGuid(),
                 precoMedio: 999999999999999999995M, quantidade: 999999999999999999995M,
                 usuarioId: Guid.NewGuid(),

@@ -28,7 +28,7 @@ namespace IHolder.Domain.Entities
         public IEnumerable<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; private set; }
         public IEnumerable<DistribuicaoPorProduto> DistribuicoesPorProdutos { get; private set; }
         public IEnumerable<Ativo> Ativos { get; private set; }
-        public IEnumerable<Aporte> Aportes { get; private set; }
+        public IEnumerable<AtivoEmCarteira> AtivosEmCarteira { get; private set; }
 
     }
 

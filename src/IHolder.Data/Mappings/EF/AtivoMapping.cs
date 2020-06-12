@@ -34,7 +34,7 @@ namespace IHolder.Data.Mapping
             builder.Property(p => p.Situacao)
                     .HasColumnType("TINYINT");
             builder.HasMany(r => r.DistribuicoesPorAtivos).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
-            builder.HasMany(r => r.Aportes).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
+            builder.HasMany(r => r.AtivosEmCarteira).WithOne(d => d.Ativo).HasForeignKey(d => d.AtivoId);
             builder.ToTable("Ativo");
         }
     }

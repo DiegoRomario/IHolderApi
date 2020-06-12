@@ -28,9 +28,9 @@ namespace IHolder.Application.Mappings
              .ForPath(d => d.Informacoes.Descricao, o => o.MapFrom(s => s.Descricao))
              .ForPath(d => d.Informacoes.Caracteristicas, o => o.MapFrom(s => s.Caracteristicas));
 
-            CreateMap<CadastrarAporteCommand, Aporte>();
+            CreateMap<CadastrarAtivoEmCarteiraCommand, AtivoEmCarteira>();
 
-            CreateMap<AlterarAporteCommand, Aporte>();
+            CreateMap<AlterarAtivoEmCarteiraCommand, AtivoEmCarteira>();
 
         }
     }

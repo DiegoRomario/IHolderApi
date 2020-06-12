@@ -33,7 +33,7 @@ namespace IHolder.Data.Mapping
             builder.HasMany(p => p.DistribuicoesPorAtivos)
                     .WithOne(a => a.Usuario)
                     .HasForeignKey(a => a.UsuarioId);
-            builder.HasMany(p => p.Aportes)
+            builder.HasMany(p => p.AtivosEmCarteira)
                     .WithOne(a => a.Usuario)
                     .HasForeignKey(a => a.UsuarioId);
             builder.HasMany(p => p.Ativos)

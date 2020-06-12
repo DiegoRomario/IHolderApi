@@ -21,17 +21,17 @@ namespace IHolder.Application.Handlers
         private const int PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepositorio;
-        private readonly IAporteRepository _aporteRepository;
+        private readonly IAtivoEmCarteiraRepository _AtivoEmCarteiraRepository;
         private readonly IHandlerBase _handlerBase;
 
         public DistribuicaoPorAtivoHandler(IMapper mapper,
             IRepositoryBase<DistribuicaoPorAtivo> distribuicaoPorAtivoRepository,
-            IAporteRepository aporteRepository,
+            IAtivoEmCarteiraRepository AtivoEmCarteiraRepository,
             IHandlerBase handlerBase)
         {
             _mapper = mapper;
             _distribuicaoRepositorio = distribuicaoPorAtivoRepository;
-            _aporteRepository = aporteRepository;
+            _AtivoEmCarteiraRepository = AtivoEmCarteiraRepository;
             _handlerBase = handlerBase;
         }
 
@@ -54,11 +54,11 @@ namespace IHolder.Application.Handlers
         public async Task<bool> Handle(RecalcularDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
             List<DistribuicaoPorAtivo> distribuicoes = _distribuicaoRepositorio.GetManyBy(where: d => d.UsuarioId == request.UsuarioId, d => d.Ativo).Result.ToList();
-            var valorTotalGeral = _aporteRepository.ObterTotalAplicado(request.UsuarioId).Result;
+            var valorTotalGeral = _AtivoEmCarteiraRepository.ObterTotalAplicado(request.UsuarioId).Result;
 
             foreach (var item in distribuicoes)
             {
-                var valorTotalPorAtivo = _aporteRepository.ObterTotalAplicadoPorAtivo(item.AtivoId, request.UsuarioId).Result;
+                var valorTotalPorAtivo = _AtivoEmCarteiraRepository.ObterTotalAplicadoPorAtivo(item.AtivoId, request.UsuarioId).Result;
                 item.Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, valorTotalGeral);
                 item.AtualizarOrientacao(valorTotalPorAtivo, valorTotalGeral);
                 await Update(item);
@@ -123,7 +123,7 @@ namespace IHolder.Application.Handlers
 
         private List<DistribuicaoPorAtivo> ObterDistribuicoesAtivosEmCarteira(Guid usuarioId)
         {
-            IEnumerable<Guid> ativosEmCarteira = _aporteRepository.GetManyBy(where: a => a.UsuarioId == usuarioId).Result.Distinct(new AtivoAporteComparer()).Select(a => a.AtivoId);
+            IEnumerable<Guid> ativosEmCarteira = _AtivoEmCarteiraRepository.GetManyBy(where: a => a.UsuarioId == usuarioId).Result.Distinct(new AtivoEmCarteiraComparer()).Select(a => a.AtivoId);
             List<DistribuicaoPorAtivo> distribuicoes =
             _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId && ativosEmCarteira.Contains(d.AtivoId)).Result.ToList();
 
