@@ -15,11 +15,11 @@ namespace IHolder.Tests.Domain.Tests
                 ativoId: Guid.NewGuid(),
                 precoMedio: 33.45M, quantidade: 825,
                 usuarioId: Guid.NewGuid(),
-                dataAporte: DateTime.Now);
+                dataPrimeiroAporte: DateTime.Now);
             // Act
-            aporte.CalcularPrecoTotal();
+            aporte.CalcularValorAplicado();
             // Assert 
-            Assert.Equal(27596.25M, aporte.PrecoTotal, 2);
+            Assert.Equal(27596.25M, aporte.ValorAplicado, 2);
         }
 
 
@@ -35,7 +35,7 @@ namespace IHolder.Tests.Domain.Tests
                 ativoId: Guid.NewGuid(),
                 precoMedio: 999999999999999999995M, quantidade: 999999999999999999995M,
                 usuarioId: Guid.NewGuid(),
-                dataAporte: DateTime.Now);
+                dataPrimeiroAporte: DateTime.Now);
 
             });
             // Assert

@@ -13,8 +13,7 @@ namespace IHolder.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(30)", nullable: true),
-                    Caracteristicas = table.Column<string>(type: "VARCHAR(240)", nullable: true),
-                    Risco = table.Column<byte>(type: "TINYINT", nullable: false)
+                    Caracteristicas = table.Column<string>(type: "VARCHAR(240)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,7 +45,8 @@ namespace IHolder.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(30)", nullable: true),
                     Caracteristicas = table.Column<string>(type: "VARCHAR(240)", nullable: true),
-                    TipoInvestimentoId = table.Column<Guid>(nullable: false)
+                    TipoInvestimentoId = table.Column<Guid>(nullable: false),
+                    Risco = table.Column<byte>(type: "TINYINT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,9 +103,9 @@ namespace IHolder.Data.Migrations
                     Ticker = table.Column<string>(type: "VARCHAR(50)", nullable: false),
                     Cotacao = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     UsuarioId = table.Column<Guid>(nullable: false),
+                    Situacao = table.Column<byte>(type: "TINYINT", nullable: false),
                     DataInclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "DATETIME", nullable: true),
-                    Risco = table.Column<byte>(type: "TINYINT", nullable: false)
+                    DataAlteracao = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,7 +134,6 @@ namespace IHolder.Data.Migrations
                     PercentualDiferenca = table.Column<decimal>(nullable: true),
                     ValorAtual = table.Column<decimal>(nullable: true),
                     ValorDiferenca = table.Column<decimal>(nullable: true),
-                    DistribuicaoPorTipoInvestimentoId = table.Column<Guid>(nullable: false),
                     ProdutoId = table.Column<Guid>(nullable: false),
                     Orientacao = table.Column<byte>(type: "TINYINT", nullable: false),
                     UsuarioId = table.Column<Guid>(nullable: false),
@@ -144,12 +143,6 @@ namespace IHolder.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DistribuicaoPorProduto", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DistribuicaoPorProduto_DistribuicaoPorTipoInvestimento_DistribuicaoPorTipoInvestimentoId",
-                        column: x => x.DistribuicaoPorTipoInvestimentoId,
-                        principalTable: "DistribuicaoPorTipoInvestimento",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DistribuicaoPorProduto_Produto_ProdutoId",
                         column: x => x.ProdutoId,
@@ -172,9 +165,9 @@ namespace IHolder.Data.Migrations
                     AtivoId = table.Column<Guid>(nullable: false),
                     PrecoMedio = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     Quantidade = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
-                    PrecoTotal = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
+                    ValorAplicado = table.Column<decimal>(type: "DECIMAL(12,2)", nullable: false),
                     UsuarioId = table.Column<Guid>(nullable: false),
-                    DataAporte = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    DataPrimeiroAporte = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     DataInclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     DataAlteracao = table.Column<DateTime>(type: "DATETIME", nullable: true)
                 },
@@ -228,35 +221,6 @@ namespace IHolder.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "SituacaoPorAtivo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Situacao = table.Column<byte>(type: "TINYINT", nullable: false),
-                    AtivoId = table.Column<Guid>(nullable: false),
-                    UsuarioId = table.Column<Guid>(nullable: false),
-                    Observacao = table.Column<string>(type: "VARCHAR(240)", nullable: true),
-                    DataInclusao = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "DATETIME", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SituacaoPorAtivo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SituacaoPorAtivo_Ativo_AtivoId",
-                        column: x => x.AtivoId,
-                        principalTable: "Ativo",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SituacaoPorAtivo_Usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "Usuario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Aporte_AtivoId",
                 table: "Aporte",
@@ -288,11 +252,6 @@ namespace IHolder.Data.Migrations
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DistribuicaoPorProduto_DistribuicaoPorTipoInvestimentoId",
-                table: "DistribuicaoPorProduto",
-                column: "DistribuicaoPorTipoInvestimentoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DistribuicaoPorProduto_ProdutoId",
                 table: "DistribuicaoPorProduto",
                 column: "ProdutoId");
@@ -316,16 +275,6 @@ namespace IHolder.Data.Migrations
                 name: "IX_Produto_TipoInvestimentoId",
                 table: "Produto",
                 column: "TipoInvestimentoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SituacaoPorAtivo_AtivoId",
-                table: "SituacaoPorAtivo",
-                column: "AtivoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SituacaoPorAtivo_UsuarioId",
-                table: "SituacaoPorAtivo",
-                column: "UsuarioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -338,9 +287,6 @@ namespace IHolder.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "DistribuicaoPorProduto");
-
-            migrationBuilder.DropTable(
-                name: "SituacaoPorAtivo");
 
             migrationBuilder.DropTable(
                 name: "DistribuicaoPorTipoInvestimento");

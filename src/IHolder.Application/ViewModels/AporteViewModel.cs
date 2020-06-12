@@ -9,10 +9,12 @@ namespace IHolder.Application.ViewModels
         public string AtivoTicker { get; set; }
         public string AtivoDescricao { get; set; }
         public string ProdutoDescricao { get; set; }
-        public decimal PrecoMedio { get; private set; }
-        public decimal Quantidade { get; private set; }
-        public decimal PrecoTotal { get; private set; }
-        public DateTime DataAporte { get; private set; }
+        public decimal PrecoMedio { get; set; }
+        public decimal Quantidade { get; set; }
+        public decimal ValorAplicado { get; set; }
+        public decimal ValorAtual { get; set; }
+        public decimal Saldo { get; set; }
+        public DateTime DataPrimeiroAporte { get; set; }
 
     }
 }

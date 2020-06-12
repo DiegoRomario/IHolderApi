@@ -41,7 +41,7 @@ namespace IHolder.Tests.Domain.Tests
         public void Valores_DadoValorAtualEValorGeral_DeveCalcularValorDiferenca
             (decimal percentualObjectivo,
             decimal valorTotalPorTipo,
-            decimal valorTotalAplicado,
+            decimal ValorAplicado,
             decimal percentualAtual,
             decimal percentualDiferenca,
             decimal valorDiferenca)
@@ -49,7 +49,7 @@ namespace IHolder.Tests.Domain.Tests
             // Arrange
             Valores valores = new Valores(percentualObjectivo);
             // Act
-            valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipo, valorTotalAplicado);
+            valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipo, ValorAplicado);
 
             // Assert 
             Assert.Equal(percentualAtual, valores.PercentualAtual, 2);

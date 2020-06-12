@@ -14,7 +14,7 @@ namespace IHolder.Data.Mapping
             builder.Property(p => p.Quantidade).IsRequired();
             builder.Property(p => p.UsuarioId).IsRequired();
             builder.Property(p => p.DataInclusao).IsRequired();
-            builder.Property(p => p.DataAporte).IsRequired();
+            builder.Property(p => p.DataPrimeiroAporte).IsRequired();
             builder.ToTable("Aporte");
 
         }

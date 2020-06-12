@@ -23,4 +23,8 @@
   <ItemGroup>
     <ProjectReference Include="..\IHolder.Domain\IHolder.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>

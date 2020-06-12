@@ -31,16 +31,13 @@ namespace IHolder.Data.Migrations
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<DateTime>("DataAporte")
-                        .HasColumnType("DATETIME");
-
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<decimal>("PrecoMedio")
-                        .HasColumnType("DECIMAL(12,2)");
+                    b.Property<DateTime>("DataPrimeiroAporte")
+                        .HasColumnType("DATETIME");
 
-                    b.Property<decimal>("PrecoTotal")
+                    b.Property<decimal>("PrecoMedio")
                         .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Quantidade")
@@ -48,6 +45,9 @@ namespace IHolder.Data.Migrations
 
                     b.Property<Guid>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("ValorAplicado")
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.HasKey("Id");
 

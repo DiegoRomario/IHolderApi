@@ -25,7 +25,8 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(CadastrarAporteCommand request, CancellationToken cancellationToken)
         {
-            _repository.Insert(_mapper.Map<Aporte>(request));
+            Aporte entity = _mapper.Map<Aporte>(request);
+            _repository.Insert(entity);
             return await _repository.UnitOfWork.Commit();
         }
 

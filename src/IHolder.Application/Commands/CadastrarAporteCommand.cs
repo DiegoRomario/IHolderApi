@@ -6,18 +6,18 @@ namespace IHolder.Application.Commands
 {
     public class CadastrarAporteCommand : Command<bool>
     {
-        public CadastrarAporteCommand(Guid ativoId, decimal precoMedio, decimal quantidade, DateTime dataAporte)
+        public CadastrarAporteCommand(Guid ativoId, decimal precoMedio, decimal quantidade, DateTime dataPrimeiroAporte)
         {
             AtivoId = ativoId;
             PrecoMedio = precoMedio;
             Quantidade = quantidade;
-            DataAporte = dataAporte == DateTime.MinValue ? DateTime.Now : dataAporte;
+            DataPrimeiroAporte = dataPrimeiroAporte == DateTime.MinValue ? DateTime.Now : dataPrimeiroAporte;
         }
 
         public Guid AtivoId { get; set; }
         public decimal PrecoMedio { get; set; }
         public decimal Quantidade { get; set; }
-        public DateTime DataAporte { get; set; }
+        public DateTime DataPrimeiroAporte { get; set; }
 
     }
 

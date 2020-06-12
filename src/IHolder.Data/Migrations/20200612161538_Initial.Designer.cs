@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IHolder.Data.Migrations
 {
     [DbContext(typeof(IHolderContext))]
-    [Migration("20200519234708_AdicionandoDistribuicaoPorProdutoId")]
-    partial class AdicionandoDistribuicaoPorProdutoId
+    [Migration("20200612161538_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,16 +33,13 @@ namespace IHolder.Data.Migrations
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<DateTime>("DataAporte")
-                        .HasColumnType("DATETIME");
-
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<decimal>("PrecoMedio")
-                        .HasColumnType("DECIMAL(12,2)");
+                    b.Property<DateTime>("DataPrimeiroAporte")
+                        .HasColumnType("DATETIME");
 
-                    b.Property<decimal>("PrecoTotal")
+                    b.Property<decimal>("PrecoMedio")
                         .HasColumnType("DECIMAL(12,2)");
 
                     b.Property<decimal>("Quantidade")
@@ -50,6 +47,9 @@ namespace IHolder.Data.Migrations
 
                     b.Property<Guid>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("ValorAplicado")
+                        .HasColumnType("DECIMAL(12,2)");
 
                     b.HasKey("Id");
 
@@ -78,7 +78,7 @@ namespace IHolder.Data.Migrations
                     b.Property<Guid>("ProdutoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte>("Risco")
+                    b.Property<byte>("Situacao")
                         .HasColumnType("TINYINT");
 
                     b.Property<string>("Ticker")
@@ -112,9 +112,6 @@ namespace IHolder.Data.Migrations
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("DistribuicaoPorProdutoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<byte>("Orientacao")
                         .HasColumnType("TINYINT");
 
@@ -124,8 +121,6 @@ namespace IHolder.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AtivoId");
-
-                    b.HasIndex("DistribuicaoPorProdutoId");
 
                     b.HasIndex("UsuarioId");
 
@@ -144,9 +139,6 @@ namespace IHolder.Data.Migrations
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("DistribuicaoPorTipoInvestimentoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<byte>("Orientacao")
                         .HasColumnType("TINYINT");
 
@@ -157,8 +149,6 @@ namespace IHolder.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DistribuicaoPorTipoInvestimentoId");
 
                     b.HasIndex("ProdutoId");
 
@@ -203,6 +193,9 @@ namespace IHolder.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<byte>("Risco")
+                        .HasColumnType("TINYINT");
+
                     b.Property<Guid>("TipoInvestimentoId")
                         .HasColumnType("uniqueidentifier");
 
@@ -213,47 +206,11 @@ namespace IHolder.Data.Migrations
                     b.ToTable("Produto");
                 });
 
-            modelBuilder.Entity("IHolder.Domain.Entities.SituacaoPorAtivo", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AtivoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DataAlteracao")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime>("DataInclusao")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<string>("Observacao")
-                        .HasColumnType("VARCHAR(240)");
-
-                    b.Property<byte>("Situacao")
-                        .HasColumnType("TINYINT");
-
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AtivoId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("SituacaoPorAtivo");
-                });
-
             modelBuilder.Entity("IHolder.Domain.Entities.TipoInvestimento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte>("Risco")
-                        .HasColumnType("TINYINT");
 
                     b.HasKey("Id");
 
@@ -349,11 +306,6 @@ namespace IHolder.Data.Migrations
                         .HasForeignKey("AtivoId")
                         .IsRequired();
 
-                    b.HasOne("IHolder.Domain.Entities.DistribuicaoPorProduto", "DistribuicaoPorProduto")
-                        .WithMany("DistribuicoesPorAtivos")
-                        .HasForeignKey("DistribuicaoPorProdutoId")
-                        .IsRequired();
-
                     b.HasOne("IHolder.Domain.Entities.Usuario", "Usuario")
                         .WithMany("DistribuicoesPorAtivos")
                         .HasForeignKey("UsuarioId")
@@ -395,11 +347,6 @@ namespace IHolder.Data.Migrations
 
             modelBuilder.Entity("IHolder.Domain.Entities.DistribuicaoPorProduto", b =>
                 {
-                    b.HasOne("IHolder.Domain.Entities.DistribuicaoPorTipoInvestimento", "DistribuicaoPorTipoInvestimento")
-                        .WithMany("DistribuicoesPorProdutos")
-                        .HasForeignKey("DistribuicaoPorTipoInvestimentoId")
-                        .IsRequired();
-
                     b.HasOne("IHolder.Domain.Entities.Produto", "Produto")
                         .WithMany("DistribuicoesPorProdutos")
                         .HasForeignKey("ProdutoId")
@@ -519,19 +466,6 @@ namespace IHolder.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ProdutoId");
                         });
-                });
-
-            modelBuilder.Entity("IHolder.Domain.Entities.SituacaoPorAtivo", b =>
-                {
-                    b.HasOne("IHolder.Domain.Entities.Ativo", "Ativo")
-                        .WithMany("SituacoesPorAtivos")
-                        .HasForeignKey("AtivoId")
-                        .IsRequired();
-
-                    b.HasOne("IHolder.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("SituacoesPorAtivos")
-                        .HasForeignKey("UsuarioId")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IHolder.Domain.Entities.TipoInvestimento", b =>
