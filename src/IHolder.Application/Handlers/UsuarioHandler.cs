@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IHolder.Application.Auxiliaries;
 using IHolder.Application.Base;
 using IHolder.Application.Commands;
 using IHolder.Domain.DomainObjects;
@@ -14,12 +15,14 @@ namespace IHolder.Application.Handlers
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<Usuario> _repository;
         private readonly IHandlerBase _handlerBase;
+        private readonly ICryptography _cryptography;
 
-        public UsuarioHandler(IMapper mapper, IRepositoryBase<Usuario> repository, IHandlerBase handlerBase)
+        public UsuarioHandler(IMapper mapper, IRepositoryBase<Usuario> repository, IHandlerBase handlerBase, ICryptography cryptography)
         {
             _mapper = mapper;
             _repository = repository;
             _handlerBase = handlerBase;
+            _cryptography = cryptography;
         }
 
         public async Task<bool> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
@@ -27,6 +30,8 @@ namespace IHolder.Application.Handlers
             Usuario usuario = await _repository.GetBy(u => (u.Email == request.Email));
             if (usuario != null)
                 _handlerBase.PublishNotification("O e-mail informado já está cadastrado em nossa base de dados");
+
+            request.Senha = _cryptography.PasswordEncrypt(request.Senha);
 
             _repository.Insert(_mapper.Map<Usuario>(request));
             return await _repository.UnitOfWork.Commit();
