@@ -26,7 +26,7 @@ namespace IHolder.Application.Queries
 
         public async Task<IEnumerable<AtivoViewModel>> ObterAtivosPorUsuario(Guid usuarioId)
         {
-            var ativos = _mapper.Map<IEnumerable<AtivoViewModel>>(await _repository.GetManyBy(where: d => d.UsuarioId == usuarioId, includes: d => d.Produto));
+            var ativos = _mapper.Map<IEnumerable<AtivoViewModel>>(await _repository.GetManyBy(where: d => d.UsuarioId == usuarioId, d => d.Produto.TipoInvestimento, d => d.Produto));
             return ativos;
         }
 

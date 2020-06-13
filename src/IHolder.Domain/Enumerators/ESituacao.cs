@@ -2,10 +2,10 @@
 
 namespace IHolder.Domain.Enumerators
 {
-    [DefaultValue(Normal)]
+    [DefaultValue(Regular)]
     public enum ESituacao : ushort
     {
-        Normal = 1,
+        Regular = 1,
         Oportunidade = 2,
         Quarentena = 3
     }

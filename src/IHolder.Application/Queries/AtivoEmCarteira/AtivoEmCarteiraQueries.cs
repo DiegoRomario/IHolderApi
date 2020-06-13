@@ -43,7 +43,7 @@ namespace IHolder.Application.Queries
             item.UltimaVariacaoPercentual = cotacao.VariacaoPercentual;
             item.ValorAtual = (item.Quantidade * ultimaCotacao);
             item.Saldo = item.ValorAtual - item.ValorAplicado;
-            item.Percentual = 100 - (100 * ((item.ValorAplicado / item.ValorAtual)));
+            item.Percentual = ((item.ValorAtual / item.ValorAplicado) * 100) - 100;
 
             return Task.CompletedTask;
         }

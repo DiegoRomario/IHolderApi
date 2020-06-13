@@ -18,7 +18,8 @@ namespace IHolder.Domain.Entities
             Cotacao = cotacao;
             UsuarioId = usuarioId;
             Informacoes = informacoes;
-            Situacao = ESituacao.Normal;
+            Situacao = ESituacao.Regular;
+            DataReferenciaSituacao = DateTime.Now;
         }
 
         public Guid ProdutoId { get; private set; }
@@ -29,9 +30,9 @@ namespace IHolder.Domain.Entities
         public ESituacao Situacao { get; private set; }
         public DateTime DataInclusao { get; private set; }
         public DateTime? DataAlteracao { get; private set; }
+        public DateTime DataReferenciaSituacao { get; private set; }
         public Produto Produto { get; private set; }
         public Usuario Usuario { get; private set; }
-
 
         public IEnumerable<DistribuicaoPorAtivo> DistribuicoesPorAtivos { get; private set; }
         public IEnumerable<AtivoEmCarteira> AtivosEmCarteira { get; private set; }
