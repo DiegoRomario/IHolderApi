@@ -53,6 +53,7 @@ namespace IHolder.Application.Mappings
 
             CreateMap<AtivoEmCarteira, AtivoEmCarteiraViewModel>()
                     .ForMember(d => d.AtivoTicker, s => s.MapFrom(s => s.Ativo.Ticker))
+                    .ForMember(d => d.AtivoCotacao, s => s.MapFrom(s => s.Ativo.Cotacao))
                     .ForMember(d => d.AtivoDescricao, s => s.MapFrom(s => s.Ativo.Informacoes.Descricao))
                     .ForMember(d => d.ProdutoDescricao, s => s.MapFrom(s => s.Ativo.Produto.Informacoes.Descricao));
 
