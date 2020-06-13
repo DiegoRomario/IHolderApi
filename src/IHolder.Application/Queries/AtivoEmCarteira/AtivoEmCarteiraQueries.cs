@@ -26,18 +26,23 @@ namespace IHolder.Application.Queries
         }
 
         public async Task<IEnumerable<AtivoEmCarteiraViewModel>> ObterAtivosEmCarteiraPorUsuario(Guid UsuarioId)
-        {
+        {   
             IEnumerable<AtivoEmCarteira> ativosEmCarteira = await _repository.GetManyBy(where: a => a.UsuarioId == UsuarioId, a => a.Ativo, a => a.Ativo.Produto);
             List<AtivoEmCarteiraViewModel> ativosEmCarteiraViewModel = _mapper.Map<IEnumerable<AtivoEmCarteiraViewModel>>(ativosEmCarteira).ToList();
-            ativosEmCarteiraViewModel.ForEach(i => CalcularValorAtualESaldo(i));
+            ativosEmCarteiraViewModel.ForEach(async i => await ObtemDadosDaCotacao(i));
             return ativosEmCarteiraViewModel;
         }
 
-        private void CalcularValorAtualESaldo(AtivoEmCarteiraViewModel item)
+        private Task ObtemDadosDaCotacao(AtivoEmCarteiraViewModel item)
         {
-            decimal cotacao = _consultaCotacaoService.ConsultarCotacao(new ConsultaCotacaoArgs(ticker: item.AtivoTicker, produtoDescricao: item.ProdutoDescricao), CancellationToken.None).Result.Preco;
-            item.ValorAtual = (item.Quantidade * cotacao);
+            Cotacao cotacao = _consultaCotacaoService.ConsultarCotacao(new ConsultaCotacaoArgs(ticker: item.AtivoTicker, produtoDescricao: item.ProdutoDescricao), CancellationToken.None).Result;
+            item.UltimaCotacao = cotacao.Preco;
+            item.UltimaVariacao = cotacao.Variacao;
+            item.UltimaVariacaoPercentual = cotacao.VariacaoPercentual;
+            item.ValorAtual = (item.Quantidade * cotacao.Preco);
             item.Saldo = item.ValorAtual - item.ValorAplicado;
+            item.Percentual = 100 - (100 * ((item.ValorAplicado / item.ValorAtual)));
+            return Task.CompletedTask;
         }
     }
 }
