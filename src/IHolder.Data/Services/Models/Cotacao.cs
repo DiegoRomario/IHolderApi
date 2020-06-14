@@ -50,6 +50,10 @@ namespace IHolder.Data.Services.Models
 
     public class ConsultaCotacaoArgs
     {
+        public ConsultaCotacaoArgs()
+        {
+
+        }
         public ConsultaCotacaoArgs(string ticker, string produtoDescricao)
         {
             Ticker = ticker;

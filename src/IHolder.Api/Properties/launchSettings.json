@@ -22,6 +22,7 @@
       "launchBrowser": true,
       "launchUrl": "documentation",
       "applicationUrl": "https://192.168.99.1:5001;http://192.168.99.1:5000",
+      //"applicationUrl": "https://iholder.azurewebsites.net/;http://iholder.azurewebsites.net/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
