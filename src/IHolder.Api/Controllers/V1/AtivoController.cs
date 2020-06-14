@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using IHolder.Api.Controllers.Base;
 using IHolder.Application.Base;
@@ -54,6 +55,20 @@ namespace IHolder.Api.Controllers.V1
             }
             await _mediator.Send(command);
             return ResponseBase("Registro alterado com sucesso");
+        }
+
+        [HttpPut("alterar-situacao/{id:guid}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> AlterarSituacao(Guid id, AlterarSituacaoAtivoCommand command)
+        {
+            Thread.Sleep(1000);
+            if (id != command.Id)
+            {
+                NotifyError("O ID do registro informado para alteração está inválido.");
+                return ResponseBase();
+            }
+            await _mediator.Send(command);
+            return ResponseBase("Situação alterada com sucesso");
         }
 
         [HttpGet()]

@@ -41,9 +41,10 @@ namespace IHolder.Domain.Entities
             Cotacao = cotacao;
         }
 
-        public void AtualizarSitucao(ESituacao situacao)
+        public void AtualizarSituacao(ESituacao situacao)
         {
             Situacao = situacao;
+            DataReferenciaSituacao = DateTime.Now;
         }
 
     }

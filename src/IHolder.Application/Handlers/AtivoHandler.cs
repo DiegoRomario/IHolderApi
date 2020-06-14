@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 namespace IHolder.Application.Handlers
 {
     public class AtivoHandler : IRequestHandler<CadastrarAtivoCommand, bool>,
-        IRequestHandler<AlterarAtivoCommand, bool>
+        IRequestHandler<AlterarAtivoCommand, bool>,
+        IRequestHandler<AlterarSituacaoAtivoCommand, bool>
     {
         private readonly IRepositoryBase<Ativo> _repository;
         private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepository;
@@ -55,6 +56,14 @@ namespace IHolder.Application.Handlers
             }
 
             _repository.Update(_mapper.Map<Ativo>(request));
+            return await _repository.UnitOfWork.Commit();
+        }
+
+        public async Task<bool> Handle(AlterarSituacaoAtivoCommand request, CancellationToken cancellationToken)
+        {
+            Ativo ativo = await _repository.GetById(request.Id);
+            ativo.AtualizarSituacao(request.Situacao);
+            _repository.Update(ativo);
             return await _repository.UnitOfWork.Commit();
         }
     }

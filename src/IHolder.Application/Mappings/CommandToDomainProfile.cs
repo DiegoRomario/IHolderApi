@@ -32,6 +32,8 @@ namespace IHolder.Application.Mappings
 
             CreateMap<AlterarAtivoEmCarteiraCommand, AtivoEmCarteira>();
 
+            CreateMap<AlterarSituacaoAtivoCommand, Ativo>();
+
         }
     }
 }
