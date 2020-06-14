@@ -28,11 +28,12 @@ namespace IHolder.Application.Handlers
         public async Task<bool> Handle(CadastrarUsuarioCommand request, CancellationToken cancellationToken)
         {
             Usuario usuario = await _repository.GetBy(u => (u.Email == request.Email));
-            if (usuario != null)
+            if (usuario != null) { 
                 _handlerBase.PublishNotification("O e-mail informado já está cadastrado em nossa base de dados");
+                return false;
+            }
 
             request.Senha = _cryptography.PasswordEncrypt(request.Senha);
-
             _repository.Insert(_mapper.Map<Usuario>(request));
             return await _repository.UnitOfWork.Commit();
         }
