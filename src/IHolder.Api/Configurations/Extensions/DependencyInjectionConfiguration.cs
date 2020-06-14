@@ -11,6 +11,7 @@ using IHolder.Application.Base;
 using IHolder.Data.Repository.Base;
 using MediatR;
 using IHolder.Data.Services;
+using IHolder.Application.Auxiliaries;
 
 namespace IHolder.Api.Configurations.Extensions
 {
@@ -24,6 +25,8 @@ namespace IHolder.Api.Configurations.Extensions
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUser, AspNetUser>();
+
+            services.AddTransient<ICryptography, Cryptography>();
 
             services.AddHttpClient<IConsultaCotacaoService, ConsultaCotacaoService>();
 
