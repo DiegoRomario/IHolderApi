@@ -52,7 +52,6 @@ namespace IHolder.Api.Controllers.V1
         [HttpPost("recalcular")]
         public async Task<ActionResult> Recalcular()
         {
-            Thread.Sleep(3000);
             await _mediator.Send(new RecalcularDistribuicaoPorAtivoCommand());
             return ResponseBase("Recalculo efetuado com sucesso");
         }
