@@ -24,7 +24,7 @@
 
         private void AtualizarPercentualAtual (decimal valorInvestidoTotal)
         {
-            PercentualAtual = (ValorAtual / valorInvestidoTotal) * 100;
+            PercentualAtual = valorInvestidoTotal == 0 ? 0 : (ValorAtual / valorInvestidoTotal) * 100;
         }
 
         private void AtualizarPercentualDiferenca()
