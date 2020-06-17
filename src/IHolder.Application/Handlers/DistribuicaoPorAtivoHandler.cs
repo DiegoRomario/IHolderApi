@@ -87,7 +87,7 @@ namespace IHolder.Application.Handlers
 
         public async Task<bool> Handle(DividirDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
         {
-            List<DistribuicaoPorAtivo> distribuicoes = ObterDistribuicoesAtivosCadastrados(request.UsuarioId); 
+            List<DistribuicaoPorAtivo> distribuicoes = ObterDistribuicoesAtivosCadastrados(request.UsuarioId);
 
             if (request.SomenteItensEmCarteira)
                 await AlterarDistribuicoesAtivosEmCarteira(request, distribuicoes);
@@ -99,7 +99,7 @@ namespace IHolder.Application.Handlers
 
         private async Task AlterarDistribuicoesAtivosCadastrados(List<DistribuicaoPorAtivo> distribuicoes)
         {
-            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoes.Count();
+            int percentualDivisao = distribuicoes.Count() > 0 ? PERCENTUAL_MAXIMO / distribuicoes.Count() : 0;
 
             foreach (var distribuicao in distribuicoes)
             {
@@ -110,10 +110,13 @@ namespace IHolder.Application.Handlers
         private async Task AlterarDistribuicoesAtivosEmCarteira(DividirDistribuicaoPorAtivoCommand request, List<DistribuicaoPorAtivo> distribuicoes)
         {
             List<DistribuicaoPorAtivo> distribuicoesCarteira = ObterDistribuicoesAtivosEmCarteira(request.UsuarioId);
-            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoesCarteira.Count();
+
+
+            int percentualDivisao = distribuicoesCarteira.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoesCarteira.Count()) : 0;
 
             foreach (var distribuicao in distribuicoes)
-            {   if (distribuicoesCarteira.Where(x => x.AtivoId == distribuicao.AtivoId).Any())
+            {
+                if (distribuicoesCarteira.Where(x => x.AtivoId == distribuicao.AtivoId).Any())
                     distribuicao.Valores.AtualizarPercentualObjetivo(percentualDivisao);
                 else
                     distribuicao.Valores.AtualizarPercentualObjetivo(0);
@@ -135,7 +138,7 @@ namespace IHolder.Application.Handlers
             return _distribuicaoRepositorio.GetManyBy(d => d.UsuarioId == usuarioId).Result.ToList();
         }
 
-        
+
 
     }
 }

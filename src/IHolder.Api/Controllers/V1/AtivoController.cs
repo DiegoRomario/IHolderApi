@@ -61,7 +61,6 @@ namespace IHolder.Api.Controllers.V1
         [AllowAnonymous]
         public async Task<ActionResult> AlterarSituacao(Guid id, AlterarSituacaoAtivoCommand command)
         {
-            Thread.Sleep(1000);
             if (id != command.Id)
             {
                 NotifyError("O ID do registro informado para alteração está inválido.");

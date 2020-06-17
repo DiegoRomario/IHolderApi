@@ -100,7 +100,7 @@ namespace IHolder.Application.Handlers
 
         private async Task AlterarDistribuicoesTipoInvestimentosCadastrados(List<DistribuicaoPorTipoInvestimento> distribuicoes)
         {
-            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoes.Count();
+            int percentualDivisao = distribuicoes.Count() > 0 ? PERCENTUAL_MAXIMO / distribuicoes.Count() : 0;
 
             foreach (var distribuicao in distribuicoes)
             {
@@ -111,7 +111,7 @@ namespace IHolder.Application.Handlers
         private async Task AlterarDistribuicoesTipoInvestimentosEmCarteira(DividirDistribuicaoPorTipoInvestimentoCommand request, List<DistribuicaoPorTipoInvestimento> distribuicoes)
         {
             List<DistribuicaoPorTipoInvestimento> distribuicoesCarteira = ObterDistribuicoesTipoInvestimentosEmCarteira(request.UsuarioId);
-            int percentualDivisao = PERCENTUAL_MAXIMO / distribuicoesCarteira.Count();
+            int percentualDivisao = distribuicoesCarteira.Count() > 0 ?  PERCENTUAL_MAXIMO / distribuicoesCarteira.Count() : 0;
 
             foreach (var distribuicao in distribuicoes)
             {
