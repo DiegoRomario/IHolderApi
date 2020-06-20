@@ -99,7 +99,7 @@ namespace IHolder.Application.Handlers
 
         private async Task AlterarDistribuicoesAtivosCadastrados(List<DistribuicaoPorAtivo> distribuicoes)
         {
-            int percentualDivisao = distribuicoes.Count() > 0 ? PERCENTUAL_MAXIMO / distribuicoes.Count() : 0;
+            int percentualDivisao = distribuicoes.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoes.Count()) : 0;
 
             foreach (var distribuicao in distribuicoes)
             {

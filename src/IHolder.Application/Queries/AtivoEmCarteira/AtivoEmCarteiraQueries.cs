@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace IHolder.Application.Queries
 {
     public class AtivoEmCarteiraQueries : IAtivoEmCarteiraQueries
@@ -17,7 +18,6 @@ namespace IHolder.Application.Queries
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<AtivoEmCarteira> _repository;
         private readonly IConsultaCotacaoService _consultaCotacaoService;
-
         public AtivoEmCarteiraQueries(IMapper mapper, IRepositoryBase<AtivoEmCarteira> repository, IConsultaCotacaoService consultaCotacaoService)
         {
             _mapper = mapper;

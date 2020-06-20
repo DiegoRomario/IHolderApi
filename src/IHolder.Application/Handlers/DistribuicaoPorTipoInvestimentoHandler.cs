@@ -100,7 +100,7 @@ namespace IHolder.Application.Handlers
 
         private async Task AlterarDistribuicoesTipoInvestimentosCadastrados(List<DistribuicaoPorTipoInvestimento> distribuicoes)
         {
-            int percentualDivisao = distribuicoes.Count() > 0 ? PERCENTUAL_MAXIMO / distribuicoes.Count() : 0;
+            int percentualDivisao = distribuicoes.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoes.Count()) : 0;
 
             foreach (var distribuicao in distribuicoes)
             {
