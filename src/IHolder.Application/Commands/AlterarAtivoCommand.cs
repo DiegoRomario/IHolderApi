@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using IHolder.Application.Base;
+using IHolder.Domain.Enumerators;
 using System;
 
 namespace IHolder.Application.Commands
@@ -7,7 +8,7 @@ namespace IHolder.Application.Commands
     public class AlterarAtivoCommand : Command<bool>
     {
 
-        public AlterarAtivoCommand(Guid id, Guid produtoid, string descricao, string caracteristicas, string ticker, decimal cotacao, DateTime dataReferenciaSituacao)
+        public AlterarAtivoCommand(Guid id, Guid produtoid, string descricao, string caracteristicas, string ticker, decimal cotacao, DateTime dataReferenciaSituacao, ESituacao situacao)
         {
             Id = id;
             ProdutoId = produtoid;
@@ -16,6 +17,7 @@ namespace IHolder.Application.Commands
             Descricao = descricao;
             Caracteristicas = caracteristicas;
             DataReferenciaSituacao = dataReferenciaSituacao;
+            Situacao = situacao;
 
         }
 
@@ -26,6 +28,7 @@ namespace IHolder.Application.Commands
         public string Ticker { get; set; }
         public decimal Cotacao { get; set; }
         public DateTime DataReferenciaSituacao { get; set; }
+        public ESituacao Situacao { get; set; }
 
     }
 
