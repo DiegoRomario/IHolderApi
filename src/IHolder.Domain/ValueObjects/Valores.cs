@@ -1,4 +1,6 @@
-﻿namespace IHolder.Domain.ValueObjects
+﻿using IHolder.Domain.DomainObjects;
+
+namespace IHolder.Domain.ValueObjects
 {
     public class Valores
     {
@@ -15,7 +17,7 @@
 
         public void AtualizarPercentualObjetivo(decimal percentualObjetivo)
         {
-            PercentualObjetivo = percentualObjetivo;
+            PercentualObjetivo = percentualObjetivo.ToFloor();
         }
         public void AtualizarValorAtual(decimal valorAtual)
         {
@@ -24,12 +26,12 @@
 
         private void AtualizarPercentualAtual (decimal valorInvestidoTotal)
         {
-            PercentualAtual = valorInvestidoTotal == 0 ? 0 : (ValorAtual / valorInvestidoTotal) * 100;
+            PercentualAtual = (valorInvestidoTotal == 0 ? 0 : (ValorAtual / valorInvestidoTotal) * 100).ToFloor();
         }
 
         private void AtualizarPercentualDiferenca()
         {
-            PercentualDiferenca = PercentualObjetivo - PercentualAtual;
+            PercentualDiferenca = (PercentualObjetivo - PercentualAtual).ToFloor();
         }
 
         private void AtualizarValorDiferenca(decimal valorInvestidoTotal)

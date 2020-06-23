@@ -18,7 +18,7 @@ namespace IHolder.Application.Handlers
         IRequestHandler<RecalcularDistribuicaoPorAtivoCommand, bool>,
         IRequestHandler<DividirDistribuicaoPorAtivoCommand, bool>
     {
-        private const int PERCENTUAL_MAXIMO = 100;
+        private const decimal PERCENTUAL_MAXIMO = 100;
         private readonly IMapper _mapper;
         private readonly IRepositoryBase<DistribuicaoPorAtivo> _distribuicaoRepositorio;
         private readonly IAtivoEmCarteiraRepository _AtivoEmCarteiraRepository;
@@ -99,7 +99,7 @@ namespace IHolder.Application.Handlers
 
         private async Task AlterarDistribuicoesAtivosCadastrados(List<DistribuicaoPorAtivo> distribuicoes)
         {
-            int percentualDivisao = distribuicoes.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoes.Count()) : 0;
+            decimal percentualDivisao = distribuicoes.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoes.Count()) : 0;
 
             foreach (var distribuicao in distribuicoes)
             {
@@ -112,7 +112,7 @@ namespace IHolder.Application.Handlers
             List<DistribuicaoPorAtivo> distribuicoesCarteira = ObterDistribuicoesAtivosEmCarteira(request.UsuarioId);
 
 
-            int percentualDivisao = distribuicoesCarteira.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoesCarteira.Count()) : 0;
+            decimal percentualDivisao = distribuicoesCarteira.Count() > 0 ? (PERCENTUAL_MAXIMO / distribuicoesCarteira.Count()) : 0;
 
             foreach (var distribuicao in distribuicoes)
             {
