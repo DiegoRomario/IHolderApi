@@ -5,6 +5,7 @@ using IHolder.Domain.Entities;
 using IHolder.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace IHolder.Application.Queries
                 item.EstaNaCarteira = _AtivoEmCarteiraRepository.GetBy(where: a => a.Ativo.Produto.TipoInvestimentoId == item.TipoDistribuicaoId, a => a.Ativo, a => a.Ativo.Produto, a=>a.Ativo.Produto.TipoInvestimento).Result != null;
             }
 
-            return distribuicoes;
+            return distribuicoes.OrderByDescending(a => a.EstaNaCarteira);
         }
     }
 }

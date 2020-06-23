@@ -28,7 +28,7 @@ namespace IHolder.Application.Queries
             {
                 item.EstaNaCarteira = _AtivoEmCarteiraRepository.GetBy(where: a => a.AtivoId == item.TipoDistribuicaoId).Result != null;
             }
-            return distribuicoes;
+            return distribuicoes.OrderByDescending(a => a.EstaNaCarteira);
         }
     }
 }
