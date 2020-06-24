@@ -35,7 +35,6 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpGet("consultar-cotacao")]
-        [AllowAnonymous]
         public async Task<ActionResult> ConsultarCotacao([FromQuery] ConsultaCotacaoArgs args)
         {
             Cotacao cotacao = await _queries.ObterCotacaoPorTicker(args);
@@ -45,7 +44,6 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpPut("alterar/{id:guid}")]
-        [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarAtivoCommand command)
         {
             if (id != command.Id)
@@ -58,7 +56,6 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpPut("alterar-situacao/{id:guid}")]
-        [AllowAnonymous]
         public async Task<ActionResult> AlterarSituacao(Guid id, AlterarSituacaoAtivoCommand command)
         {
             if (id != command.Id)
@@ -71,7 +68,6 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpGet()]
-        [AllowAnonymous]
         public async Task<ActionResult> ObterAtivos()
         {
             return ResponseBase(await _queries.ObterAtivosPorUsuario(_user.GetUserId()));

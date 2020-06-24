@@ -36,7 +36,6 @@ namespace IHolder.Api.Controllers.V1
 
 
         [HttpPut("alterar/{id:guid}")]
-        [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarAtivoEmCarteiraCommand command)
         {
             if (id != command?.Id)
@@ -49,7 +48,6 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpGet()]
-        [AllowAnonymous]
         public async Task<ActionResult> ObterAtivosEmCarteira()
         {
             return ResponseBase(await _ativoEmCarteiraQueries.ObterAtivosEmCarteiraPorUsuario(_user.GetUserId()));

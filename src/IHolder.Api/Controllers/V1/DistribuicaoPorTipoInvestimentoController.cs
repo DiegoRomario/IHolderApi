@@ -26,7 +26,6 @@ namespace IHolder.Api.Controllers.V1
 
 
         [HttpPut("{id:guid}")]
-        [AllowAnonymous]
         public async Task<ActionResult> Alterar(Guid id, AlterarDistribuicaoPorTipoInvestimentoCommand command)
         {
             if (id != command.Id)
@@ -41,7 +40,6 @@ namespace IHolder.Api.Controllers.V1
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult> ObterDistribuicoesPorTipoInvestimento()
         {
             IEnumerable<DistribuicaoViewModel> distribuicoes
