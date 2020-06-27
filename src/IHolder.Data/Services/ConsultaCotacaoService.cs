@@ -25,11 +25,20 @@ namespace IHolder.Data.Services
                 HttpResponseMessage response = await _client.GetAsync(URL, cancellationToken);
                 string result = string.Empty;
                 result = await response.Content.ReadAsStringAsync();
-                Meta meta = JsonConvert.DeserializeObject<CotacaoRoot>(result).Chart.Result[0].Meta;
-                if (response.IsSuccessStatusCode && meta != null)
-                    return new Cotacao(meta.ChartPreviousClose, meta.RegularMarketPrice);
+#warning IMPLEMENTAR REGRA PARA CACHE E RESILIENCIA
+                try
+                {
+                    Meta meta = JsonConvert.DeserializeObject<CotacaoRoot>(result).Chart.Result[0].Meta;
+                    if (response.IsSuccessStatusCode && meta != null)
+                        return new Cotacao(meta.ChartPreviousClose, meta.RegularMarketPrice);
+                }
+                catch (Exception)
+                {
+                    return new Cotacao();
+                }
 
                 return new Cotacao();
+
             }
             catch (HttpRequestException)
             {
