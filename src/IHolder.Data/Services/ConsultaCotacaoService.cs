@@ -11,13 +11,10 @@ namespace IHolder.Data.Services
     public class ConsultaCotacaoService : IConsultaCotacaoService
     {
         private readonly HttpClient _client;
-        private readonly IMapper _mapper;
-        private const string APIKEY = "90JZCLU0FEQDLJZD";
 
-        public ConsultaCotacaoService(HttpClient client, IMapper mapper)
+        public ConsultaCotacaoService(HttpClient client)
         {
             _client = client;
-            _mapper = mapper;
         }
 
         public async Task<Cotacao> ConsultarCotacao(ConsultaCotacaoArgs args, CancellationToken cancellationToken)
@@ -28,9 +25,9 @@ namespace IHolder.Data.Services
                 HttpResponseMessage response = await _client.GetAsync(URL, cancellationToken);
                 string result = string.Empty;
                 result = await response.Content.ReadAsStringAsync();
-                CotacaoContract cotacaoContract = JsonConvert.DeserializeObject<CotacaoRoot>(result.Replace("%", "")).Cotacao;
-                if (response.IsSuccessStatusCode && cotacaoContract != null)
-                    return _mapper.Map<Cotacao>(cotacaoContract);
+                Meta meta = JsonConvert.DeserializeObject<CotacaoRoot>(result).Chart.Result[0].Meta;
+                if (response.IsSuccessStatusCode && meta != null)
+                    return new Cotacao(meta.ChartPreviousClose, meta.RegularMarketPrice);
 
                 return new Cotacao();
             }
@@ -56,7 +53,7 @@ namespace IHolder.Data.Services
                 default: symbol = args.Ticker; break;
             }
 
-            return $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={APIKEY}";
+            return $"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?interval=1d";
         }
     }
 }

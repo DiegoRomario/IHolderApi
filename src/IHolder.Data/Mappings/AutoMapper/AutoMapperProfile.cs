@@ -6,7 +6,7 @@ namespace IHolder.Data.Mappings
     {
         public AutoMapperProfile()
         {
-            CreateMap<Cotacao, CotacaoContract>().ReverseMap();
+
         }
     }
 }

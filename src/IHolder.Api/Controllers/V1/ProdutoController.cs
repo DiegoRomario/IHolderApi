@@ -25,6 +25,7 @@ namespace IHolder.Api.Controllers.V1
 
 
         [HttpGet()]
+        [AllowAnonymous]
         public async Task<ActionResult> ObterProdutos()
         {
             return ResponseBase(await _queries.ObterProdutos());
