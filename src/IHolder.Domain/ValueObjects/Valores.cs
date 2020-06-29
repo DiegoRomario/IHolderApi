@@ -19,7 +19,7 @@ namespace IHolder.Domain.ValueObjects
         {
             PercentualObjetivo = percentualObjetivo.ToFloor();
         }
-        public void AtualizarValorAtual(decimal valorAtual)
+        private void AtualizarValorAtual(decimal valorAtual)
         {
             ValorAtual = valorAtual;
         }

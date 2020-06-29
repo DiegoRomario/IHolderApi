@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using IHolder.Data.Services.Models;
+﻿using IHolder.Data.Services.Models;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
