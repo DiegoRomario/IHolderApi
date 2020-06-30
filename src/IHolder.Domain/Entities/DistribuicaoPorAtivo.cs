@@ -1,58 +1,50 @@
-﻿using IHolder.Domain.DomainObjects;
-using IHolder.Domain.Enumerators;
+﻿using IHolder.Domain.Enumerators;
+using IHolder.Domain.Interfaces;
 using IHolder.Domain.ValueObjects;
 using System;
 
 namespace IHolder.Domain.Entities
 {
-    public class DistribuicaoPorAtivo : Entity
+    public class DistribuicaoPorAtivo : IDistribuicao
     {
-
-        private const int DATA_LIMITE_QUARENTENA = 180;
-        private DistribuicaoPorAtivo()
-        {
-        }
-        public DistribuicaoPorAtivo(Guid ativoId, Guid usuarioId, Valores valores)
+        private const int MAXIMO_DIAS_EM_QUARENTENA = 180;
+        private const decimal PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL = 50;
+        private DistribuicaoPorAtivo() { }
+        public DistribuicaoPorAtivo(Guid ativoId, Guid usuarioId, Valores valores) : base(valores)
         {
             AtivoId = ativoId;
             UsuarioId = usuarioId;
-            Orientacao = EOrientacao.Hold;
-            Valores = valores;
         }
-        public  Valores Valores { get; private set; }
         public Guid AtivoId { get; private set; }
         public Guid UsuarioId { get; private set; }
-        public EOrientacao Orientacao { get; private set; }
-        public DateTime DataInclusao { get; private set; }
-        public DateTime? DataAlteracao { get; private set; }
-
         public Ativo Ativo { get; private set; }
-        public Usuario Usuario { get; private set; }
-
-        public void AlterarAtivo (Ativo ativo)
+        public void AlterarAtivo(Ativo ativo)
         {
             Ativo = ativo;
             AtivoId = ativo.Id;
         }
 
-        public void AtualizarOrientacao(decimal valorTotalPorAtivo, decimal totalGeral)
+        public override EOrientacao SugerirOrientacao()
         {
-            Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorAtivo, totalGeral);
+            bool quarentenaExcedeuLimiteDeDias =
+                Ativo.DataReferenciaSituacao.AddDays(MAXIMO_DIAS_EM_QUARENTENA) < DateTime.Now;
 
-            bool quarentenaExcedeuLimiteDeData = Ativo.DataReferenciaSituacao.AddDays(DATA_LIMITE_QUARENTENA) < DateTime.Now;
+            bool excedeuPercentualDeDiferencaAceitavel =
+            Valores.PercentualAtual >
+            Valores.PercentualObjetivo +
+            (Valores.PercentualObjetivo * PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL / 100);
 
-            if (quarentenaExcedeuLimiteDeData && Ativo.Situacao == ESituacao.Quarentena)
-                Orientacao = EOrientacao.Sell;
+            if ((quarentenaExcedeuLimiteDeDias && Ativo.Situacao == ESituacao.Quarentena) || excedeuPercentualDeDiferencaAceitavel)
+                return EOrientacao.Sell;
             else if (Valores.PercentualDiferenca > 0 && Ativo.Situacao != ESituacao.Quarentena)
-                Orientacao = EOrientacao.Buy;
+                return EOrientacao.Buy;
             else if (Valores.PercentualDiferenca <= 0 && Ativo.Situacao != ESituacao.Quarentena)
-                Orientacao = EOrientacao.Hold;
+                return EOrientacao.Hold;
             else
-                Orientacao = EOrientacao.Hold;
-
+                return EOrientacao.Hold;
         }
 
     }
 
-    
+
 }

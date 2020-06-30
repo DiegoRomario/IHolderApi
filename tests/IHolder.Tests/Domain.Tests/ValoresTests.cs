@@ -4,7 +4,6 @@ using Xunit;
 
 namespace IHolder.Tests.Domain.Tests
 {
-
     public class ValoresTests
     {
         Valores valores;
@@ -19,7 +18,7 @@ namespace IHolder.Tests.Domain.Tests
         {
             // Arrange            
             // Act
-            valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorTipo: 2000, valorTotalGeral: 10000);
+            valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorInvestido: 2000, ValorTotalInvestido: 10000);
             // Assert
             Assert.Equal(20, valores.PercentualAtual);
             Assert.Equal(5, valores.PercentualDiferenca);

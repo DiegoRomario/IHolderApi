@@ -43,12 +43,12 @@ namespace IHolder.Domain.ValueObjects
             
         }
 
-        public void OrquestrarAtualizacaoDeValoresEPercentuais(decimal valorTotalPorTipo, decimal valorTotalGeral)
+        public void OrquestrarAtualizacaoDeValoresEPercentuais(decimal valorInvestido, decimal ValorTotalInvestido)
         {
-            AtualizarValorAtual(valorTotalPorTipo);
-            AtualizarPercentualAtual(valorTotalGeral);
+            AtualizarValorAtual(valorInvestido);
+            AtualizarPercentualAtual(ValorTotalInvestido);
             AtualizarPercentualDiferenca();
-            AtualizarValorDiferenca(valorTotalGeral);
+            AtualizarValorDiferenca(ValorTotalInvestido);
         }
 
 
