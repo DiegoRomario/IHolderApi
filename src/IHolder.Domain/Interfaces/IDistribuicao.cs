@@ -24,7 +24,6 @@ namespace IHolder.Domain.Interfaces
             Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorInvestido, ValorTotalInvestido);
             Orientacao = SugerirOrientacao();
         }
-
-        public abstract EOrientacao SugerirOrientacao();
+        protected abstract EOrientacao SugerirOrientacao();
     }
 }

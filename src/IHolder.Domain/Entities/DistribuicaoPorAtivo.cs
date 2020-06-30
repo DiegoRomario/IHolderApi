@@ -24,17 +24,9 @@ namespace IHolder.Domain.Entities
             AtivoId = ativo.Id;
         }
 
-        public override EOrientacao SugerirOrientacao()
+        protected override EOrientacao SugerirOrientacao()
         {
-            bool quarentenaExcedeuLimiteDeDias =
-                Ativo.DataReferenciaSituacao.AddDays(MAXIMO_DIAS_EM_QUARENTENA) < DateTime.Now;
-
-            bool excedeuPercentualDeDiferencaAceitavel =
-            Valores.PercentualAtual >
-            Valores.PercentualObjetivo +
-            (Valores.PercentualObjetivo * PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL / 100);
-
-            if ((quarentenaExcedeuLimiteDeDias && Ativo.Situacao == ESituacao.Quarentena) || excedeuPercentualDeDiferencaAceitavel)
+            if ((ExcedeuDiasEmQuarentena() && Ativo.Situacao == ESituacao.Quarentena) || ExcedePercentualDeDiferenca())
                 return EOrientacao.Sell;
             else if (Valores.PercentualDiferenca > 0 && Ativo.Situacao != ESituacao.Quarentena)
                 return EOrientacao.Buy;
@@ -44,6 +36,17 @@ namespace IHolder.Domain.Entities
                 return EOrientacao.Hold;
         }
 
+        private bool ExcedeuDiasEmQuarentena()
+        {
+            return Ativo.DataReferenciaSituacao.AddDays(MAXIMO_DIAS_EM_QUARENTENA) < DateTime.Now;
+        }
+
+        private bool ExcedePercentualDeDiferenca()
+        {
+            return Valores.PercentualAtual >
+            Valores.PercentualObjetivo +
+            (Valores.PercentualObjetivo * PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL / 100);
+        }
     }
 
 
