@@ -8,6 +8,7 @@ namespace IHolder.Domain.Interfaces
 {
     public abstract class IDistribuicao : Entity
     {
+        private const decimal PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL = 50;
         protected IDistribuicao() { }
         protected IDistribuicao(Valores valores)
         {
@@ -25,5 +26,12 @@ namespace IHolder.Domain.Interfaces
             Orientacao = SugerirOrientacao();
         }
         protected abstract EOrientacao SugerirOrientacao();
+
+        protected bool ExcedePercentualDeDiferenca()
+        {
+            return Valores.PercentualAtual >
+            Valores.PercentualObjetivo +
+            (Valores.PercentualObjetivo * PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL / 100);
+        }
     }
 }

@@ -8,9 +8,7 @@ namespace IHolder.Domain.Entities
 {
     public class Ativo : Entity
     {
-        private Ativo()
-        {
-        }
+        private Ativo() {}
         public Ativo(Guid produtoid, Informacoes informacoes, string ticker, decimal cotacao, Guid usuarioId) 
         {
             ProdutoId = produtoid;
@@ -21,7 +19,6 @@ namespace IHolder.Domain.Entities
             Situacao = ESituacao.Regular;
             DataReferenciaSituacao = DateTime.Now;
         }
-
         public Guid ProdutoId { get; private set; }
         public Informacoes Informacoes { get; set; }
         public string Ticker { get; private set; }
@@ -40,7 +37,6 @@ namespace IHolder.Domain.Entities
         {
             Cotacao = cotacao;
         }
-
         public void AtualizarSituacao(ESituacao situacao)
         {
             Situacao = situacao;

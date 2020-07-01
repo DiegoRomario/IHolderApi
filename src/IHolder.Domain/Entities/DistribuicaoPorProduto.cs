@@ -1,40 +1,30 @@
-﻿using IHolder.Domain.DomainObjects;
-using IHolder.Domain.Enumerators;
+﻿using IHolder.Domain.Enumerators;
+using IHolder.Domain.Interfaces;
 using IHolder.Domain.ValueObjects;
 using System;
 
 namespace IHolder.Domain.Entities
 {
-    public class DistribuicaoPorProduto : Entity
+    public class DistribuicaoPorProduto : IDistribuicao
     {
-        private DistribuicaoPorProduto()
-        {
-
-        }
+        private DistribuicaoPorProduto(){}
         public DistribuicaoPorProduto(Guid produtoId, Guid usuarioId, Valores valores)
         {
             ProdutoId = produtoId;
             Orientacao = EOrientacao.Hold;
             UsuarioId = usuarioId;
-            Valores = valores;
         }
-        public Valores Valores { get; set; }
         public Guid ProdutoId { get; private set; }
-        public EOrientacao Orientacao { get; private set; }
         public Guid UsuarioId { get; private set; }
-        public DateTime DataInclusao { get; private set; }
-        public DateTime? DataAlteracao { get; private set; }
         public Produto Produto { get; private set; }
-        public Usuario Usuario { get; private set; }
-        public void AtualizarOrientacao(decimal valorTotalPorProduto, decimal totalGeral)
+        protected override EOrientacao SugerirOrientacao()
         {
-            Valores.OrquestrarAtualizacaoDeValoresEPercentuais(valorTotalPorProduto, totalGeral);
-
-            if (Valores.PercentualDiferenca <= 0)
-                Orientacao = EOrientacao.Hold;
+            if (ExcedePercentualDeDiferenca())
+                return EOrientacao.Sell;
+            else if (Valores.PercentualDiferenca <= 0)
+                return EOrientacao.Hold;
             else
-                Orientacao = EOrientacao.Buy;
+                return EOrientacao.Buy;
         }
-
     }
 }

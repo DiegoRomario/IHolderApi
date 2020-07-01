@@ -8,7 +8,6 @@ namespace IHolder.Domain.Entities
     public class DistribuicaoPorAtivo : IDistribuicao
     {
         private const int MAXIMO_DIAS_EM_QUARENTENA = 180;
-        private const decimal PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL = 50;
         private DistribuicaoPorAtivo() { }
         public DistribuicaoPorAtivo(Guid ativoId, Guid usuarioId, Valores valores) : base(valores)
         {
@@ -23,7 +22,6 @@ namespace IHolder.Domain.Entities
             Ativo = ativo;
             AtivoId = ativo.Id;
         }
-
         protected override EOrientacao SugerirOrientacao()
         {
             if ((ExcedeuDiasEmQuarentena() && Ativo.Situacao == ESituacao.Quarentena) || ExcedePercentualDeDiferenca())
@@ -35,19 +33,10 @@ namespace IHolder.Domain.Entities
             else
                 return EOrientacao.Hold;
         }
-
         private bool ExcedeuDiasEmQuarentena()
         {
             return Ativo.DataReferenciaSituacao.AddDays(MAXIMO_DIAS_EM_QUARENTENA) < DateTime.Now;
         }
 
-        private bool ExcedePercentualDeDiferenca()
-        {
-            return Valores.PercentualAtual >
-            Valores.PercentualObjetivo +
-            (Valores.PercentualObjetivo * PERCENTUAL_DIFERENCA_EXCEDENTE_ACEITAVEL / 100);
-        }
     }
-
-
 }
