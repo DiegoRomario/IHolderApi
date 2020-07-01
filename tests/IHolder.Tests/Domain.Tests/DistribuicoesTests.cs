@@ -32,5 +32,22 @@ namespace IHolder.Tests.Domain.Tests
 
         }
 
+
+        [Theory(DisplayName = "Atualização de Orientação Por Produtos")]
+        [Trait("Categoria", "Distribuições por produtos")]
+        [InlineData(10, 3000, 50000, EOrientacao.Buy)]
+        [InlineData(20, 10000, 15000, EOrientacao.Sell)]
+        [InlineData(15, 1500, 10000, EOrientacao.Hold)]
+        public void DadoPercentualObjetivoValorInvestidoPorProdutoEValorTotalInvestido_DeveAtualizarOrientacaoCorretamente
+        (decimal percentualObjetivo, decimal valorInvestidoAtivo, decimal valorTotalInvestido, EOrientacao orientacao)
+        {
+            // Arrange
+            DistribuicaoPorProduto distribuicao = new DistribuicaoPorProduto(Guid.NewGuid(), Guid.NewGuid(), new Valores(percentualObjetivo));
+            // Act
+            distribuicao.AtualizarOrientacao(valorInvestido: valorInvestidoAtivo, ValorTotalInvestido: valorTotalInvestido);
+            // Assert
+            Assert.Equal(distribuicao.Orientacao, orientacao);
+        }
+
     }
 }

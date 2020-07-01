@@ -8,7 +8,7 @@ namespace IHolder.Domain.Entities
     public class DistribuicaoPorProduto : IDistribuicao
     {
         private DistribuicaoPorProduto(){}
-        public DistribuicaoPorProduto(Guid produtoId, Guid usuarioId, Valores valores)
+        public DistribuicaoPorProduto(Guid produtoId, Guid usuarioId, Valores valores) : base (valores)
         {
             ProdutoId = produtoId;
             Orientacao = EOrientacao.Hold;
