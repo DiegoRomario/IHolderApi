@@ -49,5 +49,22 @@ namespace IHolder.Tests.Domain.Tests
             Assert.Equal(distribuicao.Orientacao, orientacao);
         }
 
+
+        [Theory(DisplayName = "Atualização de Orientação Por Tipo")]
+        [Trait("Categoria", "Distribuições por tipo")]
+        [InlineData(50, 15000, 8000000, EOrientacao.Buy)]
+        [InlineData(10, 80000, 100000, EOrientacao.Sell)]
+        [InlineData(20, 22000, 100000, EOrientacao.Hold)]
+        public void DadoPercentualObjetivoValorInvestidoPorTipoEValorTotalInvestido_DeveAtualizarOrientacaoCorretamente
+        (decimal percentualObjetivo, decimal valorInvestidoAtivo, decimal valorTotalInvestido, EOrientacao orientacao)
+        {
+            // Arrange
+            DistribuicaoPorTipoInvestimento distribuicao = new DistribuicaoPorTipoInvestimento(Guid.NewGuid(), Guid.NewGuid(), new Valores(percentualObjetivo));
+            // Act
+            distribuicao.AtualizarOrientacao(valorInvestido: valorInvestidoAtivo, ValorTotalInvestido: valorTotalInvestido);
+            // Assert
+            Assert.Equal(distribuicao.Orientacao, orientacao);
+        }
+
     }
 }
