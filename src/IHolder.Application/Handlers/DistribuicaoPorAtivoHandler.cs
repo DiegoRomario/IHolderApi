@@ -68,6 +68,19 @@ namespace IHolder.Application.Handlers
         }
 
 
+        public async Task<bool> Handle(DividirDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
+        {
+            List<DistribuicaoPorAtivo> distribuicoes = ObterDistribuicoesAtivosCadastrados(request.UsuarioId);
+
+            if (request.SomenteItensEmCarteira)
+                await AlterarDistribuicoesAtivosEmCarteira(request, distribuicoes);
+            else
+                await AlterarDistribuicoesAtivosCadastrados(distribuicoes);
+
+            return await _distribuicaoRepositorio.UnitOfWork.Commit();
+        }
+
+
         private async Task<bool> Update(DistribuicaoPorAtivo entity)
         {
             _distribuicaoRepositorio.Update(entity);
@@ -83,18 +96,6 @@ namespace IHolder.Application.Handlers
         private bool AtivoJaCadastrado(Guid AtivoId, Nullable<Guid> distribuicaoId = null)
         {
             return _distribuicaoRepositorio.GetBy(d => d.AtivoId == AtivoId && d.Id != distribuicaoId).Result != null;
-        }
-
-        public async Task<bool> Handle(DividirDistribuicaoPorAtivoCommand request, CancellationToken cancellationToken)
-        {
-            List<DistribuicaoPorAtivo> distribuicoes = ObterDistribuicoesAtivosCadastrados(request.UsuarioId);
-
-            if (request.SomenteItensEmCarteira)
-                await AlterarDistribuicoesAtivosEmCarteira(request, distribuicoes);
-            else
-                await AlterarDistribuicoesAtivosCadastrados(distribuicoes);
-
-            return await _distribuicaoRepositorio.UnitOfWork.Commit();
         }
 
         private async Task AlterarDistribuicoesAtivosCadastrados(List<DistribuicaoPorAtivo> distribuicoes)
